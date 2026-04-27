@@ -1,401 +1,277 @@
-"use client";
+import type { Metadata } from "next";
+import { InsightCard, ProjectCard, ServiceCard } from "@/components/Cards";
+import { CTAButton, Container, Eyebrow, Section, VisualPlaceholder } from "@/components/Primitives";
+import { ProjectSlider } from "@/components/Sliders";
+import { insights, projects, services, siteConfig, stats } from "@/content/site";
+
+export const metadata: Metadata = {
+  title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
+  description:
+    "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
+};
+
+const buildCards = [
+  {
+    title: "Build a Home",
+    copy: "Residential houses, row houses, and personal properties planned for durability, comfort, and daily use.",
+    cta: "Explore Residential Work",
+    href: "/projects#residential",
+  },
+  {
+    title: "Build an Institution",
+    copy: "College, hospital, campus, and public-use structures that require stronger coordination, dependable RCC work, and disciplined execution.",
+    cta: "View Institutional Projects",
+    href: "/projects#institutional",
+  },
+  {
+    title: "Build a Commercial Space",
+    copy: "Commercial and business-use buildings designed around access, services, structural strength, and long-term maintenance.",
+    cta: "Explore Commercial Construction",
+    href: "/services#construction",
+  },
+  {
+    title: "Develop a Site",
+    copy: "Compound walls, gutters, roads, paver blocks, water tanks, sports grounds, and external works that complete a property beyond the main structure.",
+    cta: "View Site Development Services",
+    href: "/services#site-development",
+  },
+];
+
+const processSteps = [
+  ["01. Site Visit", "We review the location, site conditions, access, levels, drainage, and practical construction requirements."],
+  ["02. Scope & Estimate", "The project scope, BOQ, budget expectations, and material requirements are reviewed before execution begins."],
+  ["03. Planning & Coordination", "Drawings, schedules, labour, materials, equipment, and approvals are coordinated for smoother execution."],
+  ["04. Construction Execution", "Foundation, RCC, masonry, finishing, and external works are executed stage by stage under site supervision."],
+  ["05. Quality Checks", "Work is monitored for alignment, strength, curing, finishing, safety, and long-term usability."],
+  ["06. Handover", "The site is completed, cleaned, reviewed, and handed over with attention to final usability."],
+];
 
 export default function Home() {
+  const featuredProjects = projects.slice(0, 6);
+  const featuredInsights = insights.slice(0, 3);
+
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap');
-
-        *, *::before, *::after {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        html, body {
-          height: 100%;
-          background: #07080a;
-          overflow: hidden;
-        }
-
-        /* ─── Root ─── */
-        .wip {
-          min-height: 100vh;
-          min-height: 100dvh;
-          background: #07080a;
-          color: #ede8db;
-          font-family: 'Barlow', sans-serif;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          overflow: hidden;
-        }
-
-        /* ─── Blueprint grid bg ─── */
-        .wip__grid {
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(198, 144, 30, 0.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(198, 144, 30, 0.045) 1px, transparent 1px);
-          background-size: 72px 72px;
-          animation: gridDrift 28s linear infinite;
-          pointer-events: none;
-        }
-
-        @keyframes gridDrift {
-          from { background-position: 0 0; }
-          to   { background-position: 72px 72px; }
-        }
-
-        /* ─── Diagonal line accents (construction sketch feel) ─── */
-        .wip__diag {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          opacity: 0;
-          animation: fadeIn 1s ease forwards 2.2s;
-        }
-
-        /* ─── Top amber progress bar ─── */
-        .wip__topbar {
-          position: fixed;
-          top: 0; left: 0;
-          height: 2px;
-          width: 0;
-          background: linear-gradient(90deg, #b8760e, #e8a820, #b8760e);
-          background-size: 200% 100%;
-          animation: barGrow 2.4s cubic-bezier(.22,1,.36,1) forwards,
-                     barShimmer 3s ease-in-out infinite 2.4s;
-          z-index: 100;
-        }
-
-        @keyframes barGrow {
-          to { width: 100%; }
-        }
-
-        @keyframes barShimmer {
-          0%, 100% { background-position: 0% 0; }
-          50%       { background-position: 100% 0; }
-        }
-
-        /* ─── Corner brackets ─── */
-        .wip__corner {
-          position: fixed;
-          width: 36px;
-          height: 36px;
-          opacity: 0;
-          animation: fadeIn .6s ease forwards;
-        }
-
-        .wip__corner--tl {
-          top: 22px; left: 22px;
-          border-top: 1px solid rgba(198,144,30,.35);
-          border-left: 1px solid rgba(198,144,30,.35);
-          animation-delay: 1.6s;
-        }
-        .wip__corner--tr {
-          top: 22px; right: 22px;
-          border-top: 1px solid rgba(198,144,30,.35);
-          border-right: 1px solid rgba(198,144,30,.35);
-          animation-delay: 1.7s;
-        }
-        .wip__corner--bl {
-          bottom: 22px; left: 22px;
-          border-bottom: 1px solid rgba(198,144,30,.35);
-          border-left: 1px solid rgba(198,144,30,.35);
-          animation-delay: 1.8s;
-        }
-        .wip__corner--br {
-          bottom: 22px; right: 22px;
-          border-bottom: 1px solid rgba(198,144,30,.35);
-          border-right: 1px solid rgba(198,144,30,.35);
-          animation-delay: 1.9s;
-        }
-
-        @keyframes fadeIn {
-          to { opacity: 1; }
-        }
-
-        /* ─── Center content ─── */
-        .wip__center {
-          position: relative;
-          z-index: 10;
-          text-align: center;
-          padding: 0 28px;
-          max-width: 960px;
-          width: 100%;
-        }
-
-        /* Tag */
-        .wip__tag {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-size: 10px;
-          font-weight: 600;
-          letter-spacing: 5px;
-          text-transform: uppercase;
-          color: #c8900e;
-          margin-bottom: 22px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          opacity: 0;
-          animation: riseIn .7s ease forwards .4s;
-        }
-
-        .wip__tag::before,
-        .wip__tag::after {
-          content: '';
-          display: block;
-          width: 32px;
-          height: 1px;
-          background: rgba(200,144,14,.35);
-        }
-
-        /* Company name */
-        .wip__name {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-size: clamp(68px, 13vw, 152px);
-          font-weight: 900;
-          line-height: .88;
-          letter-spacing: -3px;
-          text-transform: uppercase;
-          color: #ede8db;
-          opacity: 0;
-          animation: riseIn .85s cubic-bezier(.22,1,.36,1) forwards .65s;
-        }
-
-        .wip__name em {
-          font-style: normal;
-          color: #c8900e;
-        }
-
-        /* Divider */
-        .wip__divider {
-          margin: 30px auto;
-          height: 1px;
-          width: 0;
-          background: rgba(198,144,30,.28);
-          animation: expandLine 1s ease forwards 1.2s;
-        }
-
-        @keyframes expandLine {
-          to { width: min(320px, 80%); }
-        }
-
-        /* Sub-message */
-        .wip__msg {
-          font-size: clamp(13px, 1.8vw, 16px);
-          font-weight: 300;
-          letter-spacing: .3px;
-          color: rgba(237,232,219,.42);
-          line-height: 1.75;
-          margin-bottom: 44px;
-          opacity: 0;
-          animation: riseIn .7s ease forwards 1.4s;
-        }
-
-        /* Progress */
-        .wip__progress-wrap {
-          max-width: 400px;
-          margin: 0 auto;
-          opacity: 0;
-          animation: fadeIn .5s ease forwards 1.7s;
-        }
-
-        .wip__progress-meta {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 10px;
-        }
-
-        .wip__progress-label {
-          font-size: 10px;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: rgba(237,232,219,.28);
-          display: flex;
-          align-items: center;
-          gap: 7px;
-        }
-
-        .wip__dot {
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background: #c8900e;
-          flex-shrink: 0;
-          animation: blink 2s ease-in-out infinite 2s;
-        }
-
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: .2; }
-        }
-
-        .wip__progress-pct {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-size: 13px;
-          letter-spacing: 2px;
-          color: #c8900e;
-          font-weight: 600;
-        }
-
-        .wip__track {
-          height: 1px;
-          background: rgba(255,255,255,.07);
-          position: relative;
-        }
-
-        .wip__fill {
-          position: absolute;
-          top: 0; left: 0;
-          height: 100%;
-          width: 0;
-          background: linear-gradient(90deg, #9a6608, #e8a820);
-          animation: fillBar 2.8s cubic-bezier(.4,0,.2,1) forwards 2s;
-        }
-
-        @keyframes fillBar {
-          to { width: 68%; }
-        }
-
-        @keyframes riseIn {
-          from { opacity: 0; transform: translateY(18px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ─── Builder credit ─── */
-        .wip__credit {
-          position: fixed;
-          bottom: 26px; right: 28px;
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          text-decoration: none;
-          opacity: 0;
-          animation: fadeIn .8s ease forwards 2.8s;
-          transition: opacity .3s;
-        }
-
-        .wip__credit:hover {
-          opacity: .85 !important;
-        }
-
-        .wip__credit-by {
-          font-size: 10px;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          color: rgba(237,232,219,.2);
-        }
-
-        .wip__credit-sep {
-          width: 1px;
-          height: 10px;
-          background: rgba(237,232,219,.12);
-        }
-
-        .wip__credit-brand {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 2.5px;
-          text-transform: uppercase;
-          color: rgba(200,144,14,.55);
-          transition: color .3s;
-        }
-
-        .wip__credit:hover .wip__credit-brand {
-          color: #c8900e;
-        }
-
-        /* ─── Responsive ─── */
-        @media (max-width: 480px) {
-          .wip__corner { width: 24px; height: 24px; }
-          .wip__corner--tl, .wip__corner--tr { top: 16px; }
-          .wip__corner--bl, .wip__corner--br { bottom: 16px; }
-          .wip__corner--tl, .wip__corner--bl { left: 16px; }
-          .wip__corner--tr, .wip__corner--br { right: 16px; }
-          .wip__credit { bottom: 18px; right: 16px; }
-          .wip__center { padding: 0 20px; }
-        }
-
-        @media (max-width: 360px) {
-          .wip__name { letter-spacing: -1px; }
-        }
-      `}</style>
-
-      <div className="wip">
-
-        {/* Blueprint grid */}
-        <div className="wip__grid" />
-
-        {/* Diagonal architectural lines */}
-        <svg className="wip__diag" aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
-             style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-          <line x1="-100" y1="900" x2="600" y2="-100" stroke="rgba(198,144,30,0.04)" strokeWidth="1" />
-          <line x1="300"  y1="900" x2="1000" y2="-100" stroke="rgba(198,144,30,0.03)" strokeWidth="1" />
-          <line x1="800"  y1="900" x2="1540" y2="-100" stroke="rgba(198,144,30,0.04)" strokeWidth="1" />
-          <line x1="1100" y1="900" x2="1800" y2="-100" stroke="rgba(198,144,30,0.025)" strokeWidth="1" />
-          <line x1="-200" y1="700" x2="400"  y2="-100" stroke="rgba(198,144,30,0.025)" strokeWidth="1" />
-        </svg>
-
-        {/* Top loading bar */}
-        <div className="wip__topbar" />
-
-        {/* Corner brackets */}
-        <div className="wip__corner wip__corner--tl" />
-        <div className="wip__corner wip__corner--tr" />
-        <div className="wip__corner wip__corner--bl" />
-        <div className="wip__corner wip__corner--br" />
-
-        {/* Main content */}
-        <div className="wip__center">
-          <p className="wip__tag">New Digital Presence</p>
-
-          <h1 className="wip__name">
-            JVS<br />
-            <em>Enterprises</em>
-          </h1>
-
-          <div className="wip__divider" />
-
-          <p className="wip__msg">
-            Our new website is under active development.<br />
-            Something built with precision is on its way.
-          </p>
-
-          <div className="wip__progress-wrap">
-            <div className="wip__progress-meta">
-              <span className="wip__progress-label">
-                <span className="wip__dot" />
-                Development in progress
-              </span>
-              <span className="wip__progress-pct">68%</span>
-            </div>
-            <div className="wip__track">
-              <div className="wip__fill" />
+      <section className="home-hero">
+        <video src="/web-hero.mp4" autoPlay muted loop playsInline preload="metadata" />
+        <Container>
+          <div className="home-hero__content">
+            <p className="vertical-label">Scroll</p>
+            <div>
+              <Eyebrow>PANHALA · KOLHAPUR · SINCE 2006</Eyebrow>
+              <h1>Building Work That Stands on Trust.</h1>
+              <span className="accent-script">{siteConfig.slogan}</span>
+              <p className="home-hero__copy">
+                JVS Enterprises is a construction company from Panhala, built through
+                disciplined site execution, practical planning, and long-term client trust
+                across residential, institutional, commercial, and site development projects.
+              </p>
+              <div className="hero-actions">
+                <CTAButton href="/contact">Discuss a Project</CTAButton>
+                <CTAButton href="/projects" tone="light">
+                  View Our Projects
+                </CTAButton>
+              </div>
+              <p className="scroll-prompt">What are you planning to build? →</p>
             </div>
           </div>
+        </Container>
+      </section>
+
+      <section className="stat-bar">
+        <Container>
+          <div className="stat-bar__grid">
+            {stats.map((stat) => (
+              <div className="stat-bar__item" key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+          <p className="stat-bar__support">
+            From a small beginning in Panhala to a growing construction team, JVS
+            Enterprises has built its name through work that is planned carefully,
+            supervised on site, and delivered with accountability.
+          </p>
+        </Container>
+      </section>
+
+      <Section>
+        <div className="section-header">
+          <div>
+            <Eyebrow>BUILD WITH JVS</Eyebrow>
+            <h2>One construction partner for the work that matters.</h2>
+          </div>
+          <p>
+            Every project begins differently. Some clients come with land. Some come with
+            drawings. Some need an estimate, a site visit, or a contractor who can take
+            responsibility from planning to execution.
+          </p>
         </div>
+        <div className="card-grid">
+          {buildCards.map((card, index) => (
+            <ServiceCard
+              key={card.title}
+              index={index + 1}
+              title={card.title}
+              copy={card.copy}
+              href={card.href}
+              cta={card.cta}
+            />
+          ))}
+        </div>
+      </Section>
 
-        {/* Builder credit */}
-        <a
-          href="https://www.fatmangosolutions.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="wip__credit"
-          aria-label="Built by Fat Mango Solutions"
-        >
-          <span className="wip__credit-by">Built by</span>
-          <div className="wip__credit-sep" />
-          <span className="wip__credit-brand">Fat Mango Solutions</span>
-        </a>
+      <Section className="section--soft">
+        <div className="section-header">
+          <div>
+            <Eyebrow>OUR SERVICES</Eyebrow>
+            <h2>Construction services from planning to handover.</h2>
+          </div>
+          <p>
+            JVS Enterprises supports projects through every major stage of construction —
+            from site assessment, estimates, and drawing coordination to RCC work, finishing,
+            external development, and final handover.
+          </p>
+        </div>
+        <div className="card-grid">
+          {services.slice(0, 4).map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              index={index + 1}
+              title={service.title}
+              copy={service.summary}
+              href={`/services#${service.id}`}
+              cta={service.cta}
+            />
+          ))}
+        </div>
+      </Section>
 
-      </div>
+      <Section>
+        <div className="section-header">
+          <div>
+            <Eyebrow>SELECTED WORK</Eyebrow>
+            <h2>Projects built with purpose, supervision, and site discipline.</h2>
+          </div>
+          <p>
+            The strength of a construction company is visible on site — in the foundation,
+            the RCC work, the finishing, the drainage, and the way every stage is coordinated.
+          </p>
+        </div>
+        <div className="project-grid">
+          {featuredProjects.slice(0, 5).map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              title={project.title}
+              category={project.category}
+              location={project.location}
+              description={project.description}
+              href={`/projects/${project.slug}`}
+              featured={index === 0}
+            />
+          ))}
+        </div>
+        <div style={{ marginTop: 28 }}>
+          <ProjectSlider items={featuredProjects} />
+        </div>
+        <CTAButton href="/projects" tone="outline">
+          View All Projects
+        </CTAButton>
+      </Section>
+
+      <Section className="section--soft">
+        <div className="split">
+          <VisualPlaceholder label="Panhala · Kolhapur" tall />
+          <div className="split__copy">
+            <Eyebrow>OUR COMPANY</Eyebrow>
+            <h2>Built from Panhala. Trusted across projects.</h2>
+            <p>
+              JVS Enterprises began around 2006 with a small start and a clear commitment to
+              dependable construction work. Under the leadership of Mr. Satish Bhosale, the
+              company has grown through years of site execution, client relationships, and
+              practical experience across Panhala, Kolhapur, and nearby regions.
+            </p>
+            <p>
+              Today, JVS Enterprises works with a team of 100+ workers and handles projects
+              across residential, institutional, commercial, RCC, finishing, and site
+              development work.
+            </p>
+            <CTAButton href="/our-company" tone="outline">
+              Know Our Journey
+            </CTAButton>
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="section-header">
+          <div>
+            <Eyebrow>HOW WE WORK</Eyebrow>
+            <h2>A clear process keeps construction controlled.</h2>
+          </div>
+          <p>
+            Good construction depends on sequence. Before work begins on site, the scope
+            must be understood, drawings must be coordinated, cost must be estimated, and
+            execution must be planned.
+          </p>
+        </div>
+        <div className="process-grid">
+          {processSteps.map(([title, copy]) => (
+            <article className="process-step" key={title}>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="section--soft">
+        <div className="section-header">
+          <div>
+            <Eyebrow>INSIGHTS</Eyebrow>
+            <h2>Practical construction knowledge for better decisions.</h2>
+          </div>
+          <p>
+            Before starting construction, clients should understand planning, cost, RCC
+            quality, drainage, site supervision, and contractor selection.
+          </p>
+        </div>
+        <div className="insight-grid">
+          {featuredInsights.map((insight, index) => (
+            <InsightCard
+              key={insight.slug}
+              title={insight.shortTitle || insight.title}
+              category={insight.category}
+              excerpt={insight.excerpt}
+              href={`/insights/${insight.slug}`}
+              featured={index === 0}
+            />
+          ))}
+        </div>
+      </Section>
+
+      <section className="cta-band">
+        <Container>
+          <div>
+            <Eyebrow>START A CONVERSATION</Eyebrow>
+            <h2>Have land, drawings, or a project idea?</h2>
+            <p>
+              Speak with JVS Enterprises before beginning your project. A clear conversation
+              at the start can help define the scope, estimate the work, identify site
+              challenges, and plan the right way forward.
+            </p>
+          </div>
+          <div className="hero-actions">
+            <CTAButton href="/contact" tone="light">
+              Discuss a Project
+            </CTAButton>
+            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="outline">
+              Call {siteConfig.phone}
+            </CTAButton>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

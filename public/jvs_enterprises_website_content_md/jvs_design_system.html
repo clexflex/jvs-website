@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Turner Inspired Design System</title>
+<!-- Optional: load your own Apercu Pro and Rockness fonts separately if available -->
+
+<style>
+/*
+  Define a root colour palette based off of the Turner Construction brand.
+  Using custom properties makes it easy to swap colours throughout the system.
+*/
+:root{
+  /* Primary Turner blue; used on buttons, accents and navigation */
+  --blue:#0b5dd0;
+  /* Accent red; used for highlights, underlines and call‑to‑action arrows */
+  --red:#ff4026;
+  /* Very dark grey used for body text instead of pure black */
+  --dark:#17171b;
+  /* Medium grey for secondary text */
+  --grey:#73737b;
+  /* Light neutral used for borders and backgrounds */
+  --light-grey:#dcdcdc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/*
+  Use Apercu Pro for all base typography to match the clean, geometric type on Turner’s site.
+  Specify Rockness for script accents. The body text colour references our custom dark variable for consistency.
+*/
+body{font-family:'Apercu Pro', sans-serif;color:var(--dark);background:#ffffff}
+.ds{padding:0 2px}
+.section{margin-bottom:40px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#4E5A6C;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #E5E8EC}
+.row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+
+/* COLOUR SWATCHES */
+.swatch-group{margin-bottom:20px}
+.sg-name{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4E5A6C;margin-bottom:8px}
+.sw-row{display:grid;grid-template-columns:repeat(10,1fr);gap:0;border-radius:10px;overflow:hidden;border:1px solid #E5E8EC}
+.sw{height:52px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 4px 5px;cursor:default}
+.sw:hover .sw-tip{opacity:1}
+.sw-tip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#17171B;color:#fff;font-size:9px;padding:3px 6px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10}
+.sw-stop{font-size:9px;font-weight:700;color:rgba(255,255,255,.7);text-align:center;width:100%}
+.sw-stop.dark{color:rgba(0,0,0,.35)}
+.sw-label{font-size:8px;letter-spacing:.06em;text-align:center;color:rgba(255,255,255,.55);width:100%}
+.sw-label.dark{color:rgba(0,0,0,.3)}
+
+/* SEMANTIC TOKENS */
+.token-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.token-card{background:#F5F6F8;border-radius:10px;padding:14px;border:1px solid #E5E8EC}
+.tc-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4E5A6C;margin-bottom:10px}
+.token-row{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.tok-dot{width:28px;height:28px;border-radius:6px;flex-shrink:0;border:1px solid rgba(0,0,0,.06)}
+.tok-info{flex:1;min-width:0}
+.tok-name{font-size:10px;font-weight:700;color:#17171B;font-family:monospace;letter-spacing:.03em}
+.tok-hex{font-size:10px;color:#4E5A6C;font-family:monospace}
+.tok-use{font-size:10px;color:#8E99A9;margin-top:1px}
+
+/* TYPOGRAPHY */
+.type-row{padding:14px 0;border-bottom:1px solid #E5E8EC}
+.type-row:last-child{border-bottom:none}
+.type-meta{display:flex;gap:16px;margin-bottom:6px;flex-wrap:wrap}
+.tm{font-size:10px;font-family:monospace;background:#F5F6F8;color:#4E5A6C;padding:2px 7px;border-radius:4px;border:1px solid #E5E8EC}
+.t-sample{color:#17171B;line-height:1.2}
+.t-desc{font-size:11px;color:#8E99A9;margin-top:4px}
+
+/* SPACING */
+.sp-grid{display:flex;flex-direction:column;gap:8px}
+.sp-row{display:flex;align-items:center;gap:12px}
+.sp-bar{background:var(--blue);height:20px;border-radius:3px;flex-shrink:0}
+.sp-info{font-size:11px;color:#4E5A6C;font-family:monospace;min-width:120px}
+.sp-use{font-size:11px;color:#8E99A9}
+
+/* COMPONENTS */
+.comp-group{margin-bottom:24px}
+.cg-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4E5A6C;margin-bottom:12px}
+.flex-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 22px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:none;cursor:pointer;border-radius:4px;font-family:'Apercu Pro', sans-serif;white-space:nowrap;line-height:1;transition:background .2s,color .2s,border-color .2s}
+.btn-primary{background:var(--blue);color:#fff}
+/* Darken the blue slightly on hover to provide feedback */
+.btn-primary:hover{background:#093ea8}
+.btn-secondary{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+/* Light blue wash on hover */
+.btn-secondary:hover{background:#eaf1fd}
+.btn-accent{background:var(--red);color:#fff}
+/* Darken red on hover */
+.btn-accent:hover{background:#d13721}
+.btn-outline-accent{background:transparent;color:var(--red);border:1.5px solid var(--red)}
+/* Pale red tint for hover */
+.btn-outline-accent:hover{background:#ffeaea}
+.btn-ghost{background:#F5F6F8;color:var(--dark);border:1px solid #E5E8EC}
+.btn-dark{background:var(--dark);color:#fff}
+.btn-sm{padding:7px 16px;font-size:11px}
+.btn-lg{padding:14px 32px;font-size:13px}
+
+/* CTA LINKS
+   Many of Turner's call‑to‑action elements are understated text links with a small arrow
+   that animates on hover. This class recreates that behaviour. */
+.cta-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--blue);
+  cursor:pointer;
+  transition:color .3s ease;
+  text-decoration:none;
+}
+.cta-link .arrow{
+  display:inline-block;
+  width:6px;
+  height:6px;
+  border-top:2px solid currentColor;
+  border-right:2px solid currentColor;
+  transform:rotate(45deg);
+  margin-left:4px;
+  transition:transform .3s ease;
+}
+.cta-link:hover{color:var(--dark)}
+.cta-link:hover .arrow{transform:translateX(4px) rotate(45deg)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:3px}
+.bdg-blue{background:#E7EDF5;color:var(--blue)}
+.bdg-red{background:#ffeaea;color:var(--red)}
+.bdg-gray{background:#F5F6F8;color:#4E5A6C;border:1px solid #E5E8EC}
+.bdg-success{background:#E6F4EA;color:#1A7A35}
+.bdg-warning{background:#FEF8E7;color:#A06C00}
+.bdg-error{background:#FCE8E6;color:#B31C0E}
+
+/* CARD */
+.card-ex{background:#fff;border:1px solid #E5E8EC;border-radius:10px;padding:20px;max-width:280px;transition:box-shadow .2s}
+.card-ex:hover{box-shadow:0 4px 20px rgba(11,93,208,.1)}
+.card-tag{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.card-tag::before{content:'';width:14px;height:2px;background:var(--red);display:block}
+.card-h{font-size:17px;font-weight:700;color:var(--dark);margin-bottom:6px;line-height:1.2}
+.card-p{font-size:12px;color:#4E5A6C;line-height:1.65;margin-bottom:14px}
+.card-divider{height:1px;background:#E5E8EC;margin-bottom:14px}
+.card-meta{display:flex;justify-content:space-between;align-items:center}
+.card-stat{font-size:11px;color:#8E99A9}
+.card-stat b{color:var(--blue);font-weight:700}
+
+/* HERO STRIP */
+.hero-strip{background:#F5F6F8;border-radius:10px;padding:28px 24px;border:1px solid #E5E8EC;margin-bottom:10px;position:relative;overflow:hidden}
+.hero-strip::after{content:'';position:absolute;right:-20px;top:-10px;width:140px;height:130%;background:var(--blue);opacity:.04;transform:skewX(-8deg)}
+.hs-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.hs-tag::before{content:'';width:14px;height:2px;background:var(--red)}
+.hs-h{font-size:36px;font-weight:800;color:var(--dark);line-height:.95;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:6px}
+/* Accent word uses a script font to echo Turner's handwritten flourish */
+.hs-h span{color:var(--red);font-family:'Rockness',cursive;font-weight:normal;text-transform:none;letter-spacing:0}
+.hs-sub{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#8E99A9}
+
+/* STAT BAR */
+.stat-bar{display:grid;grid-template-columns:repeat(4,1fr);background:var(--blue);border-radius:8px;overflow:hidden;margin-top:12px}
+.sb-item{padding:12px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+.sb-item:last-child{border-right:none}
+.sb-num{font-size:22px;font-weight:800;color:#fff;line-height:1}
+.sb-num b{color:var(--red)}
+.sb-lbl{font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:2px}
+
+/* FORM ELEMENTS */
+.input-ex{width:100%;padding:11px 14px;border:1.5px solid #CCD2DB;border-radius:6px;font-size:13px;color:var(--dark);background:#fff;font-family:'Apercu Pro', sans-serif;outline:none}
+.input-ex:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,93,208,.12)}
+.label-ex{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4E5A6C;margin-bottom:5px;display:block}
+.input-wrap{margin-bottom:12px;max-width:280px}
+
+/* DIVIDER ACCENT */
+.accent-line{height:3px;background:var(--blue);border-radius:2px;margin:6px 0 24px}
+.accent-line.red{background:var(--red)}
+</style>
+</head>
+<body>
+<div class="ds">
+
+<!-- Header -->
+<div style="margin-bottom:32px;padding:18px 20px;background:#17171B;border-radius:12px">
+  <div style="font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">JV Enterprises · FatMango Solutions</div>
+  <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-.01em">Turner-Inspired Design System <span style="color:#FF4026">v1.0</span></div>
+  <div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:4px">Colour tokens · Typography · Components · Usage</div>
+</div>
+
+<!-- Colour Palette -->
+<div class="section">
+  <div class="sec-label">01 — Colour Palette</div>
+  <div class="swatch-group">
+    <div class="sg-name">Primary Blue — #0B5DD0</div>
+    <div class="sw-row">
+      <div class="sw" style="background:#E8F0FC"><div class="sw-tip">#E8F0FC</div><div class="sw-stop dark">50</div></div>
+      <div class="sw" style="background:#C5D9F6"><div class="sw-tip">#C5D9F6</div><div class="sw-stop dark">100</div></div>
+      <div class="sw" style="background:#9FC1F0"><div class="sw-tip">#9FC1F0</div><div class="sw-stop dark">200</div></div>
+      <div class="sw" style="background:#79AAE9"><div class="sw-tip">#79AAE9</div><div class="sw-stop dark">300</div></div>
+      <div class="sw" style="background:#5290E3"><div class="sw-tip">#5290E3</div><div class="sw-stop">400</div></div>
+      <div class="sw" style="background:#0B5DD0;border:2px solid #0B5DD0;outline:2px solid rgba(11,93,208,.3);outline-offset:1px"><div class="sw-tip">#0B5DD0 — PRIMARY</div><div class="sw-stop">500</div></div>
+      <div class="sw" style="background:#0A53BA"><div class="sw-tip">#0A53BA</div><div class="sw-stop">600</div></div>
+      <div class="sw" style="background:#094AA3"><div class="sw-tip">#094AA3</div><div class="sw-stop">700</div></div>
+      <div class="sw" style="background:#073E8B"><div class="sw-tip">#073E8B</div><div class="sw-stop">800</div></div>
+      <div class="sw" style="background:#053371"><div class="sw-tip">#053371</div><div class="sw-stop">900</div></div>
+    </div>
+  </div>
+
+  <div class="swatch-group">
+    <div class="sg-name">Accent Red — #FF4026</div>
+    <div class="sw-row">
+      <div class="sw" style="background:#FFEDEB"><div class="sw-tip">#FFEDEB</div><div class="sw-stop dark">50</div></div>
+      <div class="sw" style="background:#FFD4CF"><div class="sw-tip">#FFD4CF</div><div class="sw-stop dark">100</div></div>
+      <div class="sw" style="background:#FFA9A2"><div class="sw-tip">#FFA9A2</div><div class="sw-stop dark">200</div></div>
+      <div class="sw" style="background:#FF7F76"><div class="sw-tip">#FF7F76</div><div class="sw-stop dark">300</div></div>
+      <div class="sw" style="background:#FF5A4F"><div class="sw-tip">#FF5A4F</div><div class="sw-stop">400</div></div>
+      <div class="sw" style="background:#FF4026;outline:2px solid rgba(255,64,38,.3);outline-offset:1px"><div class="sw-tip">#FF4026 — ACCENT</div><div class="sw-stop">500</div></div>
+      <div class="sw" style="background:#E33622"><div class="sw-tip">#E33622</div><div class="sw-stop">600</div></div>
+      <div class="sw" style="background:#C72C1D"><div class="sw-tip">#C72C1D</div><div class="sw-stop">700</div></div>
+      <div class="sw" style="background:#A22317"><div class="sw-tip">#A22317</div><div class="sw-stop">800</div></div>
+      <div class="sw" style="background:#7C1A12"><div class="sw-tip">#7C1A12</div><div class="sw-stop">900</div></div>
+    </div>
+  </div>
+
+  <div class="swatch-group">
+    <div class="sg-name">Dark Charcoal — #17171B (Text Base)</div>
+    <div class="sw-row">
+      <div class="sw" style="background:#F5F6F8"><div class="sw-tip">#F5F6F8</div><div class="sw-stop dark">50</div></div>
+      <div class="sw" style="background:#E5E8EC"><div class="sw-tip">#E5E8EC</div><div class="sw-stop dark">100</div></div>
+      <div class="sw" style="background:#CCD2DB"><div class="sw-tip">#CCD2DB</div><div class="sw-stop dark">200</div></div>
+      <div class="sw" style="background:#AEB7C3"><div class="sw-tip">#AEB7C3</div><div class="sw-stop dark">300</div></div>
+      <div class="sw" style="background:#8E99A9"><div class="sw-tip">#8E99A9</div><div class="sw-stop dark">400</div></div>
+      <div class="sw" style="background:#6E7B8C"><div class="sw-tip">#6E7B8C</div><div class="sw-stop">500</div></div>
+      <div class="sw" style="background:#4E5A6C"><div class="sw-tip">#4E5A6C</div><div class="sw-stop">600</div></div>
+      <div class="sw" style="background:#313849"><div class="sw-tip">#313849</div><div class="sw-stop">700</div></div>
+      <div class="sw" style="background:#1E2433"><div class="sw-tip">#1E2433</div><div class="sw-stop">800</div></div>
+      <div class="sw" style="background:#17171B;outline:2px solid rgba(23,23,27,.3);outline-offset:1px"><div class="sw-tip">#17171B — TEXT</div><div class="sw-stop">900</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Semantic Tokens -->
+<div class="section">
+  <div class="sec-label">02 — Semantic Tokens</div>
+  <div class="token-grid">
+    <div class="token-card">
+      <div class="tc-title">Background</div>
+      <div class="token-row"><div class="tok-dot" style="background:#ffffff;border:1px solid #E5E8EC"></div><div class="tok-info"><div class="tok-name">--bg-primary</div><div class="tok-hex">#ffffff</div><div class="tok-use">Page / card base</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#F5F6F8"></div><div class="tok-info"><div class="tok-name">--bg-secondary</div><div class="tok-hex">#F5F6F8</div><div class="tok-use">Section fills, subtle areas</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#E7EDF5"></div><div class="tok-info"><div class="tok-name">--bg-navy-tint</div><div class="tok-hex">#E7EDF5</div><div class="tok-use">Navy highlighted areas</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#FBE7E7"></div><div class="tok-info"><div class="tok-name">--bg-red-tint</div><div class="tok-hex">#FBE7E7</div><div class="tok-use">Red highlighted areas</div></div></div>
+    </div>
+    <div class="token-card">
+      <div class="tc-title">Text</div>
+      <div class="token-row"><div class="tok-dot" style="background:#17171B"></div><div class="tok-info"><div class="tok-name">--text-primary</div><div class="tok-hex">#17171B</div><div class="tok-use">Headings, body copy</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#4E5A6C"></div><div class="tok-info"><div class="tok-name">--text-secondary</div><div class="tok-hex">#4E5A6C</div><div class="tok-use">Subheadings, labels</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#8E99A9"></div><div class="tok-info"><div class="tok-name">--text-muted</div><div class="tok-hex">#8E99A9</div><div class="tok-use">Captions, placeholders</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#0B5DD0"></div><div class="tok-info"><div class="tok-name">--text-link</div><div class="tok-hex">#0B5DD0</div><div class="tok-use">Links, interactive text</div></div></div>
+    </div>
+    <div class="token-card">
+      <div class="tc-title">Border</div>
+      <div class="token-row"><div class="tok-dot" style="background:#E5E8EC"></div><div class="tok-info"><div class="tok-name">--border-light</div><div class="tok-hex">#E5E8EC</div><div class="tok-use">Card borders, dividers</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#CCD2DB"></div><div class="tok-info"><div class="tok-name">--border-default</div><div class="tok-hex">#CCD2DB</div><div class="tok-use">Input borders</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#0B5DD0"></div><div class="tok-info"><div class="tok-name">--border-focus</div><div class="tok-hex">#0B5DD0</div><div class="tok-use">Active / focused states</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#FF4026"></div><div class="tok-info"><div class="tok-name">--border-accent</div><div class="tok-hex">#FF4026</div><div class="tok-use">Accent / highlighted borders</div></div></div>
+    </div>
+    <div class="token-card">
+      <div class="tc-title">Interactive</div>
+      <div class="token-row"><div class="tok-dot" style="background:#0B5DD0"></div><div class="tok-info"><div class="tok-name">--btn-primary</div><div class="tok-hex">#0B5DD0</div><div class="tok-use">Primary CTA buttons</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#0A53BA"></div><div class="tok-info"><div class="tok-name">--btn-primary-hover</div><div class="tok-hex">#0A53BA</div><div class="tok-use">Primary button hover</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#FF4026"></div><div class="tok-info"><div class="tok-name">--btn-accent</div><div class="tok-hex">#FF4026</div><div class="tok-use">Accent / secondary CTA</div></div></div>
+      <div class="token-row"><div class="tok-dot" style="background:#E33622"></div><div class="tok-info"><div class="tok-name">--btn-accent-hover</div><div class="tok-hex">#E33622</div><div class="tok-use">Accent button hover</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Typography System -->
+<div class="section">
+  <div class="sec-label">03 — Typography System</div>
+
+    <div class="type-row">
+    <div class="type-meta"><span class="tm">Apercu Pro ExtraBold</span><span class="tm">font-size: 56–72px</span><span class="tm">font-weight: 800</span><span class="tm">text-transform: uppercase</span><span class="tm">letter-spacing: -0.01em</span></div>
+    <div class="t-sample" style="font-size:44px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.95;color:var(--dark)">Making <span style="color:var(--red);font-family:'Rockness',cursive;font-size:48px;font-weight:normal;text-transform:none;letter-spacing:0">Difference</span></div>
+    <div class="t-desc">Hero heading — largest display text on page. Uppercase sans-serif with accented word in script font.</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><span class="tm">Apercu Pro Bold</span><span class="tm">font-size: 32–44px</span><span class="tm">font-weight: 700</span><span class="tm">text-transform: uppercase</span><span class="tm">letter-spacing: 0.01em</span></div>
+    <div class="t-sample" style="font-size:32px;font-weight:700;text-transform:uppercase;letter-spacing:.01em;line-height:1.05;color:var(--dark)">Our <span style="color:var(--red)">Projects</span></div>
+    <div class="t-desc">Section heading — used for primary section titles. Bold uppercase with red accent on key word.</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><span class="tm">Apercu Pro Medium</span><span class="tm">font-size: 20–28px</span><span class="tm">font-weight: 500</span><span class="tm">text-transform: none</span><span class="tm">letter-spacing: 0</span></div>
+    <div class="t-sample" style="font-size:20px;font-weight:500;line-height:1.3;color:var(--dark)">Delivering quality infrastructure solutions across India</div>
+    <div class="t-desc">Subheading — used for descriptive text below section headings. Sentence case.</div>
+  </div>
+
+  <div class="type-row">
+    <div class="type-meta"><span class="tm">Apercu Pro Regular</span><span class="tm">font-size: 14–18px</span><span class="tm">font-weight: 400</span><span class="tm">line-height: 1.6</span></div>
+    <div class="t-sample" style="font-size:16px;font-weight:400;line-height:1.6;color:var(--dark)">We partner with clients to deliver exceptional construction services that stand the test of time.</div>
+    <div class="t-desc">Body text — used for paragraphs and long-form content. Comfortable line height for readability.</div>
+  </div>
+</div>
+
+<!-- Spacing & Sizing -->
+<div class="section">
+  <div class="sec-label">04 — Spacing & Sizing</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4E5A6C;margin-bottom:12px">Spacing Scale</div>
+      <div class="sp-grid">
+        <div class="sp-row"><div class="sp-bar" style="width:8px"></div><div class="sp-info">--space-2: 8px</div><div class="sp-use">Icon padding, micro gaps</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:12px"></div><div class="sp-info">--space-3: 12px</div><div class="sp-use">Small gaps between labels</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:16px"></div><div class="sp-info">--space-4: 16px</div><div class="sp-use">Component gutters</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:24px"></div><div class="sp-info">--space-6: 24px</div><div class="sp-use">Section inner pad</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:32px"></div><div class="sp-info">--space-8: 32px</div><div class="sp-use">Card padding</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:48px"></div><div class="sp-info">--space-12: 48px</div><div class="sp-use">Section spacing</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:64px"></div><div class="sp-info">--space-16: 64px</div><div class="sp-use">Page top padding</div></div>
+        <div class="sp-row"><div class="sp-bar" style="width:96px"></div><div class="sp-info">--space-24: 96px</div><div class="sp-use">Hero padding</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4E5A6C;margin-bottom:12px">Border Radius</div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:14px"><div style="width:40px;height:40px;background:#E7EDF5;border:2px solid #0B5DD0;border-radius:0"></div><div><div style="font-size:11px;font-family:monospace;color:var(--dark)">--radius-none: 0px</div><div style="font-size:10px;color:#8E99A9">Sharp edges (cards, hero panels)</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px"><div style="width:40px;height:40px;background:#E7EDF5;border:2px solid #0B5DD0;border-radius:4px"></div><div><div style="font-size:11px;font-family:monospace;color:var(--dark)">--radius-sm: 4px</div><div style="font-size:10px;color:#8E99A9">Buttons, badges, inputs</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px"><div style="width:40px;height:40px;background:#E7EDF5;border:2px solid #0B5DD0;border-radius:8px"></div><div><div style="font-size:11px;font-family:monospace;color:var(--dark)">--radius-md: 8px</div><div style="font-size:10px;color:#8E99A9">Dropdowns, tooltips, small cards</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px"><div style="width:40px;height:40px;background:#E7EDF5;border:2px solid #0B5DD0;border-radius:12px"></div><div><div style="font-size:11px;font-family:monospace;color:var(--dark)">--radius-lg: 12px</div><div style="font-size:10px;color:#8E99A9">Section cards, panels</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px"><div style="width:40px;height:40px;background:#E7EDF5;border:2px solid #0B5DD0;border-radius:9999px"></div><div><div style="font-size:11px;font-family:monospace;color:var(--dark)">--radius-full: 9999px</div><div style="font-size:10px;color:#8E99A9">Pills, avatars</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Component Library -->
+<div class="section">
+  <div class="sec-label">05 — Component Library</div>
+
+  <div class="comp-group">
+    <div class="cg-title">Buttons</div>
+    <div class="flex-row">
+      <button class="btn btn-primary">Get a Quote</button>
+      <button class="btn btn-secondary">Our Services</button>
+      <button class="btn btn-accent">View Projects</button>
+      <button class="btn btn-outline-accent">Learn More</button>
+      <button class="btn btn-ghost">Download PDF</button>
+      <button class="btn btn-dark">Contact Us</button>
+    </div>
+    <div class="flex-row">
+      <button class="btn btn-primary btn-sm">Small CTA</button>
+      <button class="btn btn-primary">Regular CTA</button>
+      <button class="btn btn-primary btn-lg">Large CTA</button>
+    </div>
+    <div style="font-size:10px;color:#8E99A9;margin-top:6px;font-family:monospace">Primary: bg #0B5DD0 · Hover: #0A53BA &nbsp;|&nbsp; Accent: bg #FF4026 · Hover: #E33622 &nbsp;|&nbsp; Border-radius: 4px (sleek)</div>
+  </div>
+
+  <div class="comp-group">
+    <div class="cg-title">CTA Links</div>
+    <div class="flex-row">
+      <a href="#" class="cta-link">What do you want to build?<span class="arrow"></span></a>
+      <a href="#" class="cta-link">Read More<span class="arrow"></span></a>
+    </div>
+    <div style="font-size:10px;color:#8E99A9;margin-top:6px;font-family:monospace">Understated call‑to‑actions with animated arrows for inline links.</div>
+  </div>
+
+  <div class="comp-group">
+    <div class="cg-title">Badges & Status Labels</div>
+    <div class="flex-row">
+      <span class="badge bdg-blue">Trusted Builder</span>
+      <span class="badge bdg-red">Featured Project</span>
+      <span class="badge bdg-gray">Maharashtra</span>
+      <span class="badge bdg-success">Completed</span>
+      <span class="badge bdg-warning">In Progress</span>
+      <span class="badge bdg-error">Urgent</span>
+    </div>
+  </div>
+
+  <div class="comp-group">
+    <div class="cg-title">Form Elements</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:580px">
+      <div class="input-wrap">
+        <label class="label-ex">Full Name</label>
+        <input class="input-ex" placeholder="Satish Bhosale" type="text">
+      </div>
+      <div class="input-wrap">
+        <label class="label-ex">Phone Number</label>
+        <input class="input-ex" placeholder="+91 98765 43210" type="text">
+      </div>
+      <div class="input-wrap" style="max-width:100%">
+        <label class="label-ex">Project Type</label>
+        <select class="input-ex"><option>Civil Construction</option><option>Contract Works</option><option>Infrastructure</option></select>
+      </div>
+      <div style="display:flex;align-items:flex-end;padding-bottom:1px">
+        <button class="btn btn-primary" style="width:100%;padding:12px">Submit Enquiry</button>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#8E99A9;margin-top:8px;font-family:monospace">Default border: #CCD2DB · Focus border: #0B5DD0 + box-shadow: 0 0 0 3px rgba(11,93,208,.12)</div>
+  </div>
+
+  <div class="comp-group">
+    <div class="cg-title">Service Card</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div class="card-ex">
+        <div class="card-tag">01</div>
+        <div class="card-h">Civil Construction</div>
+        <div class="card-p">Complete solutions from foundation to finishing — on time, every time.</div>
+        <div class="card-divider"></div>
+        <div class="card-meta"><span class="card-stat"><b>24+</b> Projects</span><button class="btn btn-secondary btn-sm">Learn More</button></div>
+      </div>
+      <div class="card-ex" style="border-top:3px solid #0B5DD0">
+        <div class="card-tag">02</div>
+        <div class="card-h">Contract Works</div>
+        <div class="card-p">Government & private contracts handled with precision and accountability.</div>
+        <div class="card-divider"></div>
+        <div class="card-meta"><span class="card-stat"><b>18+</b> Contracts</span><button class="btn btn-secondary btn-sm">Learn More</button></div>
+      </div>
+      <div class="card-ex">
+        <div class="card-tag">03</div>
+        <div class="card-h">Infrastructure</div>
+        <div class="card-p">Roads, drainage & development built to serve communities for generations.</div>
+        <div class="card-divider"></div>
+        <div class="card-meta"><span class="card-stat"><b>10+</b> Projects</span><button class="btn btn-secondary btn-sm">Learn More</button></div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#8E99A9;margin-top:8px;font-family:monospace">Featured card: border-top 3px #0B5DD0 · Red tag line: #FF4026 · Hover: box-shadow: 0 4px 20px rgba(11,93,208,.1)</div>
+  </div>
+
+  <div class="comp-group">
+    <div class="cg-title">Hero Section Preview</div>
+    <div class="hero-strip">
+      <div class="hs-tag">Pimpri · Maharashtra · India</div>
+      <div class="hs-h">Making<br><span>Difference</span><br>Together</div>
+      <div class="hs-sub">What do you want to build?</div>
+      <div style="display:flex;gap:10px;margin-top:18px">
+        <button class="btn btn-primary">View Our Projects</button>
+        <button class="btn btn-secondary">Our Services</button>
+      </div>
+    </div>
+    <div class="stat-bar">
+      <div class="sb-item"><div class="sb-num">4<b>+</b></div><div class="sb-lbl">Years Active</div></div>
+      <div class="sb-item"><div class="sb-num">50<b>+</b></div><div class="sb-lbl">Projects Done</div></div>
+      <div class="sb-item"><div class="sb-num">100<b>%</b></div><div class="sb-lbl">Client Trust</div></div>
+      <div class="sb-item"><div class="sb-num">∞</div><div class="sb-lbl">Quality First</div></div>
+    </div>
+    <div style="font-size:10px;color:#8E99A9;margin-top:8px;font-family:monospace">Hero bg: #F5F6F8 · Blue skewed overlay: opacity 4% · Stat bar bg: #0B5DD0 · Numbers: #fff · Accent: #FF4026</div>
+  </div>
+</div>
+
+<!-- Usage Rules -->
+<div class="section" style="margin-bottom:0">
+  <div class="sec-label">06 — Usage Rules</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#F5F6F8;border-radius:10px;padding:16px;border-left:3px solid #0B5DD0">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0A53BA;margin-bottom:10px">Blue (#0B5DD0) — Use For</div>
+      <div style="font-size:12px;color:#4E5A6C;line-height:1.8">Primary CTAs & buttons<br>Section headings accent word<br>Active nav link<br>Stat bar background<br>Focus rings on inputs<br>Top border accent on featured cards<br>Divider lines (3px accent bars)</div>
+    </div>
+    <div style="background:#F5F6F8;border-radius:10px;padding:16px;border-left:3px solid #FF4026">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#E33622;margin-bottom:10px">Red (#FF4026) — Use For</div>
+      <div style="font-size:12px;color:#4E5A6C;line-height:1.8">Eyebrow / label text above headings<br>Accent words in hero headings<br>Stat number accents ("+")<br>Icon highlights<br>Secondary CTA (alternate pages)<br>Hover state accents<br>Badge backgrounds (with tint)<br>Tag lines & decorative accents</div>
+    </div>
+    <div style="background:#F5F6F8;border-radius:10px;padding:16px;border-left:3px solid #17171B">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#17171B;margin-bottom:10px">Dark (#17171B) — Use For</div>
+      <div style="font-size:12px;color:#4E5A6C;line-height:1.8">Body copy only<br>Headings (paired with accent)<br>Footer text on white<br>Dark CTA button (sparingly)<br>Never as full-page backgrounds</div>
+    </div>
+    <div style="background:#F5F6F8;border-radius:10px;padding:16px;border-left:3px solid #CCD2DB">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4E5A6C;margin-bottom:10px">White &amp; Grays — Use For</div>
+      <div style="font-size:12px;color:#4E5A6C;line-height:1.8">#FFFFFF — Card & page base (primary)<br>#F5F6F8 — Section alternating fills<br>#E5E8EC — Card borders, dividers<br>#CCD2DB — Input default borders<br>#8E99A9 — Placeholder, captions<br>#4E5A6C — Secondary body text</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

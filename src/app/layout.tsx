@@ -1,88 +1,83 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { LenisProvider } from "@/components/LenisProvider";
+import { MobileStickyBar, SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const apercu = localFont({
+  variable: "--font-apercu",
+  display: "swap",
+  src: [
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Black.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const rockness = localFont({
+  variable: "--font-rockness",
+  display: "swap",
+  src: [
+    {
+      path: "../../public/fonts/rockness/Rockness.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jvsenterprises.co.in"),
-
   title: {
-    default: "JVS Enterprises — Construction & Infrastructure Solutions",
+    default: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
     template: "%s | JVS Enterprises",
   },
   description:
-    "JVS Enterprises delivers professional construction, infrastructure, and project management services. Quality-driven builds, on time and on budget.",
-
+    "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
   keywords: [
     "JVS Enterprises",
-    "construction company India",
-    "infrastructure solutions",
-    "building contractor",
+    "construction company Panhala",
+    "construction company Kolhapur",
+    "RCC work",
     "civil construction",
-    "project management",
+    "site development",
   ],
-
-  authors: [{ name: "JVS Enterprises", url: "https://jvsenterprises.co.in" }],
-  creator: "JVS Enterprises",
-  publisher: "JVS Enterprises",
-
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://jvsenterprises.co.in",
     siteName: "JVS Enterprises",
-    title: "JVS Enterprises — Construction & Infrastructure Solutions",
+    title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
     description:
-      "JVS Enterprises delivers professional construction, infrastructure, and project management services. Quality-driven builds, on time and on budget.",
-    images: [
-      {
-        url: "/JVS-Logo.png",   // place a 1200×630 image in /public
-        width: 1200,
-        height: 630,
-        alt: "JVS Enterprises",
-      },
-    ],
+      "Construction, RCC, residential, commercial, institutional, and site development work across Panhala and Kolhapur.",
+    images: [{ url: "/JVS-Logo.png", width: 1200, height: 630, alt: "JVS Enterprises" }],
   },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "JVS Enterprises — Construction & Infrastructure Solutions",
-    description:
-      "JVS Enterprises delivers professional construction, infrastructure, and project management services. Quality-driven builds, on time and on budget.",
-    images: ["/JVS-Logo.png"],
-  },
-
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
-  },
-
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-
-  manifest: "/site.webmanifest",
-
-  alternates: {
-    canonical: "https://jvsenterprises.co.in",
   },
 };
 
@@ -92,11 +87,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${apercu.variable} ${rockness.variable}`}>
+      <body>
+        <LenisProvider>
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+          <MobileStickyBar />
+        </LenisProvider>
+      </body>
     </html>
   );
 }
