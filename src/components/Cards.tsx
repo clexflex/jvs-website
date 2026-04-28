@@ -14,7 +14,7 @@ export function ServiceCard({
   cta: string;
 }) {
   return (
-    <article className="service-card">
+    <article className="service-card line-card">
       <p className="card-index">{String(index).padStart(2, "0")}</p>
       <h3>{title}</h3>
       <p>{copy}</p>
@@ -39,7 +39,7 @@ export function ProjectCard({
   featured?: boolean;
 }) {
   return (
-    <article className={`project-card ${featured ? "project-card--featured" : ""}`}>
+    <article className={`project-card line-card ${featured ? "project-card--featured" : ""}`}>
       <VisualPlaceholder label={category} tall={featured} />
       <div className="project-card__body">
         <p className="card-kicker">{location || category}</p>
@@ -65,7 +65,7 @@ export function InsightCard({
   featured?: boolean;
 }) {
   return (
-    <article className={`insight-card ${featured ? "insight-card--featured" : ""}`}>
+    <article className={`insight-card line-card ${featured ? "insight-card--featured" : ""}`}>
       <div className="insight-card__media" aria-hidden="true" />
       <div className="insight-card__body">
         <p className="card-kicker">{category}</p>

@@ -74,11 +74,34 @@ const menuDetails = {
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<keyof typeof menuDetails>("Services");
-  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<keyof typeof menuDetails | null>(null);
+  const [expanded, setExpanded] = useState<keyof typeof menuDetails | null>(null);
+  const [atTop, setAtTop] = useState(true);
+  const [visible, setVisible] = useState(true);
+
+  const toggleMenu = () => {
+    if (open) {
+      setOpen(false);
+      return;
+    }
+
+    setActive(null);
+    setExpanded(null);
+    setOpen(true);
+  };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let previousY = window.scrollY;
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const nearTop = currentY < 16;
+
+      setAtTop(nearTop);
+      setVisible(nearTop || currentY < previousY);
+      previousY = Math.max(currentY, 0);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -98,51 +121,67 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className={`site-header ${scrolled || open ? "is-solid" : ""}`}>
+      <header
+        className={`site-header ${atTop && !open ? "" : "is-solid"} ${
+          visible || open ? "is-visible" : "is-hidden"
+        }`}
+      >
         <Link className="brand" href="/" aria-label="JVS Enterprises home">
           <Image src="/JVS-Logo.png" alt="" width={58} height={48} priority />
-          <span>
-            <strong>JVS</strong>
-            <small>Enterprises</small>
-            <em>{siteConfig.slogan}</em>
-          </span>
         </Link>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href}>
-              {item.label}
-            </Link>
-          ))}
+          <div className="desktop-nav__links">
+            {navItems.filter((item) => item.label !== "Contact").map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <button
+            className="header-menu-icon"
+            type="button"
+            aria-haspopup="true"
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            onClick={toggleMenu}
+          >
+            <span className="menu-button" aria-hidden="true">
+              <span className="menu-button-line" />
+              <span className="menu-button-line" />
+              <span className="menu-button-line" />
+            </span>
+          </button>
         </nav>
 
         <div className="header-actions">
           <Link className="header-cta" href="/contact">
-            Discuss a Project
+            Contact Us
           </Link>
-          <button
-            className="menu-button"
-            type="button"
-            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={open}
-            aria-controls="site-menu"
-            onClick={() => setOpen((value) => !value)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
         </div>
       </header>
 
       <div id="site-menu" className={`mega-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
-        <aside className="mega-menu__brand">
-          <div>
-            <p className="mega-logo">JVS ENTERPRISES</p>
-            <p>{siteConfig.slogan}</p>
-            <p>{siteConfig.locationLine}</p>
+        <aside className="mega-menu__brand" aria-label="JVS Enterprises">
+          <Link className="mega-menu__logo" href="/" aria-label="JVS Enterprises home">
+            <Image src="/JVS-Logo.png" alt="" width={58} height={48} priority />
+          </Link>
+          <div className="mega-menu__brand-window" aria-hidden="true">
+            <div className="mega-menu__brand-track">
+              {[0, 1, 2].map((index) => (
+                <Image
+                  key={index}
+                  src="/JVS Enterprises Text-gray.png"
+                  alt=""
+                  width={286}
+                  height={2000}
+                  sizes="25vw"
+                />
+              ))}
+            </div>
           </div>
-          <div>
+          <div className="mega-menu__brand-contact">
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
           </div>
@@ -150,12 +189,14 @@ export function SiteHeader() {
 
         <div className="mega-menu__main">
           <div className="mega-menu__top">
-            <div className="menu-search" aria-hidden="true">
-              <span>⌕</span>
-              <span>Type To Search</span>
-            </div>
-            <button type="button" className="menu-close" onClick={() => setOpen(false)}>
-              Close
+            <button
+              type="button"
+              className="menu-close"
+              aria-label="Close navigation menu"
+              onClick={() => setOpen(false)}
+            >
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
             </button>
             <Link href="/contact" onClick={() => setOpen(false)}>
               Contact Us
@@ -164,39 +205,51 @@ export function SiteHeader() {
 
           <div className="mega-menu__content">
             <ul className="mega-menu__list">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onMouseEnter={() => setActive(item.label as keyof typeof menuDetails)}
-                    onFocus={() => setActive(item.label as keyof typeof menuDetails)}
-                    onClick={() => setOpen(false)}
-                    className={active === item.label ? "is-active" : ""}
-                  >
-                    {item.label}
-                    <span aria-hidden="true">⌄</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+              {navItems.map((item) => {
+                const menuKey = item.label as keyof typeof menuDetails;
+                const itemDetails = menuDetails[menuKey];
+                const isExpanded = expanded === menuKey;
 
-            <div className="mega-menu__details">
-              <p className="eyebrow">{active}</p>
-              <p>{menuDetails[active].copy}</p>
-              <div className="mega-menu__columns">
-                {menuDetails[active].links.map((link) => (
-                  <span key={link}>{link}</span>
-                ))}
-              </div>
-              <Link
-                className="arrow-link"
-                href={menuDetails[active].href}
-                onClick={() => setOpen(false)}
-              >
-                {menuDetails[active].cta}
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
+                return (
+                  <li key={item.href}>
+                    <button
+                      type="button"
+                      onMouseEnter={() => setActive(menuKey)}
+                      onFocus={() => setActive(menuKey)}
+                      onClick={() => {
+                        setActive(isExpanded ? null : menuKey);
+                        setExpanded(isExpanded ? null : menuKey);
+                      }}
+                      className={isExpanded || active === menuKey ? "is-active" : ""}
+                      aria-expanded={isExpanded}
+                    >
+                      {item.label}
+                      <span aria-hidden="true">⌄</span>
+                    </button>
+
+                    {isExpanded ? (
+                      <div className="mega-menu__details is-expanded">
+                        <p className="eyebrow">{expanded}</p>
+                        <p>{itemDetails.copy}</p>
+                        <div className="mega-menu__columns">
+                          {itemDetails.links.map((link) => (
+                            <span key={link}>{link}</span>
+                          ))}
+                        </div>
+                        <Link
+                          className="arrow-link"
+                          href={itemDetails.href}
+                          onClick={() => setOpen(false)}
+                        >
+                          {itemDetails.cta}
+                          <span aria-hidden="true">→</span>
+                        </Link>
+                      </div>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
 
             <aside className="mega-menu__feature">
               <p className="eyebrow">Featured Project</p>
@@ -210,6 +263,18 @@ export function SiteHeader() {
                 View Project
               </Link>
             </aside>
+          </div>
+
+          <div className="mega-menu__footer">
+            <div className="mega-menu__social" aria-label="Social channels">
+              <span>Facebook</span>
+              <span>Instagram</span>
+              <span>LinkedIn</span>
+              <span>YouTube</span>
+            </div>
+            <Link href="/projects" onClick={() => setOpen(false)}>
+              View All Projects
+            </Link>
           </div>
         </div>
       </div>

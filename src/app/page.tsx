@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { InsightCard, ProjectCard, ServiceCard } from "@/components/Cards";
 import { CTAButton, Container, Eyebrow, Section, VisualPlaceholder } from "@/components/Primitives";
 import { ProjectSlider } from "@/components/Sliders";
-import { insights, projects, services, siteConfig, stats } from "@/content/site";
+import { insights, projects, services, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
@@ -53,46 +54,36 @@ export default function Home() {
   return (
     <>
       <section className="home-hero">
-        <video src="/web-hero.mp4" autoPlay muted loop playsInline preload="metadata" />
+        <div className="home-hero__media" aria-hidden="true">
+          <video src="/web-hero.mp4" autoPlay muted loop playsInline preload="metadata" />
+        </div>
         <Container>
           <div className="home-hero__content">
-            <p className="vertical-label">Scroll</p>
-            <div>
+            <div className="scroll-down" aria-hidden="true">
+              <span className="scroll-down-txt">Scroll</span>
+              <span className="scroll-down-icon">
+                <Image
+                  className="scroll-down-img"
+                  src="/assets/scroll-down-icon.svg"
+                  alt=""
+                  width={18}
+                  height={29}
+                />
+                <span className="scroll-down-line" />
+              </span>
+            </div>
+            <div className="home-hero__title">
               <Eyebrow>PANHALA · KOLHAPUR · SINCE 2006</Eyebrow>
-              <h1>Building Work That Stands on Trust.</h1>
-              <span className="accent-script">{siteConfig.slogan}</span>
-              <p className="home-hero__copy">
-                JVS Enterprises is a construction company from Panhala, built through
-                disciplined site execution, practical planning, and long-term client trust
-                across residential, institutional, commercial, and site development projects.
+              <p className="hero-slogan" aria-label={siteConfig.slogan}>
+                <span>A NAME YOU CAN</span>
+                <strong>Trust</strong>
               </p>
-              <div className="hero-actions">
-                <CTAButton href="/contact">Discuss a Project</CTAButton>
-                <CTAButton href="/projects" tone="light">
-                  View Our Projects
-                </CTAButton>
-              </div>
-              <p className="scroll-prompt">What are you planning to build? →</p>
+              <p className="scroll-prompt">
+                What are you planning to build?
+                <Image src="/assets/btn-arrow.svg" alt="" width={35} height={14} />
+              </p>
             </div>
           </div>
-        </Container>
-      </section>
-
-      <section className="stat-bar">
-        <Container>
-          <div className="stat-bar__grid">
-            {stats.map((stat) => (
-              <div className="stat-bar__item" key={stat.label}>
-                <strong>{stat.value}</strong>
-                <span>{stat.label}</span>
-              </div>
-            ))}
-          </div>
-          <p className="stat-bar__support">
-            From a small beginning in Panhala to a growing construction team, JVS
-            Enterprises has built its name through work that is planned carefully,
-            supervised on site, and delivered with accountability.
-          </p>
         </Container>
       </section>
 

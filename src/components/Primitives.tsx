@@ -9,7 +9,7 @@ export function Container({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={`container ${className}`}>{children}</div>;
+  return <div className={`container grid-cell ${className}`}>{children}</div>;
 }
 
 export function Section({
@@ -80,7 +80,7 @@ export function PageIntro({
   secondary?: { label: string; href: string };
 }) {
   return (
-    <section className="page-hero">
+    <section className="page-hero line-grid line-grid--dark">
       <Container>
         <div className="page-hero__grid">
           <div>
