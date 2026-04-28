@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type WheelEvent } from "react";
 import { navItems, services, siteConfig } from "@/content/site";
 
 const menuDetails = {
@@ -73,6 +73,7 @@ const menuDetails = {
 };
 
 export function SiteHeader() {
+  const menuListRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<keyof typeof menuDetails | null>(null);
   const [expanded, setExpanded] = useState<keyof typeof menuDetails | null>(null);
@@ -88,6 +89,12 @@ export function SiteHeader() {
     setActive(null);
     setExpanded(null);
     setOpen(true);
+  };
+
+  const handleMenuWheel = (event: WheelEvent<HTMLUListElement>) => {
+    if (window.innerWidth <= 1080 || !menuListRef.current) return;
+
+    menuListRef.current.scrollTop += event.deltaY;
   };
 
   useEffect(() => {
@@ -204,7 +211,7 @@ export function SiteHeader() {
           </div>
 
           <div className="mega-menu__content">
-            <ul className="mega-menu__list">
+            <ul ref={menuListRef} className="mega-menu__list" onWheel={handleMenuWheel}>
               {navItems.map((item) => {
                 const menuKey = item.label as keyof typeof menuDetails;
                 const itemDetails = menuDetails[menuKey];
@@ -266,13 +273,24 @@ export function SiteHeader() {
           </div>
 
           <div className="mega-menu__footer">
+            <Link
+              className="mega-menu__footer-contact"
+              href="/contact"
+              onClick={() => setOpen(false)}
+            >
+              Contact Us
+            </Link>
             <div className="mega-menu__social" aria-label="Social channels">
               <span>Facebook</span>
               <span>Instagram</span>
               <span>LinkedIn</span>
               <span>YouTube</span>
             </div>
-            <Link href="/projects" onClick={() => setOpen(false)}>
+            <Link
+              className="mega-menu__footer-projects"
+              href="/projects"
+              onClick={() => setOpen(false)}
+            >
               View All Projects
             </Link>
           </div>

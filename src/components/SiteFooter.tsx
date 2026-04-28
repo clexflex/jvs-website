@@ -1,50 +1,67 @@
+import Image from "next/image";
 import Link from "next/link";
-import { navItems, services, siteConfig } from "@/content/site";
+import { navItems, siteConfig } from "@/content/site";
+
+const socialLinks = [
+  { label: "Facebook", href: "#", icon: "/assets/FacebookLogo.svg" },
+  { label: "Instagram", href: "#", icon: "/assets/InstagramLogo.svg" },
+  { label: "LinkedIn", href: "#", icon: "/assets/LinkedinLogo.svg" },
+  { label: "YouTube", href: "#", icon: "/assets/YoutubeLogo.svg" },
+];
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="footer-grid">
+      <div className="footer-rail footer-rail--top">
         <div className="footer-brand">
-          <h2>JVS Enterprises</h2>
-          <p className="brand-line">{siteConfig.slogan}</p>
-          <p>
-            JVS Enterprises is a Panhala-based construction company serving residential,
-            institutional, commercial, and site development projects across Panhala,
-            Kolhapur, and nearby regions.
-          </p>
+          <Link href="/" aria-label="JVS Enterprises home">
+            <Image src="/JVS-Logo.png" alt="" width={86} height={72} />
+          </Link>
         </div>
-        <div>
-          <h3>Explore</h3>
+
+        <nav className="footer-nav" aria-label="Footer navigation">
           <Link href="/">Home</Link>
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
             </Link>
           ))}
-        </div>
-        <div>
-          <h3>Services</h3>
-          {services.slice(0, 6).map((service) => (
-            <Link key={service.id} href={`/services#${service.id}`}>
-              {service.title}
-            </Link>
+        </nav>
+
+        <div className="footer-social" aria-label="Social links">
+          {socialLinks.map((item) => (
+            <a key={item.label} href={item.href} aria-label={item.label}>
+              <Image src={item.icon} alt="" width={32} height={32} />
+            </a>
           ))}
         </div>
-        <address>
-          <h3>Contact</h3>
-          <span>{siteConfig.shortAddress}</span>
-          <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
-          <a href={`tel:${siteConfig.alternatePhone.replace(/\s/g, "")}`}>
-            {siteConfig.alternatePhone}
-          </a>
-          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-          <span>GSTIN: {siteConfig.gstin}</span>
-        </address>
       </div>
-      <div className="footer-bottom">
-        <p>© JVS Enterprises. All rights reserved.</p>
-        <p>Website by Fat Mango Solutions.</p>
+
+      <div className="footer-rail footer-rail--bottom">
+        <p className="footer-copyright">
+          © JVS Enterprises.
+          <br />
+          All rights reserved.
+        </p>
+
+        <div className="footer-legal">
+          <p>
+            JVS Enterprises is a Panhala-based construction company serving residential,
+            institutional, commercial, RCC, and site development projects across Panhala,
+            Kolhapur, and nearby regions.
+          </p>
+          <Link href="https://www.fatmangosolutions.com/">
+            Website by Fat Mango Solutions
+          </Link>
+        </div>
+
+        <div className="footer-contact">
+          <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
+          <span>|</span>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          <span>|</span>
+          <Link href="/contact">Contact</Link>
+        </div>
       </div>
     </footer>
   );
