@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { InsightCard } from "@/components/Cards";
-import { CTAButton, Container, Eyebrow, PageIntro, Section } from "@/components/Primitives";
-import { insightCategories, insights } from "@/content/site";
+import Image from "next/image";
+import Link from "next/link";
+import { CTAButton, Container } from "@/components/Primitives";
+import { getAllInsights } from "@/content/insights";
 
 export const metadata: Metadata = {
   title: "Construction Insights | JVS Enterprises Kolhapur & Panhala",
@@ -9,69 +10,119 @@ export const metadata: Metadata = {
     "Read practical construction insights from JVS Enterprises on choosing contractors, building in Panhala, RCC work, budgeting, residential construction, farmhouse construction, drainage, site supervision, and project planning.",
 };
 
-export default function InsightsPage() {
-  const [featured, ...rest] = insights;
+const INSIGHTS_PER_PAGE = 8;
+
+function getPageHref(page: number) {
+  return page <= 1 ? "/insights" : `/insights?page=${page}`;
+}
+
+export default async function InsightsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ page?: string }>;
+}) {
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const requestedPage = Number.parseInt(resolvedSearchParams?.page ?? "1", 10);
+  const insights = getAllInsights();
+  const totalPages = Math.max(1, Math.ceil(insights.length / INSIGHTS_PER_PAGE));
+  const currentPage = Number.isNaN(requestedPage)
+    ? 1
+    : Math.min(Math.max(requestedPage, 1), totalPages);
+  const startIndex = (currentPage - 1) * INSIGHTS_PER_PAGE;
+  const pagedInsights = insights.slice(startIndex, startIndex + INSIGHTS_PER_PAGE);
 
   return (
     <>
-      <PageIntro
-        eyebrow="INSIGHTS"
-        title="Practical construction knowledge for better decisions."
-        copy="Construction decisions should not be made in a hurry. These guides and project notes are written to help homeowners, landowners, institutions, and commercial clients understand planning, cost, RCC quality, drainage, supervision, and site execution before work begins."
-        primary={{ label: "Start a Project Conversation", href: "/contact" }}
-      />
-
-      <Section>
-        <div className="section-header">
-          <div>
-            <Eyebrow>FEATURED GUIDE</Eyebrow>
-            <h2>{featured.title}</h2>
+      <section className="turner-insights-hero line-grid">
+        <Image
+          src="/assets/insight-placeholder.svg"
+          alt="News and insights placeholder"
+          fill
+          className="turner-insights-hero__image"
+          priority
+        />
+        <div className="turner-insights-hero__overlay" aria-hidden="true" />
+        <Container className="insight-band__container">
+          <div className="insight-rail-layout turner-insights-hero__layout">
+            <div className="insight-rail-panel insight-rail-panel--left" />
+            <div className="insight-rail-panel insight-rail-panel--main">
+              <h1>News &amp; Insights</h1>
+            </div>
+            <div className="insight-rail-panel insight-rail-panel--right" />
           </div>
-          <div>
-            <p>{featured.excerpt}</p>
-            <div className="hero-actions">
-              <CTAButton href={`/insights/${featured.slug}`}>Read Featured Guide</CTAButton>
+        </Container>
+      </section>
+
+      <section className="turner-insights-grid-section line-grid">
+        <Container className="insight-band__container">
+          <div className="turner-insights-grid">
+            {pagedInsights.map((insight) => (
+              <article key={insight.slug} className="turner-insights-card">
+                <Link className="turner-insights-card__image" href={`/insights/${insight.slug}`}>
+                  <Image
+                    src="/assets/insight-placeholder.svg"
+                    alt={insight.featuredImageAlt || insight.title}
+                    width={560}
+                    height={420}
+                  />
+                </Link>
+                <div className="turner-insights-card__body">
+                  <p className="turner-insights-card__eyebrow">{insight.category}</p>
+                  <Link href={`/insights/${insight.slug}`}>
+                    <h2>{insight.title}</h2>
+                  </Link>
+                  <p className="turner-insights-card__date">
+                    {insight.publishedDateLabel || insight.readingTime}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="insight-band line-grid">
+        <Container className="insight-band__container">
+          <div className="insight-rail-layout">
+            <div className="insight-rail-panel insight-rail-panel--left" />
+            <div className="insight-rail-panel insight-rail-panel--main">
+              <nav className="insights-index-pagination" aria-label="Insights pagination">
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                  <Link
+                    key={page}
+                    href={getPageHref(page)}
+                    className={page === currentPage ? "is-active" : ""}
+                    aria-current={page === currentPage ? "page" : undefined}
+                  >
+                    {page}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+            <div className="insight-rail-panel insight-rail-panel--right">
+              {currentPage < totalPages ? (
+                <Link className="arrow-link insights-index-next" href={getPageHref(currentPage + 1)}>
+                  <span>Next page</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+              ) : null}
             </div>
           </div>
-        </div>
-        <div className="filter-row" aria-label="Insight categories">
-          {insightCategories.map((category) => (
-            <span className="filter-chip" key={category}>
-              {category}
-            </span>
-          ))}
-        </div>
-        <div className="insight-grid">
-          <InsightCard
-            title={featured.shortTitle || featured.title}
-            category={featured.category}
-            excerpt={featured.excerpt}
-            href={`/insights/${featured.slug}`}
-            featured
-          />
-          {rest.map((insight) => (
-            <InsightCard
-              key={insight.slug}
-              title={insight.shortTitle || insight.title}
-              category={insight.category}
-              excerpt={insight.excerpt}
-              href={`/insights/${insight.slug}`}
-            />
-          ))}
-        </div>
-      </Section>
+        </Container>
+      </section>
 
       <section className="cta-band">
         <Container>
           <div>
             <h2>Reading because you are planning a project?</h2>
             <p>
-              A guide can help you understand the process. A site conversation can help you
-              understand your actual project. Speak with JVS Enterprises about your land,
-              drawings, budget, and expected construction scope.
+              These articles can help you frame the right questions. A real project conversation
+              can help you decide what should happen next on site.
             </p>
           </div>
-          <CTAButton href="/contact" tone="light">Discuss Your Project</CTAButton>
+          <CTAButton href="/contact" tone="light">
+            Discuss Your Project
+          </CTAButton>
         </Container>
       </section>
     </>

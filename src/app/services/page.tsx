@@ -66,7 +66,7 @@ export default function ServicesPage() {
           </div>
           <div className="hero-actions">
             <CTAButton href="/contact" tone="light">Request an Estimate</CTAButton>
-            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="outline">
+            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
               Call {siteConfig.phone}
             </CTAButton>
           </div>

@@ -52,7 +52,7 @@ Use a real image of the D.Y. Patil Hospital compound wall work if available. If 
 
 D.Y. Patil Hospital Kadamwadi compound wall construction by JVS Enterprises
 
----
+
 
 # Publishable Article Draft
 
@@ -77,7 +77,7 @@ This project note explains why compound wall construction for a hospital site ne
 
 The project-specific details in this article are based on the portfolio information provided by JVS Enterprises. Details such as year, wall length, height, exact scope, RCC details, gate work, duration, and photographs should be added after internal confirmation.
 
----
+
 
 ## A hospital compound wall has a serious role
 
@@ -107,7 +107,7 @@ A hospital wall is therefore not only masonry or RCC work.
 
 It is site-control infrastructure.
 
----
+
 
 ## Compound wall construction begins with boundary clarity
 
@@ -136,7 +136,7 @@ For a hospital campus, even a small boundary mistake can create long-term inconv
 
 A boundary wall should be built only after the line is clear and the work is aligned with the site plan.
 
----
+
 
 ## Security and access control are central to hospital boundary work
 
@@ -166,7 +166,7 @@ A wall that blocks useful access can create inconvenience. A wall that is too we
 
 Security and usability should be planned together.
 
----
+
 
 ## Gate planning is as important as wall construction
 
@@ -201,7 +201,7 @@ If drainage near the gate is ignored, water may collect at the most important en
 
 The wall and gate must be planned as one system.
 
----
+
 
 ## RCC work gives strength to boundary construction
 
@@ -242,7 +242,7 @@ A hospital compound wall should not be built only for quick completion.
 
 It should be built for long-term stability and use.
 
----
+
 
 ## Drainage must be planned before the wall is completed
 
@@ -270,7 +270,7 @@ Retaining-wall drainage references explain that drainage conditions significantl
 
 A compound wall should control access, not trap water.
 
----
+
 
 ## Kolhapur’s monsoon context makes drainage more important
 
@@ -284,7 +284,7 @@ A hospital campus cannot afford avoidable waterlogging near entrances, parking a
 
 For compound wall construction, this means drainage must be considered before the wall is completed and before external surfaces are finished.
 
----
+
 
 ## Hospital boundary walls must support movement, not block it
 
@@ -317,7 +317,7 @@ A wall that is strong but poorly connected to movement planning can create opera
 
 In hospital-related work, movement planning should remain a priority.
 
----
+
 
 ## Height and wall type should match the site’s purpose
 
@@ -343,7 +343,7 @@ A wall near water movement may need drainage openings.
 
 The wall type should be selected after site inspection, not only by cost.
 
----
+
 
 ## Finishing should be durable and maintainable
 
@@ -371,7 +371,7 @@ The top of the wall should be protected from water entry. The base should not re
 
 A hospital boundary should look clean, but it must also remain maintainable.
 
----
+
 
 ## Compound wall work should coordinate with site development
 
@@ -405,7 +405,7 @@ Security lighting may be added later by cutting finished work.
 
 Institutional compound wall work should therefore be planned as part of the full site.
 
----
+
 
 ## Safety matters during hospital-related construction
 
@@ -432,7 +432,7 @@ India’s National Building Code is described by the Directorate General Fire Se
 
 A hospital campus should remain controlled and safe during civil work.
 
----
+
 
 ## Site supervision protects compound wall quality
 
@@ -467,7 +467,7 @@ The boundary may not follow the planned line.
 
 For institutional work, supervision is not optional. It protects the property from avoidable rework.
 
----
+
 
 ## What this project communicates about JVS Enterprises
 
@@ -485,7 +485,7 @@ For future clients, this project helps show that JVS Enterprises can handle more
 
 It can work on institutional site infrastructure where movement, security, durability, and maintenance matter.
 
----
+
 
 ## JVS Enterprises and compound wall experience
 
@@ -515,7 +515,7 @@ External development may affect the wall base.
 
 A contractor who understands these connections can plan the wall more responsibly.
 
----
+
 
 ## Suggested project details to add later
 
@@ -543,7 +543,7 @@ Only confirmed information should be added.
 
 A project note becomes stronger when it is accurate and specific.
 
----
+
 
 ## Final thoughts
 
@@ -561,7 +561,7 @@ A good compound wall does more than stand around a property.
 
 It helps the property function better.
 
----
+
 
 # Suggested CTA
 
@@ -578,7 +578,7 @@ Shing Galli, Near S. T. Stand, Panhala, Tal. Panhala, Dist. Kolhapur, Maharashtr
 Phone: 9860943500 / 9049243110
 Email: [jvs243110@gmail.com](mailto:jvs243110@gmail.com)
 
----
+
 
 # FAQ Section
 
@@ -606,7 +606,7 @@ Yes. Based on the project portfolio, JVS Enterprises has handled institutional a
 
 Yes. This article can be published as a project note after adding verified details such as project photos, year, scope, wall dimensions, project duration, and any client-approved information.
 
----
+
 
 # Internal Link Suggestions
 
@@ -645,7 +645,7 @@ Use these once the website pages are created:
 * Contact
   `/contact`
 
----
+
 
 # External Link Suggestions
 
@@ -658,7 +658,7 @@ Recommended references:
 3. A drainage or retaining-wall reference only if discussing weep holes or water pressure.
 4. Avoid competitor contractors, directory pages, and generic construction-service pages.
 
----
+
 
 # Next.js SEO Setup
 
@@ -696,7 +696,7 @@ export const metadata = {
 };
 ```
 
----
+
 
 # JSON-LD Schema for Article
 
@@ -732,7 +732,7 @@ const articleSchema = {
 };
 ```
 
----
+
 
 # JSON-LD Schema for FAQ
 
@@ -826,13 +826,13 @@ export default function ArticlePage() {
 }
 ```
 
----
+
 
 # Suggested excerpt for listing page
 
 D.Y. Patil Hospital, Kadamwadi is part of JVS Enterprises’ institutional construction portfolio. This project note explains why hospital compound wall construction depends on boundary clarity, security, access control, RCC strength, drainage planning, safety, and long-term site management.
 
----
+
 
 # Publishing Notes
 

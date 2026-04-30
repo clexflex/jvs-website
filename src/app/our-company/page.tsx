@@ -188,7 +188,7 @@ export default function OurCompanyPage() {
           </div>
           <div className="hero-actions">
             <CTAButton href="/contact" tone="light">Discuss a Project</CTAButton>
-            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="outline">
+            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
               Call {siteConfig.phone}
             </CTAButton>
           </div>

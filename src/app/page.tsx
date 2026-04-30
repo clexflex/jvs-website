@@ -3,7 +3,8 @@ import Image from "next/image";
 import { InsightCard, ProjectCard, ServiceCard } from "@/components/Cards";
 import { CTAButton, Container, Eyebrow, Section, VisualPlaceholder } from "@/components/Primitives";
 import { ProjectSlider } from "@/components/Sliders";
-import { insights, projects, services, siteConfig } from "@/content/site";
+import { getAllInsights, getLocalBusinessSchema } from "@/content/insights";
+import { projects, services, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
@@ -49,31 +50,22 @@ const processSteps = [
 
 export default function Home() {
   const featuredProjects = projects.slice(0, 6);
-  const featuredInsights = insights.slice(0, 3);
+  const featuredInsights = getAllInsights().slice(0, 3);
+  const localBusinessSchema = getLocalBusinessSchema();
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
       <section className="home-hero">
         <div className="home-hero__media" aria-hidden="true">
           <video src="/web-hero.mp4" autoPlay muted loop playsInline preload="metadata" />
         </div>
         <Container>
           <div className="home-hero__content">
-            <div className="scroll-down" aria-hidden="true">
-              <span className="scroll-down-txt">Scroll</span>
-              <span className="scroll-down-icon">
-                <Image
-                  className="scroll-down-img"
-                  src="/assets/scroll-down-icon.svg"
-                  alt=""
-                  width={18}
-                  height={29}
-                />
-                <span className="scroll-down-line" />
-              </span>
-            </div>
             <div className="home-hero__title">
-              <Eyebrow>PANHALA · KOLHAPUR · SINCE 2006</Eyebrow>
               <p className="hero-slogan" aria-label={siteConfig.slogan}>
                 <span>A NAME YOU CAN</span>
                 <strong>Trust</strong>
@@ -85,6 +77,19 @@ export default function Home() {
             </div>
           </div>
         </Container>
+        <div className="scroll-down" aria-hidden="true">
+          <span className="scroll-down-txt">Scroll</span>
+          <span className="scroll-down-icon">
+            <Image
+              className="scroll-down-img"
+              src="/assets/scroll-down-icon.svg"
+              alt=""
+              width={18}
+              height={29}
+            />
+            <span className="scroll-down-line" />
+          </span>
+        </div>
       </section>
 
       <Section>
@@ -232,9 +237,9 @@ export default function Home() {
           {featuredInsights.map((insight, index) => (
             <InsightCard
               key={insight.slug}
-              title={insight.shortTitle || insight.title}
+              title={insight.title}
               category={insight.category}
-              excerpt={insight.excerpt}
+              excerpt={insight.listingExcerpt}
               href={`/insights/${insight.slug}`}
               featured={index === 0}
             />
@@ -257,7 +262,7 @@ export default function Home() {
             <CTAButton href="/contact" tone="light">
               Discuss a Project
             </CTAButton>
-            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="outline">
+            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
               Call {siteConfig.phone}
             </CTAButton>
           </div>

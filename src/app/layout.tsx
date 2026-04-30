@@ -10,6 +10,36 @@ const apercu = localFont({
   display: "swap",
   src: [
     {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Thin.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-ThinItalic.woff2",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-ExtraLight.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-ExtraLightItalic.woff2",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-LightItalic.woff2",
+      weight: "300",
+      style: "italic",
+    },
+    {
       path: "../../public/fonts/apercu-pro/ApercuPro-Regular.woff2",
       weight: "400",
       style: "normal",
@@ -25,14 +55,29 @@ const apercu = localFont({
       style: "normal",
     },
     {
+      path: "../../public/fonts/apercu-pro/ApercuPro-MediumItalic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
       path: "../../public/fonts/apercu-pro/ApercuPro-Bold.woff2",
       weight: "700",
       style: "normal",
     },
     {
+      path: "../../public/fonts/apercu-pro/ApercuPro-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+    {
       path: "../../public/fonts/apercu-pro/ApercuPro-Black.woff2",
       weight: "800",
       style: "normal",
+    },
+    {
+      path: "../../public/fonts/apercu-pro/ApercuPro-BlackItalic.woff2",
+      weight: "800",
+      style: "italic",
     },
   ],
 });

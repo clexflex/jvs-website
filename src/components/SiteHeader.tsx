@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useRef, useState, type WheelEvent } from "react";
 import { navItems, services, siteConfig } from "@/content/site";
@@ -73,12 +74,14 @@ const menuDetails = {
 };
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const menuListRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<keyof typeof menuDetails | null>(null);
   const [expanded, setExpanded] = useState<keyof typeof menuDetails | null>(null);
   const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(true);
+  const isHomeTransparent = pathname === "/" && atTop && !open;
 
   const toggleMenu = () => {
     if (open) {
@@ -129,7 +132,7 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={`site-header ${atTop && !open ? "" : "is-solid"} ${
+        className={`site-header ${isHomeTransparent ? "is-home-transparent" : "is-solid"} ${
           visible || open ? "is-visible" : "is-hidden"
         }`}
       >
@@ -236,7 +239,7 @@ export function SiteHeader() {
 
                     {isExpanded ? (
                       <div className="mega-menu__details is-expanded">
-                        <p className="eyebrow">{expanded}</p>
+                        {/* <p className="eyebrow">{expanded}</p> */}
                         <p>{itemDetails.copy}</p>
                         <div className="mega-menu__columns">
                           {itemDetails.links.map((link) => (

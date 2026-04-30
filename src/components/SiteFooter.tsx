@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { navItems, siteConfig } from "@/content/site";
 
 const socialLinks = [
@@ -28,20 +31,18 @@ export function SiteFooter() {
           ))}
         </nav>
 
-        <div className="footer-social" aria-label="Social links">
-          {socialLinks.map((item) => (
-            <a key={item.label} href={item.href} aria-label={item.label}>
-              <Image src={item.icon} alt="" width={32} height={32} />
-            </a>
-          ))}
+        <div className="footer-contact">
+          <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
+          <span>|</span>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
         </div>
       </div>
 
       <div className="footer-rail footer-rail--bottom">
         <p className="footer-copyright">
-          © JVS Enterprises.
-          <br />
-          All rights reserved.
+          © JVS Enterprises
+          <br className="footer-copyright-br" />
+          All rights reserved
         </p>
 
         <div className="footer-legal">
@@ -50,17 +51,19 @@ export function SiteFooter() {
             institutional, commercial, RCC, and site development projects across Panhala,
             Kolhapur, and nearby regions.
           </p>
+          <div className="footer-social" aria-label="Social links">
+            {socialLinks.map((item) => (
+              <a key={item.label} href={item.href} aria-label={item.label}>
+                <Image src={item.icon} alt="" width={28} height={28} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="footer-credit">
           <Link href="https://www.fatmangosolutions.com/">
             Website by Fat Mango Solutions
           </Link>
-        </div>
-
-        <div className="footer-contact">
-          <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
-          <span>|</span>
-          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-          <span>|</span>
-          <Link href="/contact">Contact</Link>
         </div>
       </div>
     </footer>
@@ -68,12 +71,29 @@ export function SiteFooter() {
 }
 
 export function MobileStickyBar() {
+  const [footerVisible, setFooterVisible] = useState(false);
   const whatsapp = `https://wa.me/919860943500?text=${encodeURIComponent(
     siteConfig.whatsappMessage,
   )}`;
 
+  useEffect(() => {
+    const footer = document.querySelector(".site-footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setFooterVisible(entry.isIntersecting),
+      { threshold: 0.05 },
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <nav className="mobile-sticky" aria-label="Quick contact actions">
+    <nav
+      className={`mobile-sticky ${footerVisible ? "is-hidden" : ""}`}
+      aria-label="Quick contact actions"
+    >
       <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>Call</a>
       <a href={whatsapp}>WhatsApp</a>
       <Link href="/contact">Enquire</Link>
