@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { CTAButton, Container, Eyebrow, PageIntro } from "@/components/Primitives";
+import { CTAButton, Container, Eyebrow } from "@/components/Primitives";
+import { ServiceParallaxMedia } from "@/components/ShowcaseMedia";
 import { services, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -11,64 +12,110 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageIntro
-        eyebrow="OUR SERVICES"
-        title="Construction services planned from the first site visit to final handover."
-        copy="JVS Enterprises provides complete construction support across planning, estimation, civil construction, RCC work, finishing, renovation, repair, fabrication, and external site development. Every service is handled with practical site understanding, supervision, and a focus on long-term reliability."
-        primary={{ label: "Request an Estimate", href: "/contact" }}
-        secondary={{ label: "View Related Projects", href: "/projects" }}
-      />
+      <section className="rail-page-hero services-page-hero line-grid">
+        <Container className="rail-page__container">
+          <div className="services-page-hero__inner">
+            <div>
+              <Eyebrow>Our Services</Eyebrow>
+              <h1>Construction services planned from the first site visit to final handover.</h1>
+            </div>
+            <div className="services-page-hero__copy">
+              <p>
+                JVS Enterprises supports projects through planning, civil construction, RCC
+                execution, finishing, renovation, repair, and external site development. The
+                focus is practical coordination, site accountability, and work that stays
+                reliable long after handover.
+              </p>
+              <div className="hero-actions">
+                <CTAButton href="/contact">Request an Estimate</CTAButton>
+                <CTAButton href="/projects" tone="outline">
+                  View Related Projects
+                </CTAButton>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
 
-      <nav className="anchor-nav" aria-label="Service sections">
-        <Container>
-          {services.map((service) => (
-            <a key={service.id} href={`#${service.id}`}>
-              {service.navLabel}
-            </a>
-          ))}
+      <nav className="anchor-nav anchor-nav--rail line-grid" aria-label="Service sections">
+        <Container className="rail-page__container">
+          <div className="services-anchor-layout">
+            <div>
+              <p className="services-anchor-layout__label">Jump to service</p>
+            </div>
+            <div className="services-anchor-links">
+              {services.map((service) => (
+                <a key={service.id} href={`#${service.id}`}>
+                  {service.navLabel}
+                </a>
+              ))}
+            </div>
+          </div>
         </Container>
       </nav>
 
-      <Container>
-        {services.map((service) => (
-          <section className="service-detail" id={service.id} key={service.id}>
-            <div className="service-detail__copy">
-              <Eyebrow>{service.eyebrow}</Eyebrow>
-              <h2>{service.heading}</h2>
-              <p>{service.body}</p>
-              {"note" in service && service.note ? <p className="brand-line">{service.note}</p> : null}
-              <CTAButton href="/contact" tone="outline">
-                {service.cta}
-              </CTAButton>
-            </div>
-            <div className="list-panel">
-              <h3>Services included</h3>
-              <ul className="check-list">
-                {service.included.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ))}
-      </Container>
+      {services.map((service, index) => (
+        <section key={service.id} id={service.id} className="services-showcase line-grid">
+          <Container className="rail-page__container">
+            <article
+              className={`services-showcase__inner ${
+                index % 2 === 1 ? "services-showcase__inner--reverse" : ""
+              }`}
+            >
+              <div className="services-showcase__copy">
+                <Eyebrow>{service.eyebrow}</Eyebrow>
+                <p className="services-showcase__index">{String(index + 1).padStart(2, "0")}</p>
+                <h2>{service.heading}</h2>
+                <p>{service.body}</p>
+                {"note" in service && service.note ? (
+                  <p className="services-showcase__note">{service.note}</p>
+                ) : null}
+                <details className="services-showcase__scope">
+                  <summary>Services included</summary>
+                  <ul>
+                    {service.included.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </details>
+                <CTAButton href="/contact" tone="outline">
+                  {service.cta}
+                </CTAButton>
+              </div>
+              <div className="services-showcase__media">
+                <ServiceParallaxMedia
+                  eyebrow={service.title}
+                  title={service.heading}
+                  detail={service.summary}
+                  priority={index === 0}
+                />
+              </div>
+            </article>
+          </Container>
+        </section>
+      ))}
 
-      <section className="cta-band">
-        <Container>
-          <div>
-            <Eyebrow>GUIDANCE</Eyebrow>
-            <h2>Build with a team that understands planning, structure, and site realities.</h2>
-            <p>
-              Share your project details with JVS Enterprises. Whether you are starting
-              with land, drawings, an estimate requirement, or an existing structure, the
-              right next step begins with a clear site conversation.
-            </p>
-          </div>
-          <div className="hero-actions">
-            <CTAButton href="/contact" tone="light">Request an Estimate</CTAButton>
-            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
-              Call {siteConfig.phone}
-            </CTAButton>
+      <section className="rail-page-band rail-page-band--cta line-grid">
+        <Container className="rail-page__container">
+          <div className="rail-page__layout rail-page-cta">
+            <div className="rail-page__panel rail-page__panel--left">
+              <Eyebrow>Guidance</Eyebrow>
+            </div>
+            <div className="rail-page__panel rail-page__panel--main">
+              <h2>Build with a team that understands planning, structure, and site realities.</h2>
+              <p>
+                Whether you are starting with land, drawings, an estimate requirement, or an
+                existing structure, the right next step begins with a clear site conversation.
+              </p>
+            </div>
+            <div className="rail-page__panel rail-page__panel--right">
+              <div className="hero-actions">
+                <CTAButton href="/contact">Request an Estimate</CTAButton>
+                <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="outline">
+                  Call {siteConfig.phone}
+                </CTAButton>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
