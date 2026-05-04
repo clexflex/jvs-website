@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { type CSSProperties } from "react";
 import type { projects } from "@/content/site";
@@ -49,6 +49,14 @@ export function ProjectsHeroCarousel({ items }: { items: Project[] }) {
   return (
     <div className="projects-hero-carousel">
       <div className="projects-hero-carousel__footer">
+        <div className="projects-hero-carousel__meta">
+          <span>Featured Projects</span>
+          <strong>{String(items.length).padStart(2, "0")}</strong>
+        </div>
+        <div
+          className="projects-hero-carousel__pagination"
+          aria-label="Project hero pagination"
+        />
         <div className="projects-hero-carousel__controls" aria-label="Project hero carousel controls">
           <button className="projects-hero-carousel__button projects-hero-carousel__button--prev" type="button">
             <span aria-hidden="true">←</span>
@@ -61,10 +69,16 @@ export function ProjectsHeroCarousel({ items }: { items: Project[] }) {
         </div>
       </div>
       <Swiper
-        modules={[Navigation]}
+        modules={[Navigation, Pagination]}
         navigation={{
           prevEl: ".projects-hero-carousel__button--prev",
           nextEl: ".projects-hero-carousel__button--next",
+        }}
+        pagination={{
+          el: ".projects-hero-carousel__pagination",
+          clickable: true,
+          bulletClass: "projects-hero-carousel__bullet",
+          bulletActiveClass: "is-active",
         }}
         loop
         className="projects-hero-carousel__swiper"
@@ -87,7 +101,7 @@ export function ProjectsHeroCarousel({ items }: { items: Project[] }) {
                   <span>{project.category}</span>
                 </div>
                 <div className="projects-hero-slide__panel projects-hero-slide__panel--main">
-                  <h1>Delivering on what matters.</h1>
+                  <h1>Built for real site conditions.</h1>
                 </div>
                 <div className="projects-hero-slide__panel projects-hero-slide__panel--right">
                   <span className="projects-hero-slide__location">{project.location}</span>

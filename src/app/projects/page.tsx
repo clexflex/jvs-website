@@ -92,7 +92,6 @@ export default async function ProjectsPage({
                     <h2>{project.title}</h2>
                   </Link>
                   <p className="projects-index-card__location">{project.location}</p>
-                  <p className="projects-index-card__description">{project.description}</p>
                 </div>
               </article>
             ))}

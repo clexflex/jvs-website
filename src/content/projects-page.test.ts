@@ -20,12 +20,12 @@ describe("projects page helpers", () => {
     const lastPage = getProjectsPageData("99");
     const invalidPage = getProjectsPageData("not-a-number");
 
-    expect(PROJECTS_PER_PAGE).toBe(6);
+    expect(PROJECTS_PER_PAGE).toBe(8);
     expect(firstPage.totalPages).toBe(2);
     expect(firstPage.currentPage).toBe(1);
-    expect(firstPage.items).toHaveLength(6);
+    expect(firstPage.items).toHaveLength(8);
     expect(lastPage.currentPage).toBe(2);
-    expect(lastPage.items).toHaveLength(3);
+    expect(lastPage.items).toHaveLength(1);
     expect(invalidPage.currentPage).toBe(1);
   });
 });

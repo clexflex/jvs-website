@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CTAButton, Container, Eyebrow } from "@/components/Primitives";
 import { ServiceParallaxMedia } from "@/components/ShowcaseMedia";
 import { services, siteConfig } from "@/content/site";
@@ -16,22 +17,8 @@ export default function ServicesPage() {
         <Container className="rail-page__container">
           <div className="services-page-hero__inner">
             <div>
-              <Eyebrow>Our Services</Eyebrow>
-              <h1>Construction services planned from the first site visit to final handover.</h1>
-            </div>
-            <div className="services-page-hero__copy">
-              <p>
-                JVS Enterprises supports projects through planning, civil construction, RCC
-                execution, finishing, renovation, repair, and external site development. The
-                focus is practical coordination, site accountability, and work that stays
-                reliable long after handover.
-              </p>
-              <div className="hero-actions">
-                <CTAButton href="/contact">Request an Estimate</CTAButton>
-                <CTAButton href="/projects" tone="outline">
-                  View Related Projects
-                </CTAButton>
-              </div>
+              <Eyebrow>Making It Happen</Eyebrow>
+              <h1>Our Services</h1>
             </div>
           </div>
         </Container>
@@ -45,7 +32,7 @@ export default function ServicesPage() {
             </div>
             <div className="services-anchor-links">
               {services.map((service) => (
-                <a key={service.id} href={`#${service.id}`}>
+                <a key={service.id} href={`/services#${service.id}`}>
                   {service.navLabel}
                 </a>
               ))}
@@ -78,9 +65,39 @@ export default function ServicesPage() {
                     ))}
                   </ul>
                 </details>
-                <CTAButton href="/contact" tone="outline">
+                {"usefulFor" in service && service.usefulFor ? (
+                  <details className="services-showcase__scope">
+                    <summary>Useful for</summary>
+                    <ul>
+                      {service.usefulFor.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : null}
+                {"quality" in service && service.quality ? (
+                  <details className="services-showcase__scope">
+                    <summary>Quality focus</summary>
+                    <ul>
+                      {service.quality.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : null}
+                {"related" in service && service.related ? (
+                  <details className="services-showcase__scope">
+                    <summary>Related project examples</summary>
+                    <ul>
+                      {service.related.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : null}
+                <Link className="services-showcase__link" href="/contact">
                   {service.cta}
-                </CTAButton>
+                </Link>
               </div>
               <div className="services-showcase__media">
                 <ServiceParallaxMedia

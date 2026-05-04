@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type WheelEvent } from "react";
 import { navItems, services, siteConfig } from "@/content/site";
 
+const transparentHeroHeaderPaths = new Set(["/", "/our-company", "/insights"]);
+
 const menuDetails = {
   "Our Company": {
     links: [
@@ -81,7 +83,9 @@ export function SiteHeader() {
   const [expanded, setExpanded] = useState<keyof typeof menuDetails | null>(null);
   const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(true);
-  const isHomeTransparent = pathname === "/" && atTop && !open;
+  const usesTransparentHeroHeader =
+    transparentHeroHeaderPaths.has(pathname) || pathname.startsWith("/projects/");
+  const isHeroTransparent = usesTransparentHeroHeader && atTop && !open;
 
   const toggleMenu = () => {
     if (open) {
@@ -102,23 +106,33 @@ export function SiteHeader() {
 
   useEffect(() => {
     let previousY = window.scrollY;
+    let syncFrame = 0;
 
     const onScroll = () => {
       const currentY = window.scrollY;
       const nearTop = currentY < 16;
+      const isVisible = nearTop || currentY < previousY;
 
       setAtTop(nearTop);
-      setVisible(nearTop || currentY < previousY);
+      setVisible(isVisible);
+      document.body.classList.toggle("site-header-visible", isVisible);
+      document.body.classList.toggle("site-header-hidden", !isVisible);
       previousY = Math.max(currentY, 0);
     };
 
-    onScroll();
+    syncFrame = window.requestAnimationFrame(onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.cancelAnimationFrame(syncFrame);
+      document.body.classList.remove("site-header-visible", "site-header-hidden");
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", open);
+    document.body.classList.toggle("site-header-visible", open || visible);
+    document.body.classList.toggle("site-header-hidden", !open && !visible);
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
@@ -127,12 +141,12 @@ export function SiteHeader() {
       document.body.classList.remove("menu-open");
       window.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+  }, [open, visible]);
 
   return (
     <>
       <header
-        className={`site-header ${isHomeTransparent ? "is-home-transparent" : "is-solid"} ${
+        className={`site-header ${isHeroTransparent ? "is-home-transparent" : "is-solid"} ${
           visible || open ? "is-visible" : "is-hidden"
         }`}
       >

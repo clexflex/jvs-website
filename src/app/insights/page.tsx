@@ -33,22 +33,21 @@ export default async function InsightsPage({
 
   return (
     <>
-      <section className="turner-insights-hero line-grid">
-        <Image
-          src="/assets/insight-placeholder.svg"
-          alt="News and insights placeholder"
-          fill
-          className="turner-insights-hero__image"
-          priority
+      <section className="company-hero company-hero--insights line-grid line-grid--dark">
+        <video
+          className="company-hero__video"
+          src="/videos/news-and-insights-hero.webm"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          poster="/images/news-and-insights-hero.webp"
         />
-        <div className="turner-insights-hero__overlay" aria-hidden="true" />
-        <Container className="insight-band__container">
-          <div className="insight-rail-layout turner-insights-hero__layout">
-            <div className="insight-rail-panel insight-rail-panel--left" />
-            <div className="insight-rail-panel insight-rail-panel--main">
-              <h1>News &amp; Insights</h1>
-            </div>
-            <div className="insight-rail-panel insight-rail-panel--right" />
+        <div className="company-hero__overlay" aria-hidden="true" />
+        <Container className="rail-page__container">
+          <div className="company-hero__content company-hero__content--insights">
+            <h1>News &amp; Insights</h1>
           </div>
         </Container>
       </section>
