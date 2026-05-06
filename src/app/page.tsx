@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { InsightCard, ProjectCard, ServiceCard } from "@/components/Cards";
-import { CTAButton, Container, Eyebrow, Section, VisualPlaceholder } from "@/components/Primitives";
-import { ProjectSlider } from "@/components/Sliders";
+import Link from "next/link";
+import {
+  HomeEditorialStack,
+  type HomeEditorialStackItem,
+} from "@/components/HomeEditorialStack";
+import { ArrowLink, CTAButton, Container, Eyebrow } from "@/components/Primitives";
 import { getAllInsights, getLocalBusinessSchema } from "@/content/insights";
-import { projects, services, siteConfig } from "@/content/site";
+import { projects, services, siteConfig, stats } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
@@ -48,10 +51,133 @@ const processSteps = [
   ["06. Handover", "The site is completed, cleaned, reviewed, and handed over with attention to final usability."],
 ];
 
+type Service = (typeof services)[number];
+
+function HomeRailIntro({
+  title,
+}: {
+  title: string;
+}) {
+  return (
+    <div className="home-rail-intro" data-rail-row="1">
+      <div className="home-rail-intro__panel home-rail-intro__panel--main" data-rail-row="1">
+        <h2>{title}</h2>
+      </div>
+    </div>
+  );
+}
+
+function HomeRailMedia({
+  title,
+  priority = false,
+  sizes = "(max-width: 760px) 100vw, 42vw",
+}: {
+  title: string;
+  priority?: boolean;
+  sizes?: string;
+}) {
+  return (
+    <div className="home-rail-media">
+      <div className="home-rail-media__visual">
+        <Image
+          src="/images/project-image-placeholder.jpg"
+          alt={title}
+          fill
+          sizes={sizes}
+          priority={priority}
+        />
+      </div>
+    </div>
+  );
+}
+
+function HomeFeatureCard({
+  eyebrow,
+  title,
+  copy,
+  href,
+  linkLabel,
+  priority = false,
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  href: string;
+  linkLabel: string;
+  priority?: boolean;
+}) {
+  return (
+    <article className="home-editorial-card home-editorial-card--feature" data-rail-row="1">
+      <Link className="home-editorial-card__media-link" href={href}>
+        <HomeRailMedia title={title} priority={priority} sizes="(max-width: 760px) 100vw, 52vw" />
+      </Link>
+      <div className="home-editorial-card__body">
+        <p className="card-kicker">{eyebrow}</p>
+        <h3>
+          <Link href={href}>{title}</Link>
+        </h3>
+        <p>{copy}</p>
+        <ArrowLink href={href}>{linkLabel}</ArrowLink>
+      </div>
+    </article>
+  );
+}
+
+function HomeCapabilityCard({
+  index,
+  title,
+  copy,
+  href,
+  cta,
+}: {
+  index: number;
+  title: string;
+  copy: string;
+  href: string;
+  cta: string;
+}) {
+  return (
+    <article className="home-capability-card">
+      <p className="card-index">{String(index).padStart(2, "0")}</p>
+      <h3>{title}</h3>
+      <p>{copy}</p>
+      <ArrowLink href={href}>{cta}</ArrowLink>
+    </article>
+  );
+}
+
+function HomeServiceCard({ service, index }: { service: Service; index: number }) {
+  return (
+    <article className="home-service-card">
+      <div className="home-service-card__head">
+        <p className="card-index">{String(index + 1).padStart(2, "0")}</p>
+        <p className="card-kicker">{service.navLabel}</p>
+      </div>
+      <h3>{service.title}</h3>
+      <p>{service.summary}</p>
+      <ArrowLink href={`/services#${service.id}`}>{service.cta}</ArrowLink>
+    </article>
+  );
+}
+
 export default function Home() {
-  const featuredProjects = projects.slice(0, 6);
-  const featuredInsights = getAllInsights().slice(0, 3);
+  const featuredProjects = projects.slice(0, 7);
+  const featuredProject = featuredProjects[0];
+  const supportingProjects = featuredProjects.slice(1, 7);
+  const featuredInsights = getAllInsights().slice(0, 7);
+  const featuredInsight = featuredInsights[0];
+  const supportingInsights = featuredInsights.slice(1, 7);
   const localBusinessSchema = getLocalBusinessSchema();
+  const supportingInsightItems: HomeEditorialStackItem[] = supportingInsights.map((insight) => ({
+    title: insight.title,
+    href: `/insights/${insight.slug}`,
+    linkLabel: "Read More",
+  }));
+  const supportingProjectItems: HomeEditorialStackItem[] = supportingProjects.map((project) => ({
+    title: project.title,
+    href: `/projects/${project.slug}`,
+    linkLabel: "View Project",
+  }));
 
   return (
     <>
@@ -92,179 +218,183 @@ export default function Home() {
         </div>
       </section>
 
-      <Section>
-        <div className="section-header">
-          <div>
-            <Eyebrow>BUILD WITH JVS</Eyebrow>
-            <h2>One construction partner for the work that matters.</h2>
-          </div>
-          <p>
-            Every project begins differently. Some clients come with land. Some come with
-            drawings. Some need an estimate, a site visit, or a contractor who can take
-            responsibility from planning to execution.
-          </p>
-        </div>
-        <div className="card-grid">
-          {buildCards.map((card, index) => (
-            <ServiceCard
-              key={card.title}
-              index={index + 1}
-              title={card.title}
-              copy={card.copy}
-              href={card.href}
-              cta={card.cta}
+      {featuredInsight ? (
+        <section className="home-rail-section home-rail-section--insights line-grid">
+          <Container className="home-rail-shell">
+            <HomeRailIntro
+              title="News & Insights"
             />
-          ))}
-        </div>
-      </Section>
+            <div className="home-editorial-grid home-editorial-grid--insights">
+              <HomeFeatureCard
+                eyebrow={featuredInsight.category}
+                title={featuredInsight.title}
+                copy={featuredInsight.listingExcerpt}
+                href={`/insights/${featuredInsight.slug}`}
+                linkLabel="Read Insight"
+                priority
+              />
+              <HomeEditorialStack items={supportingInsightItems} />
+            </div>
+            <div className="home-rail-actions">
+              <CTAButton href="/insights" tone="outline">
+                View All Insights
+              </CTAButton>
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
-      <Section className="section--soft">
-        <div className="section-header">
-          <div>
-            <Eyebrow>OUR SERVICES</Eyebrow>
-            <h2>Construction services from planning to handover.</h2>
+      <section className="home-rail-section home-rail-section--build line-grid">
+        <Container className="home-rail-shell">
+          <div className="home-slab-layout">
+            <div className="home-slab-layout__intro" data-rail-row="1">
+              <Eyebrow>BUILD WITH JVS</Eyebrow>
+              <h2>One construction partner for the work that matters.</h2>
+              <p>
+                Every project begins differently. Some clients come with land. Some come with
+                drawings. Some need an estimate, a site visit, or a contractor who can take
+                responsibility from planning to execution.
+              </p>
+            </div>
+            <div className="home-slab-layout__grid" data-rail-row="1">
+              {buildCards.map((card, index) => (
+                <HomeCapabilityCard key={card.title} index={index + 1} {...card} />
+              ))}
+            </div>
           </div>
-          <p>
-            JVS Enterprises supports projects through every major stage of construction —
-            from site assessment, estimates, and drawing coordination to RCC work, finishing,
-            external development, and final handover.
-          </p>
-        </div>
-        <div className="card-grid">
-          {services.slice(0, 4).map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              index={index + 1}
-              title={service.title}
-              copy={service.summary}
-              href={`/services#${service.id}`}
-              cta={service.cta}
+        </Container>
+      </section>
+
+      {featuredProject ? (
+        <section className="home-rail-section home-rail-section--projects line-grid">
+          <Container className="home-rail-shell">
+            <HomeRailIntro
+              title="Selected Work"
             />
-          ))}
-        </div>
-      </Section>
+            <div className="home-editorial-grid home-editorial-grid--projects">
+              <HomeFeatureCard
+                eyebrow={`${featuredProject.category} · ${featuredProject.location}`}
+                title={featuredProject.title}
+                copy={featuredProject.description}
+                href={`/projects/${featuredProject.slug}`}
+                linkLabel="View Project"
+              />
+              <HomeEditorialStack items={supportingProjectItems} />
+            </div>
+            <div className="home-rail-actions">
+              <CTAButton href="/projects" tone="outline">
+                View All Projects
+              </CTAButton>
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
-      <Section>
-        <div className="section-header">
-          <div>
-            <Eyebrow>SELECTED WORK</Eyebrow>
-            <h2>Projects built with purpose, supervision, and site discipline.</h2>
+      <section className="home-rail-section home-rail-section--services line-grid">
+        <Container className="home-rail-shell">
+          <div className="home-slab-layout home-slab-layout--services">
+            <div className="home-slab-layout__intro" data-rail-row="1">
+              <Eyebrow>OUR SERVICES</Eyebrow>
+              <h2>Construction services from planning to handover.</h2>
+              <p>
+                JVS Enterprises supports projects through every major stage of construction —
+                from site assessment, estimates, and drawing coordination to RCC work, finishing,
+                external development, and final handover.
+              </p>
+            </div>
+            <div className="home-slab-layout__grid" data-rail-row="1">
+              {services.slice(0, 4).map((service, index) => (
+                <HomeServiceCard key={service.id} service={service} index={index} />
+              ))}
+            </div>
           </div>
-          <p>
-            The strength of a construction company is visible on site — in the foundation,
-            the RCC work, the finishing, the drainage, and the way every stage is coordinated.
-          </p>
-        </div>
-        <div className="project-grid">
-          {featuredProjects.slice(0, 5).map((project, index) => (
-            <ProjectCard
-              key={project.slug}
-              title={project.title}
-              category={project.category}
-              location={project.location}
-              description={project.description}
-              href={`/projects/${project.slug}`}
-              featured={index === 0}
-            />
-          ))}
-        </div>
-        <div style={{ marginTop: 28 }}>
-          <ProjectSlider items={featuredProjects} />
-        </div>
-        <CTAButton href="/projects" tone="outline">
-          View All Projects
-        </CTAButton>
-      </Section>
+        </Container>
+      </section>
 
-      <Section className="section--soft">
-        <div className="split">
-          <VisualPlaceholder label="Panhala · Kolhapur" tall />
-          <div className="split__copy">
-            <Eyebrow>OUR COMPANY</Eyebrow>
-            <h2>Built from Panhala. Trusted across projects.</h2>
-            <p>
-              JVS Enterprises began around 2006 with a small start and a clear commitment to
-              dependable construction work. Under the leadership of Mr. Satish Bhosale, the
-              company has grown through years of site execution, client relationships, and
-              practical experience across Panhala, Kolhapur, and nearby regions.
-            </p>
-            <p>
-              Today, JVS Enterprises works with a team of 100+ workers and handles projects
-              across residential, institutional, commercial, RCC, finishing, and site
-              development work.
-            </p>
-            <CTAButton href="/our-company" tone="outline">
-              Know Our Journey
-            </CTAButton>
+      <section className="home-rail-section home-rail-section--company line-grid">
+        <Container className="home-rail-shell">
+          <div className="home-company-band">
+            <div className="home-company-band__copy" data-rail-row="1">
+              <Eyebrow>OUR COMPANY</Eyebrow>
+              <h2>Built from Panhala. Trusted across projects.</h2>
+              <p>
+                JVS Enterprises began around 2006 with a small start and a clear commitment to
+                dependable construction work. Under the leadership of Mr. Satish Bhosale, the
+                company has grown through years of site execution, client relationships, and
+                practical experience across Panhala, Kolhapur, and nearby regions.
+              </p>
+              <p>
+                Today, JVS Enterprises works with a team of 100+ workers and handles projects
+                across residential, institutional, commercial, RCC, finishing, and site
+                development work.
+              </p>
+              <CTAButton href="/our-company" tone="outline">
+                Know Our Journey
+              </CTAButton>
+            </div>
+            <div className="home-company-band__media" data-rail-row="1">
+              <HomeRailMedia title="JVS Enterprises company story" sizes="(max-width: 760px) 100vw, 44vw" />
+            </div>
           </div>
-        </div>
-      </Section>
+          <div className="home-stat-row">
+            {stats.map((stat) => (
+              <article key={stat.label}>
+                <p>{stat.label}</p>
+                <strong>{stat.value}</strong>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-      <Section>
-        <div className="section-header">
-          <div>
-            <Eyebrow>HOW WE WORK</Eyebrow>
-            <h2>A clear process keeps construction controlled.</h2>
+      <section className="home-rail-section home-rail-section--process line-grid">
+        <Container className="home-rail-shell">
+          <div className="home-process-layout">
+            <div className="home-process-layout__intro" data-rail-row="1">
+              <Eyebrow>HOW WE WORK</Eyebrow>
+              <h2>A clear process keeps construction controlled.</h2>
+              <p>
+                Good construction depends on sequence. Before work begins on site, the scope
+                must be understood, drawings must be coordinated, cost must be estimated, and
+                execution must be planned.
+              </p>
+            </div>
+            <div className="home-process-layout__steps" data-rail-row="1">
+              {processSteps.map(([title, copy]) => (
+                <article className="home-process-step" key={title}>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
-          <p>
-            Good construction depends on sequence. Before work begins on site, the scope
-            must be understood, drawings must be coordinated, cost must be estimated, and
-            execution must be planned.
-          </p>
-        </div>
-        <div className="process-grid">
-          {processSteps.map(([title, copy]) => (
-            <article className="process-step" key={title}>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </Section>
+        </Container>
+      </section>
 
-      <Section className="section--soft">
-        <div className="section-header">
-          <div>
-            <Eyebrow>INSIGHTS</Eyebrow>
-            <h2>Practical construction knowledge for better decisions.</h2>
-          </div>
-          <p>
-            Before starting construction, clients should understand planning, cost, RCC
-            quality, drainage, site supervision, and contractor selection.
-          </p>
-        </div>
-        <div className="insight-grid">
-          {featuredInsights.map((insight, index) => (
-            <InsightCard
-              key={insight.slug}
-              title={insight.title}
-              category={insight.category}
-              excerpt={insight.listingExcerpt}
-              href={`/insights/${insight.slug}`}
-              featured={index === 0}
-            />
-          ))}
-        </div>
-      </Section>
-
-      <section className="cta-band">
-        <Container>
-          <div>
-            <Eyebrow>START A CONVERSATION</Eyebrow>
-            <h2>Have land, drawings, or a project idea?</h2>
-            <p>
-              Speak with JVS Enterprises before beginning your project. A clear conversation
-              at the start can help define the scope, estimate the work, identify site
-              challenges, and plan the right way forward.
-            </p>
-          </div>
-          <div className="hero-actions">
-            <CTAButton href="/contact" tone="light">
-              Discuss a Project
-            </CTAButton>
-            <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
-              Call {siteConfig.phone}
-            </CTAButton>
+      <section className="cta-band home-cta-band line-grid">
+        <Container className="home-rail-shell">
+          <div className="home-cta-band__layout">
+            <div className="home-cta-band__panel home-cta-band__panel--left">
+              <Eyebrow>START A CONVERSATION</Eyebrow>
+            </div>
+            <div className="home-cta-band__panel home-cta-band__panel--main" data-rail-row="1">
+              <h2>Have land, drawings, or a project idea?</h2>
+              <p>
+                Speak with JVS Enterprises before beginning your project. A clear conversation
+                at the start can help define the scope, estimate the work, identify site
+                challenges, and plan the right way forward.
+              </p>
+            </div>
+            <div className="home-cta-band__panel home-cta-band__panel--right" data-rail-row="1">
+              <div className="hero-actions">
+                <CTAButton href="/contact" tone="light">
+                  Discuss a Project
+                </CTAButton>
+                <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
+                  Call {siteConfig.phone}
+                </CTAButton>
+              </div>
+            </div>
           </div>
         </Container>
       </section>

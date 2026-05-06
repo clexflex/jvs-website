@@ -134,7 +134,14 @@ export default function OurCompanyPage() {
       <section className="company-editorial line-grid">
         <Container className="rail-page__container">
           <div className="company-rail-pair company-rail-pair--reverse">
-            <CompanyMedia label="JVS founder-led construction journey" />
+            <figure className="company-rail-media">
+              <Image
+                src="/images/satish-bhosale.png"
+                alt="JVS Enterprises | Satish Bhosale | Founder Journey"
+                fill
+                sizes="(max-width: 760px) 100vw, 50vw"
+              />
+            </figure>
             <div className="company-rail-copy company-rail-copy--story">
               <Eyebrow>Founder Journey</Eyebrow>
               <h2>The growth of JVS Enterprises reflects the work behind the name.</h2>
