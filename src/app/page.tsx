@@ -68,10 +68,12 @@ function HomeRailIntro({
 }
 
 function HomeRailMedia({
+  src = "/images/project-image-placeholder.jpg",
   title,
   priority = false,
   sizes = "(max-width: 760px) 100vw, 42vw",
 }: {
+  src?: string;
   title: string;
   priority?: boolean;
   sizes?: string;
@@ -80,7 +82,7 @@ function HomeRailMedia({
     <div className="home-rail-media">
       <div className="home-rail-media__visual">
         <Image
-          src="/images/project-image-placeholder.jpg"
+          src={src}
           alt={title}
           fill
           sizes={sizes}
@@ -97,26 +99,33 @@ function HomeFeatureCard({
   copy,
   href,
   linkLabel,
+  imageSrc,
   priority = false,
 }: {
   eyebrow: string;
   title: string;
-  copy: string;
+  copy?: string;
   href: string;
   linkLabel: string;
+  imageSrc?: string;
   priority?: boolean;
 }) {
   return (
     <article className="home-editorial-card home-editorial-card--feature" data-rail-row="1">
       <Link className="home-editorial-card__media-link" href={href}>
-        <HomeRailMedia title={title} priority={priority} sizes="(max-width: 760px) 100vw, 52vw" />
+        <HomeRailMedia
+          src={imageSrc}
+          title={title}
+          priority={priority}
+          sizes="(max-width: 760px) 100vw, 52vw"
+        />
       </Link>
       <div className="home-editorial-card__body">
         <p className="card-kicker">{eyebrow}</p>
         <h3>
           <Link href={href}>{title}</Link>
         </h3>
-        <p>{copy}</p>
+        {copy ? <p>{copy}</p> : null}
         <ArrowLink href={href}>{linkLabel}</ArrowLink>
       </div>
     </article>
@@ -161,6 +170,12 @@ function HomeServiceCard({ service, index }: { service: Service; index: number }
 }
 
 export default function Home() {
+  const editorialImages = [
+    "/images/project-image-1-Panhala-Powar.jpg",
+    "/images/project-image-2-Panhala-Powar.jpg",
+    "/images/project-image-3-Panhala-Powar.jpg",
+  ];
+
   const featuredProjects = projects.slice(0, 7);
   const featuredProject = featuredProjects[0];
   const supportingProjects = featuredProjects.slice(1, 7);
@@ -168,16 +183,22 @@ export default function Home() {
   const featuredInsight = featuredInsights[0];
   const supportingInsights = featuredInsights.slice(1, 7);
   const localBusinessSchema = getLocalBusinessSchema();
-  const supportingInsightItems: HomeEditorialStackItem[] = supportingInsights.map((insight) => ({
-    title: insight.title,
-    href: `/insights/${insight.slug}`,
-    linkLabel: "Read More",
-  }));
-  const supportingProjectItems: HomeEditorialStackItem[] = supportingProjects.map((project) => ({
-    title: project.title,
-    href: `/projects/${project.slug}`,
-    linkLabel: "View Project",
-  }));
+  const supportingInsightItems: HomeEditorialStackItem[] = supportingInsights.map(
+    (insight, index) => ({
+      title: insight.title,
+      href: `/insights/${insight.slug}`,
+      linkLabel: "Read More",
+      imageSrc: editorialImages[(index + 1) % editorialImages.length],
+    }),
+  );
+  const supportingProjectItems: HomeEditorialStackItem[] = supportingProjects.map(
+    (project, index) => ({
+      title: project.title,
+      href: `/projects/${project.slug}`,
+      linkLabel: "View Project",
+      imageSrc: editorialImages[(index + 1) % editorialImages.length],
+    }),
+  );
 
   return (
     <>
@@ -221,18 +242,18 @@ export default function Home() {
       {featuredInsight ? (
         <section className="home-rail-section home-rail-section--insights line-grid">
           <Container className="home-rail-shell">
-            <HomeRailIntro
-              title="News & Insights"
-            />
-            <div className="home-editorial-grid home-editorial-grid--insights">
-              <HomeFeatureCard
-                eyebrow={featuredInsight.category}
-                title={featuredInsight.title}
-                copy={featuredInsight.listingExcerpt}
-                href={`/insights/${featuredInsight.slug}`}
-                linkLabel="Read Insight"
-                priority
-              />
+            <HomeRailIntro title="News & Insights" />
+            <div className="home-rail-editorial home-rail-editorial--insights">
+              <div className="home-rail-editorial__feature">
+                <HomeFeatureCard
+                  eyebrow={featuredInsight.category}
+                  title={featuredInsight.title}
+                  href={`/insights/${featuredInsight.slug}`}
+                  linkLabel="Read More"
+                  imageSrc={editorialImages[0]}
+                  priority
+                />
+              </div>
               <HomeEditorialStack items={supportingInsightItems} />
             </div>
             <div className="home-rail-actions">
@@ -268,17 +289,17 @@ export default function Home() {
       {featuredProject ? (
         <section className="home-rail-section home-rail-section--projects line-grid">
           <Container className="home-rail-shell">
-            <HomeRailIntro
-              title="Selected Work"
-            />
-            <div className="home-editorial-grid home-editorial-grid--projects">
-              <HomeFeatureCard
-                eyebrow={`${featuredProject.category} · ${featuredProject.location}`}
-                title={featuredProject.title}
-                copy={featuredProject.description}
-                href={`/projects/${featuredProject.slug}`}
-                linkLabel="View Project"
-              />
+            <HomeRailIntro title="Selected Work" />
+            <div className="home-rail-editorial home-rail-editorial--projects">
+              <div className="home-rail-editorial__feature">
+                <HomeFeatureCard
+                  eyebrow={`${featuredProject.category} · ${featuredProject.location}`}
+                  title={featuredProject.title}
+                  href={`/projects/${featuredProject.slug}`}
+                  linkLabel="View Project"
+                  imageSrc={editorialImages[0]}
+                />
+              </div>
               <HomeEditorialStack items={supportingProjectItems} />
             </div>
             <div className="home-rail-actions">

@@ -10,6 +10,7 @@ export type HomeEditorialStackItem = {
   title: string;
   href: string;
   linkLabel: string;
+  imageSrc?: string;
 };
 
 export function truncateEditorialTitle(title: string, maxLength = 50) {
@@ -37,7 +38,7 @@ function CompactCard({
         <div className="home-rail-media">
           <div className="home-rail-media__visual">
             <Image
-              src="/images/project-image-placeholder.jpg"
+              src={item.imageSrc ?? "/images/project-image-placeholder.jpg"}
               alt={item.title}
               fill
               sizes={
@@ -60,12 +61,22 @@ function CompactCard({
 }
 
 export function HomeEditorialStack({ items }: { items: HomeEditorialStackItem[] }) {
+  const leftColumn = items.slice(0, Math.ceil(items.length / 2));
+  const rightColumn = items.slice(Math.ceil(items.length / 2));
+
   return (
     <>
       <div className="home-editorial-stack home-editorial-stack--desktop" data-rail-row="1">
-        {items.map((item) => (
-          <CompactCard key={item.href} item={item} />
-        ))}
+        <div className="home-editorial-stack__column">
+          {leftColumn.map((item) => (
+            <CompactCard key={item.href} item={item} />
+          ))}
+        </div>
+        <div className="home-editorial-stack__column">
+          {rightColumn.map((item) => (
+            <CompactCard key={item.href} item={item} />
+          ))}
+        </div>
       </div>
 
       <Swiper
