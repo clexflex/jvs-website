@@ -29,6 +29,7 @@ export function SiteFooter() {
               {item.label}
             </Link>
           ))}
+          <Link href="/sitemap">Sitemap</Link>
         </nav>
 
         <div className="footer-contact">

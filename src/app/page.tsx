@@ -7,7 +7,7 @@ import {
 } from "@/components/HomeEditorialStack";
 import { ArrowLink, CTAButton, Container, Eyebrow } from "@/components/Primitives";
 import { getAllInsights, getLocalBusinessSchema } from "@/content/insights";
-import { projects, services, siteConfig, stats } from "@/content/site";
+import { services, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
@@ -176,9 +176,6 @@ export default function Home() {
     "/images/project-image-3-Panhala-Powar.jpg",
   ];
 
-  const featuredProjects = projects.slice(0, 7);
-  const featuredProject = featuredProjects[0];
-  const supportingProjects = featuredProjects.slice(1, 7);
   const featuredInsights = getAllInsights().slice(0, 7);
   const featuredInsight = featuredInsights[0];
   const supportingInsights = featuredInsights.slice(1, 7);
@@ -188,14 +185,6 @@ export default function Home() {
       title: insight.title,
       href: `/insights/${insight.slug}`,
       linkLabel: "Read More",
-      imageSrc: editorialImages[(index + 1) % editorialImages.length],
-    }),
-  );
-  const supportingProjectItems: HomeEditorialStackItem[] = supportingProjects.map(
-    (project, index) => ({
-      title: project.title,
-      href: `/projects/${project.slug}`,
-      linkLabel: "View Project",
       imageSrc: editorialImages[(index + 1) % editorialImages.length],
     }),
   );
@@ -286,31 +275,6 @@ export default function Home() {
         </Container>
       </section>
 
-      {featuredProject ? (
-        <section className="home-rail-section home-rail-section--projects line-grid">
-          <Container className="home-rail-shell">
-            <HomeRailIntro title="Selected Work" />
-            <div className="home-rail-editorial home-rail-editorial--projects">
-              <div className="home-rail-editorial__feature">
-                <HomeFeatureCard
-                  eyebrow={`${featuredProject.category} · ${featuredProject.location}`}
-                  title={featuredProject.title}
-                  href={`/projects/${featuredProject.slug}`}
-                  linkLabel="View Project"
-                  imageSrc={editorialImages[0]}
-                />
-              </div>
-              <HomeEditorialStack items={supportingProjectItems} />
-            </div>
-            <div className="home-rail-actions">
-              <CTAButton href="/projects" tone="outline">
-                View All Projects
-              </CTAButton>
-            </div>
-          </Container>
-        </section>
-      ) : null}
-
       <section className="home-rail-section home-rail-section--services line-grid">
         <Container className="home-rail-shell">
           <div className="home-slab-layout home-slab-layout--services">
@@ -328,42 +292,6 @@ export default function Home() {
                 <HomeServiceCard key={service.id} service={service} index={index} />
               ))}
             </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="home-rail-section home-rail-section--company line-grid">
-        <Container className="home-rail-shell">
-          <div className="home-company-band">
-            <div className="home-company-band__copy" data-rail-row="1">
-              <Eyebrow>OUR COMPANY</Eyebrow>
-              <h2>Built from Panhala. Trusted across projects.</h2>
-              <p>
-                JVS Enterprises began around 2006 with a small start and a clear commitment to
-                dependable construction work. Under the leadership of Mr. Satish Bhosale, the
-                company has grown through years of site execution, client relationships, and
-                practical experience across Panhala, Kolhapur, and nearby regions.
-              </p>
-              <p>
-                Today, JVS Enterprises works with a team of 100+ workers and handles projects
-                across residential, institutional, commercial, RCC, finishing, and site
-                development work.
-              </p>
-              <CTAButton href="/our-company" tone="outline">
-                Know Our Journey
-              </CTAButton>
-            </div>
-            <div className="home-company-band__media" data-rail-row="1">
-              <HomeRailMedia title="JVS Enterprises company story" sizes="(max-width: 760px) 100vw, 44vw" />
-            </div>
-          </div>
-          <div className="home-stat-row">
-            {stats.map((stat) => (
-              <article key={stat.label}>
-                <p>{stat.label}</p>
-                <strong>{stat.value}</strong>
-              </article>
-            ))}
           </div>
         </Container>
       </section>
@@ -392,33 +320,6 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="cta-band home-cta-band line-grid">
-        <Container className="home-rail-shell">
-          <div className="home-cta-band__layout">
-            <div className="home-cta-band__panel home-cta-band__panel--left">
-              <Eyebrow>START A CONVERSATION</Eyebrow>
-            </div>
-            <div className="home-cta-band__panel home-cta-band__panel--main" data-rail-row="1">
-              <h2>Have land, drawings, or a project idea?</h2>
-              <p>
-                Speak with JVS Enterprises before beginning your project. A clear conversation
-                at the start can help define the scope, estimate the work, identify site
-                challenges, and plan the right way forward.
-              </p>
-            </div>
-            <div className="home-cta-band__panel home-cta-band__panel--right" data-rail-row="1">
-              <div className="hero-actions">
-                <CTAButton href="/contact" tone="light">
-                  Discuss a Project
-                </CTAButton>
-                <CTAButton href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} tone="light">
-                  Call {siteConfig.phone}
-                </CTAButton>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

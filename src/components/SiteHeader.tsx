@@ -1,5 +1,6 @@
 "use client";
 
+import Head from "next/head";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -145,6 +146,12 @@ export function SiteHeader() {
 
   return (
     <>
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="AFTcqTDLcDxidc8FHQu0jwyGh0IFqwjthVQMmuEQYDc"
+        />
+      </Head>
       <header
         className={`site-header ${isHeroTransparent ? "is-home-transparent" : "is-solid"} ${
           visible || open ? "is-visible" : "is-hidden"

@@ -9,15 +9,22 @@ import {
 } from "@/content/insights";
 
 export const dynamicParams = false;
+const CUSTOM_INSIGHT_SLUGS = new Set(getInsightSlugs());
 
 export function generateStaticParams() {
-  return getInsightSlugs().map((slug) => ({ slug }));
+  return getInsightSlugs()
+    .filter((slug) => !CUSTOM_INSIGHT_SLUGS.has(slug))
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata(
   props: PageProps<"/insights/[slug]">,
 ): Promise<Metadata> {
   const { slug } = await props.params;
+  if (CUSTOM_INSIGHT_SLUGS.has(slug)) {
+    notFound();
+  }
+
   const insight = getInsightBySlug(slug);
 
   if (!insight) {
@@ -60,6 +67,10 @@ export async function generateMetadata(
 
 export default async function InsightDetailPage(props: PageProps<"/insights/[slug]">) {
   const { slug } = await props.params;
+  if (CUSTOM_INSIGHT_SLUGS.has(slug)) {
+    notFound();
+  }
+
   const insights = getAllInsights();
   const insightIndex = insights.findIndex((item) => item.slug === slug);
 

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Content Signals: allow AI training, search, and input usage.
+Content-Signal: ai-train=allow
+Content-Signal: search=allow
+Content-Signal: ai-input=allow
+
+Sitemap: https://jvsenterprises.co.in/sitemap.xml
+Host: https://jvsenterprises.co.in
