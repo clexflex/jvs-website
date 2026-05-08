@@ -5,17 +5,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navItems, siteConfig } from "@/content/site";
 
-const socialLinks = [
-  { label: "Facebook", href: "#", icon: "/assets/FacebookLogo.svg" },
-  { label: "Instagram", href: "#", icon: "/assets/InstagramLogo.svg" },
-  { label: "LinkedIn", href: "#", icon: "/assets/LinkedinLogo.svg" },
-  { label: "YouTube", href: "#", icon: "/assets/YoutubeLogo.svg" },
-];
-
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="footer-rail footer-rail--top">
+      <div className="footer-rail footer-rail--top footer-row footer-row--primary">
         <div className="footer-brand">
           <Link href="/" aria-label="JVS Enterprises home">
             <Image src="/JVS-Logo.png" alt="" width={86} height={72} />
@@ -29,17 +22,28 @@ export function SiteFooter() {
               {item.label}
             </Link>
           ))}
-          <Link href="/sitemap">Sitemap</Link>
         </nav>
 
-        <div className="footer-contact">
-          <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a>
-          <span>|</span>
-          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        <div className="footer-contact footer-terms" aria-label="Footer utility links">
+          <Link className="footer-terms-link" href="/sitemap">
+            Sitemap
+          </Link>
+          <span className="footer-terms-separator" aria-hidden="true">
+            |
+          </span>
+          <Link className="footer-terms-link" href="/privacy-notice">
+            Privacy Notice
+          </Link>
+          <span className="footer-terms-separator" aria-hidden="true">
+            |
+          </span>
+          <Link className="footer-terms-link" href="/docs/api">
+            API Documentation
+          </Link>
         </div>
       </div>
 
-      <div className="footer-rail footer-rail--bottom">
+      <div className="footer-rail footer-rail--bottom footer-row footer-row--secondary">
         <p className="footer-copyright">
           © JVS Enterprises
           <br className="footer-copyright-br" />
@@ -52,17 +56,11 @@ export function SiteFooter() {
             institutional, commercial, RCC, and site development projects across Panhala,
             Kolhapur, and nearby regions.
           </p>
-          <div className="footer-social" aria-label="Social links">
-            {socialLinks.map((item) => (
-              <a key={item.label} href={item.href} aria-label={item.label}>
-                <Image src={item.icon} alt="" width={28} height={28} />
-              </a>
-            ))}
-          </div>
+          <p className="footer-legal-gstin">GSTIN: 27CJXPB7834H1ZO</p>
         </div>
 
         <div className="footer-credit">
-          <Link href="https://www.fatmangosolutions.com/">
+          <Link className="footer-credit-link" href="https://www.fatmangosolutions.com/">
             Website by Fat Mango Solutions
           </Link>
         </div>
