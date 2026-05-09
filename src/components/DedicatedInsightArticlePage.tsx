@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CTAButton, Container } from "@/components/Primitives";
 import type { Insight } from "@/content/insights";
@@ -33,6 +34,30 @@ function renderBlocks(section: Insight["sections"][number]) {
 }
 
 export function DedicatedInsightArticlePage({ insight }: { insight: Insight }) {
+  const shareUrl = insight.seo.canonical;
+  const shareLinks = [
+    {
+      label: "Facebook",
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+      icon: "/assets/fb-share.svg",
+    },
+    {
+      label: "Twitter",
+      href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(insight.title)}`,
+      icon: "/assets/twitter-share.svg",
+    },
+    {
+      label: "LinkedIn",
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+      icon: "/assets/linkedin-share.svg",
+    },
+    {
+      label: "Email",
+      href: `mailto:?subject=${encodeURIComponent(insight.title)}&body=${encodeURIComponent(shareUrl)}`,
+      icon: "/assets/mail-share.svg",
+    },
+  ];
+
   return (
     <main className="insight-article-page">
       <section className="insight-band insight-band--hero line-grid">
@@ -51,11 +76,49 @@ export function DedicatedInsightArticlePage({ insight }: { insight: Insight }) {
         </Container>
       </section>
 
+      <section className="insight-band insight-band--share line-grid">
+        <Container className="insight-band__container">
+          <div className="insight-rail-layout">
+            <div className="insight-rail-panel insight-rail-panel--left" />
+
+            <div className="insight-rail-panel insight-rail-panel--main">
+              <div className="insight-share-band">
+                <p className="eyebrow">Share This Insight</p>
+                <div className="insight-share">
+                  {shareLinks.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Share on ${item.label}`}
+                    >
+                      <Image src={item.icon} alt="" width={24} height={24} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="insight-rail-panel insight-rail-panel--right" />
+          </div>
+        </Container>
+      </section>
+
       <section className="insight-band insight-article-page__body line-grid">
         <Container className="insight-band__container">
           <div className="insight-article-layout">
             <article className="insight-article-main">
               <p className="insight-lead">{insight.deck}</p>
+
+              <figure className="insight-media-card insight-media-card--centered insight-article-main__image">
+                <Image
+                  src={insight.imagePath}
+                  alt={insight.featuredImageAlt || insight.title}
+                  width={1200}
+                  height={760}
+                />
+              </figure>
 
               <div className="insight-section__flow">
                 {insight.intro.map((paragraph) => (

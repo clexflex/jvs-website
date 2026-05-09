@@ -43,7 +43,7 @@ export function CompanyValuesSlider({
       </div>
       <figure className="company-rail-media company-culture__media">
         <Image
-          src="/assets/insight-placeholder.svg"
+          src="/images/our-company/our-working-values.webp"
           alt="JVS construction values and supervision"
           fill
           sizes="(max-width: 760px) 100vw, 50vw"

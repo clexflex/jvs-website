@@ -13,12 +13,14 @@ export function ServiceParallaxMedia({
   eyebrow,
   title,
   detail,
+  imageSrc = "/assets/insight-placeholder.svg",
   align = "right",
   priority = false,
 }: {
   eyebrow: string;
   title: string;
   detail: string;
+  imageSrc?: string;
   align?: "left" | "right";
   priority?: boolean;
 }) {
@@ -28,7 +30,7 @@ export function ServiceParallaxMedia({
     >
       <div className="service-parallax-media__visual">
         <Image
-          src="/assets/insight-placeholder.svg"
+          src={imageSrc}
           alt={title}
           fill
           sizes="(max-width: 760px) 100vw, 50vw"

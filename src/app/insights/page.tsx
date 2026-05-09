@@ -59,7 +59,7 @@ export default async function InsightsPage({
               <article key={insight.slug} className="turner-insights-card">
                 <Link className="turner-insights-card__image" href={`/insights/${insight.slug}`}>
                   <Image
-                    src="/assets/insight-placeholder.svg"
+                    src={insight.imagePath}
                     alt={insight.featuredImageAlt || insight.title}
                     width={560}
                     height={420}

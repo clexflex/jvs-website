@@ -111,6 +111,8 @@ export type Insight = {
   schemaType: "Article" | "BlogPosting";
   schema: InsightSchema;
   relatedProjectSlug?: string;
+  imagePath: string;
+  imageUrl: string;
 };
 
 const INSIGHTS_DIR = path.join(
@@ -119,7 +121,10 @@ const INSIGHTS_DIR = path.join(
 );
 
 const SITE_URL = "https://jvsenterprises.co.in";
+const INSIGHTS_IMAGE_DIR = "/images/insights";
 const PLACEHOLDER_IMAGE = `${SITE_URL}/assets/insight-placeholder.svg`;
+const PLACEHOLDER_IMAGE_PATH = "/assets/insight-placeholder.svg";
+const MAX_INSIGHT_IMAGE_INDEX = 17;
 
 const RELATED_PROJECTS: Record<string, string> = {
   "yspm-nursing-college-kodoli-project-note": "yspm-nursing-college-kodoli",
@@ -778,6 +783,7 @@ function buildArticleSchema({
   slug,
   featuredImageAlt,
   keywords,
+  imageUrl,
 }: {
   articleType: "Article" | "BlogPosting";
   title: string;
@@ -786,6 +792,7 @@ function buildArticleSchema({
   slug: string;
   featuredImageAlt: string;
   keywords: string[];
+  imageUrl: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -797,7 +804,7 @@ function buildArticleSchema({
     image: [
       {
         "@type": "ImageObject",
-        url: PLACEHOLDER_IMAGE,
+        url: imageUrl,
         caption: featuredImageAlt || title,
       },
     ],
@@ -876,6 +883,8 @@ function parseInsightFile(fileName: string): Insight {
   const schemaSection = extractTopLevelSection(markdown, /JSON-LD Schema for Article(?: \+ FAQ)?/);
   const schemaType = extractSchemaType(schemaSection) ?? (kind === "project-note" ? "Article" : "BlogPosting");
   const publishedDate = extractSchemaDate(schemaSection);
+  const imagePath = getInsightImagePath(fileOrder);
+  const imageUrl = getInsightImageUrl(fileOrder);
   const seo = buildSeoPackage({
     slug,
     seoTitle,
@@ -883,6 +892,7 @@ function parseInsightFile(fileName: string): Insight {
     description,
     featuredImageAlt,
   });
+  seo.openGraph.image = imageUrl;
   const schema = {
     article: buildArticleSchema({
       articleType: schemaType,
@@ -892,6 +902,7 @@ function parseInsightFile(fileName: string): Insight {
       slug,
       featuredImageAlt,
       keywords: [primaryKeyword, ...secondaryKeywords, ...tags].filter(Boolean),
+      imageUrl,
     }),
     faq: buildFaqSchema(faqItems),
     localBusiness: markdown.includes("# LocalBusiness Schema for JVS Enterprises")
@@ -935,6 +946,8 @@ function parseInsightFile(fileName: string): Insight {
     schemaType,
     schema,
     relatedProjectSlug,
+    imagePath,
+    imageUrl,
   };
 }
 
@@ -975,4 +988,21 @@ export function getSiteUrl() {
 
 export function getInsightPlaceholderImage() {
   return PLACEHOLDER_IMAGE;
+}
+
+export function getInsightImagePath(order: number) {
+  if (order >= 1 && order <= MAX_INSIGHT_IMAGE_INDEX) {
+    return `${INSIGHTS_IMAGE_DIR}/article${order}.webp`;
+  }
+
+  return PLACEHOLDER_IMAGE_PATH;
+}
+
+export function getInsightImageUrl(order: number) {
+  const imagePath = getInsightImagePath(order);
+  if (imagePath.startsWith("http")) {
+    return imagePath;
+  }
+
+  return `${SITE_URL}${imagePath}`;
 }

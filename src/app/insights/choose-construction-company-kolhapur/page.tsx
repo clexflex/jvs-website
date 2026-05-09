@@ -9,7 +9,7 @@ const articleTitle =
   "Choosing the Right Construction Company in Kolhapur: A Practical Guide for Homeowners and Institutions";
 const articleDescription =
   "A practical guide for choosing a construction company in Kolhapur and Panhala, covering experience, RCC quality, site supervision, budgeting, timelines, and completed projects.";
-const articleImage = "https://jvsenterprises.co.in/images/project-image-1-Panhala-Powar.jpg";
+const articleImage = "https://jvsenterprises.co.in/images/insights/article1.webp";
 const publishedDate = "2026-04-25";
 
 type SectionData = {
@@ -439,6 +439,29 @@ const faqSchema = {
   ],
 };
 
+const shareLinks = [
+  {
+    label: "Facebook",
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`,
+    icon: "/assets/fb-share.svg",
+  },
+  {
+    label: "Twitter",
+    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(canonicalUrl)}&text=${encodeURIComponent(articleTitle)}`,
+    icon: "/assets/twitter-share.svg",
+  },
+  {
+    label: "LinkedIn",
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`,
+    icon: "/assets/linkedin-share.svg",
+  },
+  {
+    label: "Email",
+    href: `mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(canonicalUrl)}`,
+    icon: "/assets/mail-share.svg",
+  },
+];
+
 export default function ChooseConstructionCompanyKolhapurPage() {
   return (
     <main className="insight-article-page">
@@ -461,6 +484,35 @@ export default function ChooseConstructionCompanyKolhapurPage() {
                 <p className="insight-publish-line">April 25, 2026</p>
               </div>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="insight-band insight-band--share line-grid">
+        <Container className="insight-band__container">
+          <div className="insight-rail-layout">
+            <div className="insight-rail-panel insight-rail-panel--left" />
+
+            <div className="insight-rail-panel insight-rail-panel--main">
+              <div className="insight-share-band">
+                <p className="eyebrow">Share This Insight</p>
+                <div className="insight-share">
+                  {shareLinks.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Share on ${item.label}`}
+                    >
+                      <Image src={item.icon} alt="" width={24} height={24} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="insight-rail-panel insight-rail-panel--right" />
           </div>
         </Container>
       </section>
@@ -499,7 +551,7 @@ export default function ChooseConstructionCompanyKolhapurPage() {
 
               <figure className="insight-media-card insight-media-card--centered insight-article-main__image">
                 <Image
-                  src="/images/project-image-1-Panhala-Powar.jpg"
+                  src="/images/insights/article1.webp"
                   alt="Construction site managed by JVS Enterprises in Kolhapur and Panhala region"
                   width={1200}
                   height={760}

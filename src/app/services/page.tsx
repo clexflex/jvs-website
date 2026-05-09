@@ -10,6 +10,15 @@ export const metadata: Metadata = {
     "JVS Enterprises offers site assessment, planning, estimation, residential construction, commercial construction, institutional construction, RCC work, finishing, renovation, compound walls, water tanks, drainage, and site development services.",
 };
 
+const serviceImageById: Record<string, string> = {
+  planning: "/images/services/PLANNING & PRE-CONSTRUCTION.webp",
+  construction: "/images/services/BUILDING CONSTRUCTION.webp",
+  "rcc-works": "/images/services/RCC & STRUCTURAL WORKS.webp",
+  finishing: "/images/services/FINISHING & COORDINATION.webp",
+  renovation: "/images/services/REPAIR, RENOVATION & SPECIALTY WORKS.webp",
+  "site-development": "/images/services/SITE DEVELOPMENT & EXTERNAL WORKS.webp",
+};
+
 export default function ServicesPage() {
   return (
     <>
@@ -104,6 +113,7 @@ export default function ServicesPage() {
                   eyebrow={service.title}
                   title={service.heading}
                   detail={service.summary}
+                  imageSrc={serviceImageById[service.id]}
                   priority={index === 0}
                 />
               </div>

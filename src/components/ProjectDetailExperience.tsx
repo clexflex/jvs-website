@@ -15,6 +15,28 @@ import type {
   ProjectStorySection,
 } from "@/content/project-detail";
 
+function ArrowIcon({ width, height }: { width: number; height: number }) {
+  return (
+    <svg
+      className="project-arrow-icon"
+      width={width}
+      height={height}
+      viewBox="0 0 8 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0.603352 12.1308C0.0882147 12.6655 0.015191 13.3025 0.420793 13.7235C0.826395 14.1445 1.44022 14.0687 1.95536 13.534L7.38522 7.99841C7.64722 7.72648 7.79486 7.42806 7.82333 7.14505C7.8912 6.78755 7.74461 6.3777 7.39502 6.01468L1.95598 0.467539C1.43999 -0.0682715 0.825768 -0.144857 0.420412 0.276075C0.0150556 0.697007 0.0888073 1.33484 0.60479 1.87065L5.63516 7.00099L0.603352 12.1308Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 function ProjectVisual({
   slide,
   tall = false,
@@ -103,10 +125,10 @@ function GalleryStrip({
           </div>
           <div className="project-gallery-strip__controls" aria-label={`${group.title} controls`}>
             <button type="button" onClick={() => swiper?.slidePrev()} aria-label="Previous gallery slide">
-              <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={26} height={14} />
+              <ArrowIcon width={26} height={14} />
             </button>
             <button type="button" onClick={() => swiper?.slideNext()} aria-label="Next gallery slide">
-              <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={26} height={14} />
+              <ArrowIcon width={26} height={14} />
             </button>
           </div>
         </div>
@@ -184,11 +206,11 @@ function ProjectLightbox({
         </button>
         <div className="project-lightbox__stage">
           <button type="button" onClick={() => onMove(-1)} aria-label="Previous image">
-            <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={28} height={16} />
+            <ArrowIcon width={28} height={16} />
           </button>
           <ProjectVisual slide={slide} tall />
           <button type="button" onClick={() => onMove(1)} aria-label="Next image">
-            <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={28} height={16} />
+            <ArrowIcon width={28} height={16} />
           </button>
         </div>
       </div>
@@ -229,7 +251,7 @@ function PrevNextProjects({
                 <span>{item.project.location}</span>
                 <span className="project-pagination-card__cta">
                   View Project
-                  <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={26} height={14} />
+                  <ArrowIcon width={26} height={14} />
                 </span>
               </div>
             </Link>
@@ -397,7 +419,7 @@ export function ProjectDetailExperience({ detail }: { detail: ProjectDetailConte
                   </div>
                   <button className="project-detail-hero__card-action" type="button" onClick={openSpecs}>
                     <span>Project Specs</span>
-                    <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={28} height={16} />
+                    <ArrowIcon width={28} height={16} />
                   </button>
                   <a
                     className="project-detail-hero__card-story"
@@ -418,10 +440,10 @@ export function ProjectDetailExperience({ detail }: { detail: ProjectDetailConte
           </span>
           <div>
             <button type="button" onClick={() => heroSwiper?.slidePrev()} aria-label="Previous hero slide">
-              <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={30} height={16} />
+              <ArrowIcon width={30} height={16} />
             </button>
             <button type="button" onClick={() => heroSwiper?.slideNext()} aria-label="Next hero slide">
-              <Image className="project-arrow-icon" src="/assets/small-arr.svg" alt="" width={30} height={16} />
+              <ArrowIcon width={30} height={16} />
             </button>
           </div>
         </div>

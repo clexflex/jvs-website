@@ -7,7 +7,7 @@ import {
 } from "@/components/HomeEditorialStack";
 import { ArrowLink, CTAButton, Container, Eyebrow } from "@/components/Primitives";
 import { getAllInsights, getLocalBusinessSchema } from "@/content/insights";
-import { services, siteConfig } from "@/content/site";
+import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
@@ -50,8 +50,6 @@ const processSteps = [
   ["05. Quality Checks", "Work is monitored for alignment, strength, curing, finishing, safety, and long-term usability."],
   ["06. Handover", "The site is completed, cleaned, reviewed, and handed over with attention to final usability."],
 ];
-
-type Service = (typeof services)[number];
 
 function HomeRailIntro({
   title,
@@ -151,20 +149,6 @@ function HomeCapabilityCard({
       <h3>{title}</h3>
       <p>{copy}</p>
       <ArrowLink href={href}>{cta}</ArrowLink>
-    </article>
-  );
-}
-
-function HomeServiceCard({ service, index }: { service: Service; index: number }) {
-  return (
-    <article className="home-service-card">
-      <div className="home-service-card__head">
-        <p className="card-index">{String(index + 1).padStart(2, "0")}</p>
-        <p className="card-kicker">{service.navLabel}</p>
-      </div>
-      <h3>{service.title}</h3>
-      <p>{service.summary}</p>
-      <ArrowLink href={`/services#${service.id}`}>{service.cta}</ArrowLink>
     </article>
   );
 }
@@ -269,27 +253,6 @@ export default function Home() {
             <div className="home-slab-layout__grid" data-rail-row="1">
               {buildCards.map((card, index) => (
                 <HomeCapabilityCard key={card.title} index={index + 1} {...card} />
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="home-rail-section home-rail-section--services line-grid">
-        <Container className="home-rail-shell">
-          <div className="home-slab-layout home-slab-layout--services">
-            <div className="home-slab-layout__intro" data-rail-row="1">
-              <Eyebrow>OUR SERVICES</Eyebrow>
-              <h2>Construction services from planning to handover.</h2>
-              <p>
-                JVS Enterprises supports projects through every major stage of construction —
-                from site assessment, estimates, and drawing coordination to RCC work, finishing,
-                external development, and final handover.
-              </p>
-            </div>
-            <div className="home-slab-layout__grid" data-rail-row="1">
-              {services.slice(0, 4).map((service, index) => (
-                <HomeServiceCard key={service.id} service={service} index={index} />
               ))}
             </div>
           </div>

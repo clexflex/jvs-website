@@ -4,7 +4,6 @@ import { InsightArticlePage } from "@/components/InsightArticlePage";
 import {
   getAllInsights,
   getInsightBySlug,
-  getInsightPlaceholderImage,
   getInsightSlugs,
 } from "@/content/insights";
 
@@ -98,7 +97,7 @@ export default async function InsightDetailPage(props: PageProps<"/insights/[slu
     image: [
       {
         "@type": "ImageObject",
-        url: getInsightPlaceholderImage(),
+        url: insight.imageUrl,
         caption: insight.featuredImageAlt || insight.title,
       },
     ],

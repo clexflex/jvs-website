@@ -43,11 +43,11 @@ const values: CompanyValue[] = [
   },
 ];
 
-function CompanyMedia({ label }: { label: string }) {
+function CompanyMedia({ label, src }: { label: string; src: string }) {
   return (
     <figure className="company-rail-media">
       <Image
-        src="/assets/insight-placeholder.svg"
+        src={src}
         alt={label}
         fill
         sizes="(max-width: 760px) 100vw, 50vw"
@@ -126,7 +126,10 @@ export default function OurCompanyPage() {
                 final site development to be coordinated together.
               </p>
             </div>
-            <CompanyMedia label="JVS construction site discipline" />
+            <CompanyMedia
+              label="JVS construction site discipline"
+              src="/images/our-company/who-we-are.webp"
+            />
           </div>
         </Container>
       </section>
@@ -136,7 +139,7 @@ export default function OurCompanyPage() {
           <div className="company-rail-pair company-rail-pair--reverse">
             <figure className="company-rail-media">
               <Image
-                src="/images/satish-bhosale.png"
+                src="/images/our-company/satish-bhosale.webp"
                 alt="JVS Enterprises | Satish Bhosale | Founder Journey"
                 fill
                 sizes="(max-width: 760px) 100vw, 50vw"

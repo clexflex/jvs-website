@@ -2594,20 +2594,31 @@ body.menu-open .anchor-nav--rail {
   min-height: 112px;
   pointer-events: auto;
 }
-
+.project-detail-hero__close:before{
+      background: transparent;
+    border-radius: 8px;
+    bottom: 14px;
+    -webkit-box-shadow: 8px 8px #fff;
+    box-shadow: 8px 8px #fff;
+    content: "";
+    height: 20px;
+    left: -98px;
+    position: absolute;
+    width: 100px;
+}
 .project-detail-hero__close {
   position: absolute;
-  right: 12px;
+  right: 0px;
   top: -22px;
   bottom: auto;
   z-index: 3;
-  padding: 9px 18px 10px;
+  padding: 9px 18px 2px;
   border: 0;
   border-radius: 18px 18px 0 0;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 12px 24px rgba(6, 13, 24, 0.12);
+  background: rgba(255, 255, 255);
   cursor: pointer;
   pointer-events: auto;
+  color: #000;
 }
 
 .project-detail-hero__card {
@@ -2618,7 +2629,7 @@ body.menu-open .anchor-nav--rail {
   margin: 0;
   color: var(--charcoal);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255);
   box-shadow: 0 24px 56px rgba(6, 13, 24, 0.18);
   transform: translateX(-2px) scaleX(0.1);
   transform-origin: left center;
@@ -2674,16 +2685,20 @@ body.menu-open .anchor-nav--rail {
   text-transform: uppercase;
 }
 
-.project-detail-hero__card-action img {
-  filter: brightness(0) saturate(100%) invert(34%) sepia(95%) saturate(4521%) hue-rotate(3deg)
-    brightness(102%) contrast(102%);
+.project-detail-hero__card-action .project-arrow-icon {
+  color: var(--accent);
 }
 
-.project-arrow-icon,
 .project-share-band__icon,
 .project-utility-icon {
   width: auto;
   height: auto;
+}
+
+.project-arrow-icon {
+  display: block;
+  flex: none;
+  color: currentColor;
 }
 
 .project-detail-hero__card-story {
@@ -2831,9 +2846,9 @@ body.menu-open .anchor-nav--rail {
   transform: translateY(-2px);
 }
 
-.project-detail-hero__controls button:first-child img,
-.project-gallery-strip__controls button:first-child img,
-.project-lightbox__stage > button:first-child img {
+.project-detail-hero__controls button:first-child .project-arrow-icon,
+.project-gallery-strip__controls button:first-child .project-arrow-icon,
+.project-lightbox__stage > button:first-child .project-arrow-icon {
   transform: rotate(180deg);
 }
 
@@ -3201,9 +3216,8 @@ body.menu-open .anchor-nav--rail {
   text-transform: uppercase;
 }
 
-.project-pagination-card__cta img {
-  filter: brightness(0) saturate(100%) invert(34%) sepia(95%) saturate(4521%) hue-rotate(3deg)
-    brightness(102%) contrast(102%);
+.project-pagination-card__cta .project-arrow-icon {
+  color: var(--accent);
 }
 
 .project-lightbox {
@@ -3747,12 +3761,13 @@ body.menu-open .anchor-nav--rail {
 .insight-rail-panel--main h1 {
   max-width: 11ch;
   font-size: clamp(2.1rem, 3.5vw, 4.1rem);
-  font-weight: 500;
-  line-height: 1.05;
 }
 .insight-rail-layout h1 {
+  color: #17171b;
   font-size: clamp(2.1rem, 3.5vw, 4.1rem);
-    font-weight: 400;
+  font-weight: 300;
+  letter-spacing: -.015em;
+  line-height: 1;
 }
 
 .insight-hero-copy {
@@ -3782,6 +3797,7 @@ body.menu-open .anchor-nav--rail {
   font-weight: 700;
   letter-spacing: 0;
   text-transform: none;
+  color: var(--blue);
 }
 
 .insight-deck {
@@ -3815,7 +3831,8 @@ body.menu-open .anchor-nav--rail {
 .insight-lead {
   max-width: 31ch;
   color: var(--charcoal);
-  font-size: clamp(1.8rem, 2.6vw, 2.35rem);
+  font-size: clamp(1.8rem, 2.4vw, 30px);
+  font-weight: 300;
   line-height: 1.15;
 }
 
@@ -3881,8 +3898,9 @@ body.menu-open .anchor-nav--rail {
 .insight-section__flow p,
 .insight-section__flow li,
 .insight-support-card p {
-  color: var(--text-secondary);
+  color: #17171b;
   font-size: clamp(1rem, 1.22vw, 1.1rem);
+  font-weight: 300;
   line-height: 1.75;
 }
 
@@ -4219,7 +4237,7 @@ body.menu-open .anchor-nav--rail {
 }
 
 .insight-article-main .insight-lead {
-  max-width: 30ch;
+  max-width: none;
   margin: 0;
 }
 
@@ -4229,8 +4247,9 @@ body.menu-open .anchor-nav--rail {
 }
 
 .insight-article-block h2 {
-  max-width: 20ch;
   margin: 0;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 2vw, 24px);
 }
 
 .insight-point-list {
@@ -5367,8 +5386,8 @@ body.menu-open .anchor-nav--rail {
   }
 
   .insight-lead {
-    max-width: 100%;
     font-size: clamp(1.55rem, 8vw, 2.1rem);
+    font-weight: 300;
   }
 
   .insight-media-card img {

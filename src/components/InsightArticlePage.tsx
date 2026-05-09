@@ -229,7 +229,7 @@ export function InsightArticlePage({
 
             <div className="insight-rail-panel insight-rail-panel--main">
               <div className="insight-share-band">
-                <p className="eyebrow">Share this insight</p>
+                <p className="eyebrow">Share This Insight</p>
                 <div className="insight-share">
                   {shareLinks.map((item) => (
                     <a
@@ -273,7 +273,7 @@ export function InsightArticlePage({
             <div className="insight-rail-panel insight-rail-panel--main">
               <figure className="insight-media-card insight-media-card--centered">
                 <Image
-                  src="/assets/insight-placeholder.svg"
+                  src={insight.imagePath}
                   alt={insight.featuredImageAlt || insight.title}
                   width={1200}
                   height={760}
@@ -283,7 +283,7 @@ export function InsightArticlePage({
 
             <div className="insight-rail-panel insight-rail-panel--right">
               <div className="insight-support-card insight-support-card--caption">
-                <p className="eyebrow">Image Placeholder</p>
+                <p className="eyebrow">Featured Image</p>
                 <p>
                   {insight.featuredImageSuggestion || "Verified project or article image to be added."}
                 </p>
