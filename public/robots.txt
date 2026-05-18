@@ -19,4 +19,3 @@ Content-Signal: search=allow
 Content-Signal: ai-input=allow
 
 Sitemap: https://www.jvsenterprises.co.in/sitemap.xml
-Host: https://www.jvsenterprises.co.in
