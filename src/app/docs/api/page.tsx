@@ -35,7 +35,14 @@ export default function ServiceDocumentationPage() {
               <Link href="/robots.txt">
                 <strong>Robots Rules</strong>
               </Link>
+              <Link href="/api/indexnow/submit-sitemap">
+                <strong>IndexNow Submit Endpoint</strong>
+              </Link>
             </div>
+            <p>Manual trigger example:</p>
+            <pre><code>{`curl -X POST https://www.jvsenterprises.co.in/api/indexnow/submit-sitemap \
+  -H "content-type: application/json" \
+  -d '{"batchSize":500}'`}</code></pre>
           </div>
           <div className="rail-page__panel rail-page__panel--right" />
         </div>

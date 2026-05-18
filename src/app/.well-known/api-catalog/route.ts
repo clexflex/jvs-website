@@ -13,6 +13,11 @@ export async function GET() {
         href: "https://www.jvsenterprises.co.in/sitemap.xml",
         title: "Website XML sitemap",
       },
+      {
+        rel: "indexnow-submit",
+        href: "https://www.jvsenterprises.co.in/api/indexnow/submit-sitemap",
+        title: "Manual IndexNow sitemap batch submission endpoint",
+      },
     ],
   };
 
