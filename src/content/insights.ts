@@ -125,6 +125,12 @@ const INSIGHTS_IMAGE_DIR = "/images/insights";
 const PLACEHOLDER_IMAGE = `${SITE_URL}/assets/insight-placeholder.svg`;
 const PLACEHOLDER_IMAGE_PATH = "/assets/insight-placeholder.svg";
 const MAX_INSIGHT_IMAGE_INDEX = 17;
+const MAX_SEO_TITLE_LENGTH = 68;
+
+function toSeoTitle(value: string) {
+  if (value.length <= MAX_SEO_TITLE_LENGTH) return value;
+  return `${value.slice(0, MAX_SEO_TITLE_LENGTH - 1).trimEnd()}…`;
+}
 
 const RELATED_PROJECTS: Record<string, string> = {
   "yspm-nursing-college-kodoli-project-note": "jayant-patil-yspm-college",
@@ -742,7 +748,7 @@ function buildSeoPackage({
   const canonical = `${SITE_URL}/insights/${slug}`;
 
   return {
-    title: seoTitle || title,
+    title: toSeoTitle(seoTitle || title),
     description,
     canonical,
     openGraph: {

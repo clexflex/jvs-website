@@ -158,7 +158,7 @@ export function SiteHeader() {
         }`}
       >
         <Link className="brand" href="/" aria-label="JVS Enterprises home">
-          <Image src="/JVS-Logo.png" alt="" width={58} height={48} priority />
+          <Image src="/JVS-Logo.png" alt="JVS Enterprises logo" width={58} height={48} priority />
         </Link>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
@@ -196,7 +196,7 @@ export function SiteHeader() {
       <div id="site-menu" className={`mega-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <aside className="mega-menu__brand" aria-label="JVS Enterprises">
           <Link className="mega-menu__logo" href="/" aria-label="JVS Enterprises home">
-            <Image src="/JVS-Logo.png" alt="" width={58} height={48} priority />
+            <Image src="/JVS-Logo.png" alt="JVS Enterprises logo" width={58} height={48} priority />
           </Link>
           <div className="mega-menu__brand-window" aria-hidden="true">
             <div className="mega-menu__brand-track">
@@ -204,7 +204,7 @@ export function SiteHeader() {
                 <Image
                   key={index}
                   src="/JVS Enterprises Text-gray.png"
-                  alt=""
+                  alt="Close menu icon"
                   width={286}
                   height={2000}
                   sizes="25vw"

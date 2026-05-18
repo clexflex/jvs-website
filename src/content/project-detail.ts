@@ -59,6 +59,12 @@ export type ProjectDetailContent = {
 };
 
 const SITE_URL = "https://www.jvsenterprises.co.in";
+const MAX_SEO_TITLE_LENGTH = 68;
+
+function toSeoTitle(value: string) {
+  if (value.length <= MAX_SEO_TITLE_LENGTH) return value;
+  return `${value.slice(0, MAX_SEO_TITLE_LENGTH - 1).trimEnd()}…`;
+}
 
 const categoryLeadMap: Array<[RegExp, string]> = [
   [/institutional/i, "Built for organised movement, durable structure, and long-term daily use."],
@@ -257,7 +263,7 @@ export function getProjectPageMetadata(slug: string) {
   }
 
   return {
-    title: `${project.title} | JVS Enterprises Project in ${project.location}`,
+    title: toSeoTitle(`${project.title} | JVS Enterprises`),
     description:
       project.description ||
       `Explore ${project.title}, a ${project.category} project by JVS Enterprises in ${project.location}.`,

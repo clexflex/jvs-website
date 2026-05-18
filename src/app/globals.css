@@ -2656,11 +2656,24 @@ body.menu-open .anchor-nav--rail {
   color: var(--blue);
 }
 
-.project-detail-hero__card-copy h1 {
+.project-detail-hero__card-copy h1,
+.project-detail-hero__card-copy h2 {
   max-width: 12ch;
   font-size: clamp(1.68rem, 2.65vw, 3.05rem);
   font-weight: 300;
   line-height: 1.06;
+}
+
+.seo-only-heading {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
 }
 
 .project-detail-hero__card-action,

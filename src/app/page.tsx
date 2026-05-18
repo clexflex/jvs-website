@@ -10,7 +10,7 @@ import { getAllInsights, getLocalBusinessSchema } from "@/content/insights";
 import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
+  title: "JVS Enterprises | Construction Company in Panhala & Kolhapur",
   description:
     "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
 };
@@ -186,13 +186,16 @@ export default function Home() {
         <Container>
           <div className="home-hero__content">
             <div className="home-hero__title">
+              <h1 className="seo-only-heading">
+                JVS Enterprises Construction Company in Panhala and Kolhapur
+              </h1>
               <p className="hero-slogan" aria-label={siteConfig.slogan}>
                 <span>A NAME YOU CAN</span>
                 <strong>Trust</strong>
               </p>
               <p className="scroll-prompt">
                 What are you planning to build?
-                <Image src="/assets/btn-arrow.svg" alt="" width={35} height={14} />
+                <Image src="/assets/btn-arrow.svg" alt="Downward arrow" width={35} height={14} />
               </p>
             </div>
           </div>
@@ -203,7 +206,7 @@ export default function Home() {
             <Image
               className="scroll-down-img"
               src="/assets/scroll-down-icon.svg"
-              alt=""
+              alt="Scroll indicator icon"
               width={18}
               height={29}
             />

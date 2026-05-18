@@ -6,7 +6,7 @@ import { ProjectsHeroCarousel } from "@/components/ShowcaseMedia";
 import { getProjectHeroSlides, getProjectsPageData } from "@/content/projects-page";
 
 export const metadata: Metadata = {
-  title: "Projects | JVS Enterprises Construction Work in Kolhapur & Panhala",
+  title: "Projects | JVS Enterprises",
   description:
     "Explore selected JVS Enterprises projects across institutional construction, residential houses, farmhouses, RCC works, compound walls, water tanks, sports grounds, and site development in Kolhapur and Panhala.",
 };
@@ -60,7 +60,7 @@ export default async function ProjectsPage({
               <Eyebrow>Selected Work</Eyebrow>
             </div>
             <div className="rail-page__panel rail-page__panel--main">
-              <h2>Work that stands on site, not just on paper.</h2>
+              <h1>Work that stands on site, not just on paper.</h1>
             </div>
             <div className="rail-page__panel rail-page__panel--right">
               <p>

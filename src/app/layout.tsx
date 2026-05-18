@@ -97,8 +97,8 @@ const rockness = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.jvsenterprises.co.in"),
   title: {
-    default: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
-    template: "%s | JVS Enterprises",
+    default: "JVS Enterprises | Construction Company in Panhala & Kolhapur",
+    template: "%s",
   },
   description:
     "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
@@ -115,7 +115,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://www.jvsenterprises.co.in",
     siteName: "JVS Enterprises",
-    title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
+    title: "JVS Enterprises | Construction Company in Panhala & Kolhapur",
     description:
       "Construction, RCC, residential, commercial, institutional, and site development work across Panhala and Kolhapur.",
     images: [{ url: "/JVS-Logo.png", width: 1200, height: 630, alt: "JVS Enterprises" }],

@@ -103,7 +103,7 @@ export function ProjectsHeroCarousel({ items }: { items: Project[] }) {
                   <span>{project.category}</span>
                 </div>
                 <div className="projects-hero-slide__panel projects-hero-slide__panel--main">
-                  <h1>Built for real site conditions.</h1>
+                  <h2>Built for real site conditions.</h2>
                 </div>
                 <div className="projects-hero-slide__panel projects-hero-slide__panel--right">
                   <span className="projects-hero-slide__location">{project.location}</span>

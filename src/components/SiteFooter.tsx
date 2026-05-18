@@ -11,7 +11,7 @@ export function SiteFooter() {
       <div className="footer-rail footer-rail--top footer-row footer-row--primary">
         <div className="footer-brand">
           <Link href="/" aria-label="JVS Enterprises home">
-            <Image src="/JVS-Logo.png" alt="" width={86} height={72} />
+            <Image src="/JVS-Logo.png" alt="JVS Enterprises logo" width={86} height={72} />
           </Link>
         </div>
 

@@ -74,7 +74,13 @@ function ProjectVisual({
           aria-label={`Open ${slide.title}`}
           onClick={onZoom}
         >
-          <Image className="project-utility-icon" src="/assets/search-black.svg" alt="" width={18} height={18} />
+          <Image
+            className="project-utility-icon"
+            src="/assets/search-black.svg"
+            alt="Open image in full view"
+            width={18}
+            height={18}
+          />
         </button>
       ) : null}
     </figure>
@@ -96,7 +102,13 @@ function ShareBand({ detail }: { detail: ProjectDetailContent }) {
                 rel="noreferrer"
                 aria-label={item.label}
               >
-                <Image className="project-share-band__icon" src={item.icon} alt="" width={22} height={22} />
+                <Image
+                  className="project-share-band__icon"
+                  src={item.icon}
+                  alt={item.label}
+                  width={22}
+                  height={22}
+                />
               </a>
             ))}
           </div>
@@ -399,13 +411,20 @@ export function ProjectDetailExperience({ detail }: { detail: ProjectDetailConte
           className={`project-detail-hero__info-layer ${cardOpen ? "is-open" : ""}`}
         >
           <div className="project-detail-hero__dock">
+            <h1 className="seo-only-heading">{detail.project.title}</h1>
             <button
               className={`project-detail-hero__widget ${cardOpen ? "is-hidden" : ""}`}
               type="button"
               aria-label="Open project information"
               onClick={openInfo}
             >
-              <Image className="project-utility-icon" src="/assets/widget-open.svg" alt="" width={26} height={26} />
+              <Image
+                className="project-utility-icon"
+                src="/assets/widget-open.svg"
+                alt="Open project overview"
+                width={26}
+                height={26}
+              />
             </button>
 
             {cardOpen ? (
@@ -417,7 +436,7 @@ export function ProjectDetailExperience({ detail }: { detail: ProjectDetailConte
                 <div className="project-detail-hero__card">
                   <div className="project-detail-hero__card-copy">
                     <p className="eyebrow">{detail.heroLocationLine}</p>
-                    <h1>{detail.project.title}</h1>
+                    <h2>{detail.project.title}</h2>
                   </div>
                   <button className="project-detail-hero__card-action" type="button" onClick={openSpecs}>
                     <span>Project Specs</span>

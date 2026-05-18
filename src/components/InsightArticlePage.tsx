@@ -239,7 +239,7 @@ export function InsightArticlePage({
                       rel="noreferrer"
                       aria-label={`Share on ${item.label}`}
                     >
-                      <Image src={item.icon} alt="" width={24} height={24} />
+                      <Image src={item.icon} alt={`Share on ${item.label}`} width={24} height={24} />
                     </a>
                   ))}
                 </div>
