@@ -58,6 +58,10 @@ body.menu-open {
   overflow: hidden;
 }
 
+body.menu-open .site-header {
+  pointer-events: none;
+}
+
 body.modal-open {
   overflow: hidden;
 }
@@ -498,7 +502,7 @@ font-size: clamp(1rem, 1.35vw, 1.2rem);
   border: 0;
   border-left: 1px solid var(--border);
   background: transparent;
-  height: -webkit-fill-available;
+  height: 100%;
 }
 
 .header-menu-icon::before,
@@ -5005,17 +5009,17 @@ body.menu-open .anchor-nav--rail {
   }
 
   .mega-menu {
-    display: block;
-    overflow-y: auto;
-    padding-top: var(--header-height);
+    display: grid;
+    grid-template-rows: var(--header-height) minmax(0, 1fr);
+    overflow: hidden;
+    padding-top: 0;
     background: #fff;
   }
 
   .mega-menu__brand {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
+    position: relative;
+    grid-row: 1;
+    z-index: 2;
     display: block;
     min-height: var(--header-height);
     height: var(--header-height);
@@ -5040,7 +5044,12 @@ body.menu-open .anchor-nav--rail {
   }
 
   .mega-menu__main {
+    position: relative;
+    grid-row: 2;
     display: block;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .mega-menu__top {
@@ -5048,6 +5057,7 @@ body.menu-open .anchor-nav--rail {
     top: 0;
     right: 0;
     display: grid;
+    z-index: 5;
     width: 96px;
     height: var(--header-height);
     grid-template-columns: 1fr;
@@ -5068,6 +5078,7 @@ body.menu-open .anchor-nav--rail {
     grid-column: 1;
     width: 100%;
     height: 100%;
+    z-index: 6;
   }
 
   .menu-close span {
