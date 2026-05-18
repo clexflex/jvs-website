@@ -4,12 +4,12 @@ import Link from "next/link";
 import { CTAButton, Container } from "@/components/Primitives";
 
 const canonicalUrl =
-  "https://jvsenterprises.co.in/insights/choose-construction-company-kolhapur";
+  "https://www.jvsenterprises.co.in/insights/choose-construction-company-kolhapur";
 const articleTitle =
   "Choosing the Right Construction Company in Kolhapur: A Practical Guide for Homeowners and Institutions";
 const articleDescription =
   "A practical guide for choosing a construction company in Kolhapur and Panhala, covering experience, RCC quality, site supervision, budgeting, timelines, and completed projects.";
-const articleImage = "https://jvsenterprises.co.in/images/insights/article1.webp";
+const articleImage = "https://www.jvsenterprises.co.in/images/insights/article1.webp";
 const publishedDate = "2026-04-25";
 
 type SectionData = {
@@ -373,7 +373,7 @@ const articleSchema = {
     name: "JVS Enterprises",
     logo: {
       "@type": "ImageObject",
-      url: "https://jvsenterprises.co.in/JVS-Logo.png",
+      url: "https://www.jvsenterprises.co.in/JVS-Logo.png",
     },
   },
   mainEntityOfPage: {

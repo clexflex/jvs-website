@@ -95,7 +95,7 @@ const rockness = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://jvsenterprises.co.in"),
+  metadataBase: new URL("https://www.jvsenterprises.co.in"),
   title: {
     default: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
     template: "%s | JVS Enterprises",
@@ -113,7 +113,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://jvsenterprises.co.in",
+    url: "https://www.jvsenterprises.co.in",
     siteName: "JVS Enterprises",
     title: "JVS Enterprises | Trusted Construction Company in Panhala & Kolhapur",
     description:

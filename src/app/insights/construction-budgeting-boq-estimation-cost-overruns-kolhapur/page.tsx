@@ -60,7 +60,7 @@ export default function InsightPage() {
       name: "JVS Enterprises",
       logo: {
         "@type": "ImageObject",
-        url: "https://jvsenterprises.co.in/JVS-Logo.png",
+        url: "https://www.jvsenterprises.co.in/JVS-Logo.png",
       },
     },
   };

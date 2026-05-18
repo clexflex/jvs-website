@@ -58,7 +58,7 @@ export type ProjectDetailContent = {
   shareUrl: string;
 };
 
-const SITE_URL = "https://jvsenterprises.co.in";
+const SITE_URL = "https://www.jvsenterprises.co.in";
 
 const categoryLeadMap: Array<[RegExp, string]> = [
   [/institutional/i, "Built for organised movement, durable structure, and long-term daily use."],

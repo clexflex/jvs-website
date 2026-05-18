@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description:
     "Browse all key pages on the JVS Enterprises website including services, projects, and insights.",
   alternates: {
-    canonical: "https://jvsenterprises.co.in/sitemap",
+    canonical: "https://www.jvsenterprises.co.in/sitemap",
   },
 };
 

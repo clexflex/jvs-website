@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getInsightSlugs } from "@/content/insights";
 import { projects } from "@/content/site";
 
-const baseUrl = "https://jvsenterprises.co.in";
+const baseUrl = "https://www.jvsenterprises.co.in";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {

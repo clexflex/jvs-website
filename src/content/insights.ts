@@ -120,7 +120,7 @@ const INSIGHTS_DIR = path.join(
   "public/jvs_enterprises_website_content_md/news-and-insights",
 );
 
-const SITE_URL = "https://jvsenterprises.co.in";
+const SITE_URL = "https://www.jvsenterprises.co.in";
 const INSIGHTS_IMAGE_DIR = "/images/insights";
 const PLACEHOLDER_IMAGE = `${SITE_URL}/assets/insight-placeholder.svg`;
 const PLACEHOLDER_IMAGE_PATH = "/assets/insight-placeholder.svg";

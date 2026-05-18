@@ -5,12 +5,12 @@ export async function GET() {
     links: [
       {
         rel: "service-doc",
-        href: "https://jvsenterprises.co.in/docs/api",
+        href: "https://www.jvsenterprises.co.in/docs/api",
         title: "Human-readable service documentation",
       },
       {
         rel: "sitemap",
-        href: "https://jvsenterprises.co.in/sitemap.xml",
+        href: "https://www.jvsenterprises.co.in/sitemap.xml",
         title: "Website XML sitemap",
       },
     ],

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Service documentation and machine-discovery links for JVS Enterprises website resources.",
   alternates: {
-    canonical: "https://jvsenterprises.co.in/docs/api",
+    canonical: "https://www.jvsenterprises.co.in/docs/api",
   },
 };
 

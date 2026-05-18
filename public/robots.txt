@@ -18,5 +18,5 @@ Content-Signal: ai-train=allow
 Content-Signal: search=allow
 Content-Signal: ai-input=allow
 
-Sitemap: https://jvsenterprises.co.in/sitemap.xml
-Host: https://jvsenterprises.co.in
+Sitemap: https://www.jvsenterprises.co.in/sitemap.xml
+Host: https://www.jvsenterprises.co.in
