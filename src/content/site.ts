@@ -190,126 +190,7 @@ export const services = [
   },
 ];
 
-export const projects = [
-  {
-    slug: "yspm-nursing-college-kodoli",
-    title: "YSPM Nursing College, Kodoli",
-    category: "Institutional Construction",
-    location: "Kodoli",
-    status: "Completed",
-    description:
-      "A college building project planned for educational use, daily movement, structural dependability, and long-term institutional requirements.",
-    scope: [
-      "College Building",
-      "Civil Construction",
-      "Institutional Work",
-      "Site Coordination",
-    ],
-    overview:
-      "YSPM Nursing College, Kodoli is an institutional construction project executed for an educational environment where daily movement, usability, durability, and long-term structural dependability were important. The project required disciplined construction planning and site-level execution to support the needs of a college building.",
-    priorities: [
-      "Reliable RCC and structural work",
-      "Safe and practical movement for institutional use",
-      "Site coordination for construction stages",
-      "Finishing suitable for long-term daily use",
-      "Durability and maintenance awareness",
-    ],
-  },
-  {
-    slug: "dy-patil-sports-complex-kadamwadi",
-    title: "D.Y. Patil Sports Complex, Kadamwadi",
-    category: "Sports & Institutional Work",
-    location: "Kadamwadi, Kolhapur",
-    status: "Completed",
-    description:
-      "Construction work supporting a high-use sports environment where structural quality, movement, durability, and finishing discipline are important.",
-    scope: [
-      "Sports Complex",
-      "Campus Work",
-      "Structural Execution",
-      "Finishing Coordination",
-    ],
-  },
-  {
-    slug: "dy-patil-hospital-compound-wall",
-    title: "D.Y. Patil Hospital Compound Wall",
-    category: "Compound Wall Construction",
-    location: "Kadamwadi, Kolhapur",
-    status: "Completed",
-    description:
-      "A boundary wall project requiring accurate marking, foundation work, alignment, plastering, road-facing consideration, and site security planning.",
-    scope: ["Compound Wall", "Foundation", "Boundary Work", "Institutional Site"],
-  },
-  {
-    slug: "dy-patil-rcc-lift-work",
-    title: "D.Y. Patil RCC Lift Work",
-    category: "RCC & Structural Work",
-    location: "Kadamwadi, Kolhapur",
-    status: "Completed",
-    description:
-      "RCC work involving structural planning, reinforcement coordination, shuttering, concrete execution, and careful site supervision.",
-    scope: ["RCC Work", "Lift Structure", "Structural Execution", "Site Supervision"],
-  },
-  {
-    slug: "football-ground-rcc-gutter",
-    title: "D.Y. Patil Agriculture College Football Ground with RCC Gutter",
-    category: "Sports & External Development",
-    location: "Talsande",
-    status: "Completed",
-    description:
-      "A sports ground development project supported by RCC gutter work, levelling, drainage planning, and external site execution.",
-    scope: ["Football Ground", "RCC Gutter", "Drainage", "Ground Development"],
-    overview:
-      "This project involved football ground and external development work supported by RCC gutter execution. The work required attention to levelling, drainage, water movement, slope, usability, and long-term site performance.",
-    priorities: [
-      "Ground levelling and usable surface planning",
-      "RCC gutter construction",
-      "Drainage and water exit",
-      "External development coordination",
-      "Long-term usability during regular use and monsoon conditions",
-    ],
-  },
-  {
-    slug: "dy-patil-agriculture-college-water-tank",
-    title: "D.Y. Patil Agriculture College 8000 Litre Water Tank",
-    category: "RCC Water Tank",
-    location: "Talsande",
-    status: "Completed",
-    description:
-      "A water storage structure requiring RCC execution, waterproofing attention, curing, access planning, and long-term maintenance consideration.",
-    scope: ["Water Tank", "RCC Structure", "Waterproofing", "Institutional Utility"],
-  },
-  {
-    slug: "five-row-houses-kolhapur",
-    title: "Five Row Houses in Kolhapur",
-    category: "Residential Construction",
-    location: "Kolhapur",
-    status: "Completed",
-    description:
-      "A residential row house project requiring layout discipline, shared service planning, structural consistency, drainage, finishing, and handover coordination.",
-    scope: ["Row Houses", "Residential Construction", "RCC Work", "Finishing"],
-  },
-  {
-    slug: "residential-house-projects",
-    title: "Residential House Projects",
-    category: "Residential Construction",
-    location: "Kolhapur Region",
-    status: "Completed",
-    description:
-      "Individual residential houses executed with attention to foundation quality, RCC work, masonry, finishing coordination, and practical living requirements.",
-    scope: ["Homes", "Civil Construction", "Finishing", "Site Supervision"],
-  },
-  {
-    slug: "farmhouse-projects-panhala-kolhapur",
-    title: "Farmhouse Projects near Panhala and Kolhapur",
-    category: "Farmhouse Construction",
-    location: "Panhala & Kolhapur Region",
-    status: "Completed",
-    description:
-      "Farmhouse construction and site development works planned around terrain, access, drainage, compound walls, water storage, and long-term durability.",
-    scope: ["Farmhouses", "Site Development", "Drainage", "Compound Wall"],
-  },
-];
+export { projects } from "./projects";
 
 export const insights = [
   {
@@ -478,7 +359,7 @@ export const insights = [
     readingTime: "3 minutes",
     excerpt:
       "A project note on institutional construction for education, including durability, safety, schedule discipline, and long-term usability.",
-    projectSlug: "yspm-nursing-college-kodoli",
+    projectSlug: "jayant-patil-yspm-college",
   },
   {
     slug: "project-note-dy-patil-sports-complex",
@@ -488,7 +369,7 @@ export const insights = [
     readingTime: "3 minutes",
     excerpt:
       "A project note covering usable space, structural dependability, external works, drainage, finishing quality, and long-term maintenance.",
-    projectSlug: "dy-patil-sports-complex-kadamwadi",
+    projectSlug: "site-work",
   },
   {
     slug: "project-note-five-row-houses",
@@ -498,7 +379,7 @@ export const insights = [
     readingTime: "3 minutes",
     excerpt:
       "A residential project note on row house planning, shared walls, service coordination, RCC consistency, finishing, drainage, and handover.",
-    projectSlug: "five-row-houses-kolhapur",
+    projectSlug: "sunil-kulkarni-residential-five-row-houses",
   },
 ];
 

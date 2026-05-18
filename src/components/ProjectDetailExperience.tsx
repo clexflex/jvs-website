@@ -56,8 +56,8 @@ function ProjectVisual({
     >
       <Image
         className="project-visual__image"
-        src="/images/project-image-placeholder.jpg"
-        alt=""
+        src={slide.imageSrc}
+        alt={slide.imageAlt}
         fill
         sizes={compact ? "(max-width: 899px) 82vw, 30vw" : "(max-width: 899px) 92vw, 44vw"}
       />
@@ -242,6 +242,8 @@ function PrevNextProjects({
                   title: item.project.title,
                   caption: item.project.location,
                   tone: item.tone,
+                  imageSrc: item.project.coverImage,
+                  imageAlt: item.project.coverAlt,
                 }}
                 compact
               />
@@ -379,8 +381,8 @@ export function ProjectDetailExperience({ detail }: { detail: ProjectDetailConte
               <div className={`project-detail-hero__slide project-detail-hero__slide--${slide.tone}`}>
                 <Image
                   className="project-detail-hero__slide-image"
-                  src="/images/project-image-placeholder.jpg"
-                  alt=""
+                  src={slide.imageSrc}
+                  alt={slide.imageAlt}
                   fill
                   priority
                   sizes="100vw"

@@ -290,7 +290,7 @@ export function SiteHeader() {
                 Institutional construction planned for long-term daily use, safety, and
                 structural dependability.
               </p>
-              <Link href="/projects/yspm-nursing-college-kodoli" onClick={() => setOpen(false)}>
+              <Link href="/projects/jayant-patil-yspm-college" onClick={() => setOpen(false)}>
                 View Project
               </Link>
             </aside>

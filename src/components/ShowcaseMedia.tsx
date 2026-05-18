@@ -89,8 +89,8 @@ export function ProjectsHeroCarousel({ items }: { items: Project[] }) {
           <SwiperSlide key={project.slug}>
             <article className="projects-hero-slide">
               <Image
-                src="/assets/insight-placeholder.svg"
-                alt={project.title}
+                src={project.coverImage}
+                alt={project.coverAlt}
                 fill
                 className="projects-hero-slide__image"
                 sizes="100vw"

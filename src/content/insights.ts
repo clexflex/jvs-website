@@ -127,18 +127,30 @@ const PLACEHOLDER_IMAGE_PATH = "/assets/insight-placeholder.svg";
 const MAX_INSIGHT_IMAGE_INDEX = 17;
 
 const RELATED_PROJECTS: Record<string, string> = {
-  "yspm-nursing-college-kodoli-project-note": "yspm-nursing-college-kodoli",
+  "yspm-nursing-college-kodoli-project-note": "jayant-patil-yspm-college",
   "dy-patil-hospital-kadamwadi-compound-wall-project-note":
-    "dy-patil-hospital-compound-wall",
-  "five-row-houses-kolhapur-project-note": "five-row-houses-kolhapur",
-  "sports-ground-external-development-work-kolhapur": "football-ground-rcc-gutter",
+    "site-work",
+  "five-row-houses-kolhapur-project-note": "sunil-kulkarni-residential-five-row-houses",
+  "sports-ground-external-development-work-kolhapur": "site-work",
   "institutional-construction-kolhapur-colleges-hospitals-campuses":
-    "yspm-nursing-college-kodoli",
-  "rcc-work-kolhapur-columns-beams-slabs-quality-guide": "dy-patil-rcc-lift-work",
+    "jayant-patil-yspm-college",
+  "rcc-work-kolhapur-columns-beams-slabs-quality-guide": "balram-chabada-panhala",
 };
 
 const INTERNAL_ROUTE_ALIASES: Record<string, string> = {
   "/about": "/our-company",
+};
+
+const PROJECT_ROUTE_ALIASES: Record<string, string> = {
+  "yspm-nursing-college-kodoli": "jayant-patil-yspm-college",
+  "dy-patil-sports-complex-kadamwadi": "site-work",
+  "dy-patil-hospital-compound-wall": "site-work",
+  "dy-patil-rcc-lift-work": "balram-chabada-panhala",
+  "football-ground-rcc-gutter": "site-work",
+  "dy-patil-agriculture-college-water-tank": "site-work",
+  "five-row-houses-kolhapur": "sunil-kulkarni-residential-five-row-houses",
+  "residential-house-projects": "vinayak-goliwadkar-residential-house",
+  "farmhouse-projects-panhala-kolhapur": "panhala-farmhouse-premium",
 };
 
 const EXTERNAL_REFERENCE_CATALOG = [
@@ -634,6 +646,15 @@ function normaliseInternalHref(rawHref: string) {
 
   if (aliased.startsWith("/services/")) {
     return mapServiceRoute(aliased);
+  }
+
+  if (aliased.startsWith("/projects/")) {
+    const parts = aliased.split("/").filter(Boolean);
+    const slug = parts[1];
+    const mapped = slug ? PROJECT_ROUTE_ALIASES[slug] : undefined;
+    if (mapped) {
+      return `/projects/${mapped}`;
+    }
   }
 
   if (!aliased) {

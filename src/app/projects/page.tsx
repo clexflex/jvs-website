@@ -80,8 +80,8 @@ export default async function ProjectsPage({
               <article key={project.slug} className="projects-index-card">
                 <Link className="projects-index-card__image" href={`/projects/${project.slug}`}>
                   <Image
-                    src="/assets/insight-placeholder.svg"
-                    alt={project.title}
+                    src={project.coverImage}
+                    alt={project.coverAlt}
                     width={720}
                     height={540}
                   />

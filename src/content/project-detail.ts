@@ -1,4 +1,4 @@
-import { projects } from "./site";
+import { projects } from "./projects";
 
 type Project = (typeof projects)[number];
 
@@ -9,6 +9,8 @@ export type ProjectMediaSlide = {
   title: string;
   caption: string;
   tone: ProjectMediaTone;
+  imageSrc: string;
+  imageAlt: string;
 };
 
 export type ProjectStorySection = {
@@ -60,55 +62,16 @@ const SITE_URL = "https://jvsenterprises.co.in";
 
 const categoryLeadMap: Array<[RegExp, string]> = [
   [/institutional/i, "Built for organised movement, durable structure, and long-term daily use."],
-  [/sports/i, "Built for repeated movement, weather resilience, and dependable external performance."],
-  [/compound wall/i, "Built for boundary clarity, drainage control, and site protection."],
-  [/rcc|structural/i, "Built around structural precision, alignment, and disciplined execution."],
-  [/water tank/i, "Built for dependable storage, waterproofing discipline, and maintenance access."],
+  [/site development/i, "Built for external usability, drainage handling, and practical long-term site performance."],
   [/farmhouse/i, "Built around terrain, access, drainage, and long-term outdoor durability."],
   [/residential/i, "Built for daily living, practical coordination, and long-term reliability."],
 ];
 
 const categoryToneMap: Array<[RegExp, ProjectMediaTone[]]> = [
   [/institutional/i, ["copper", "cobalt", "slate", "forest", "terracotta", "cobalt"]],
-  [/sports/i, ["forest", "cobalt", "slate", "terracotta", "forest", "cobalt"]],
-  [/compound wall/i, ["terracotta", "slate", "cobalt", "forest", "terracotta", "slate"]],
-  [/rcc|structural/i, ["slate", "cobalt", "forest", "terracotta", "slate", "cobalt"]],
-  [/water tank/i, ["cobalt", "slate", "forest", "terracotta", "cobalt", "slate"]],
+  [/site development/i, ["forest", "slate", "cobalt", "terracotta", "forest", "slate"]],
   [/farmhouse/i, ["forest", "terracotta", "slate", "cobalt", "forest", "terracotta"]],
   [/residential/i, ["terracotta", "copper", "slate", "forest", "cobalt", "terracotta"]],
-];
-
-const slideLabels = [
-  {
-    eyebrow: "Arrival View",
-    title: "Site presence and first impression",
-    caption: "How the project reads on arrival, from structure to public-facing edges.",
-  },
-  {
-    eyebrow: "Structure",
-    title: "Frame, alignment, and working discipline",
-    caption: "A closer read of the structural logic, supervision, and execution order on site.",
-  },
-  {
-    eyebrow: "Use & Movement",
-    title: "Spaces shaped around people and flow",
-    caption: "The way the completed work supports circulation, access, and daily operation.",
-  },
-  {
-    eyebrow: "Material Focus",
-    title: "Details that carry long-term durability",
-    caption: "Surfaces, edges, drainage handling, and coordination that matter beyond handover.",
-  },
-  {
-    eyebrow: "Site Progress",
-    title: "Execution moments across stages of work",
-    caption: "A view into how planning, sequencing, and supervision shaped the final outcome.",
-  },
-  {
-    eyebrow: "Completed View",
-    title: "Delivered with practical site discipline",
-    caption: "The completed result, tied back to usability, maintenance, and long-term performance.",
-  },
 ];
 
 function getLead(project: Project) {
@@ -125,13 +88,21 @@ function getHeroLocationLine(location: string) {
   return `${location.toUpperCase()}, MAHARASHTRA | INDIA`;
 }
 
+function getMediaEyebrow(kind: Project["media"][number]["kind"]) {
+  if (kind === "drawing") return "Drawing View";
+  if (kind === "pdf-preview") return "Plan Preview";
+  return "Site View";
+}
+
 function getSlides(project: Project): ProjectMediaSlide[] {
   const tones = getTones(project);
-  return slideLabels.map((slide, index) => ({
-    eyebrow: slide.eyebrow,
-    title: `${project.title} · ${slide.title}`,
-    caption: slide.caption,
-    tone: tones[index] || tones[0],
+  return project.media.map((item, index) => ({
+    eyebrow: getMediaEyebrow(item.kind),
+    title: `${project.title} · ${item.label}`,
+    caption: `${project.category} image record` ,
+    tone: tones[index % tones.length],
+    imageSrc: item.src,
+    imageAlt: item.alt,
   }));
 }
 
@@ -158,48 +129,55 @@ function getStorySections(project: Project, slides: ProjectMediaSlide[]): Projec
   const secondPriority = project.priorities?.[1] || "Reliable progress across all required stages";
   const thirdPriority = project.priorities?.[2] || "Durability beyond handover";
 
+  const firstMedia = slides[1] || slides[0];
+  const secondMedia = slides[Math.min(4, slides.length - 1)] || slides[0];
+
   return [
     {
       eyebrow: "Project Story",
       title: "Reading the site before pushing the work forward.",
       paragraphs: [
         project.overview ||
-          `${project.title} called for a construction approach that balanced practical site realities, structural reliability, and long-term use. The work had to respond to movement, service needs, and the way the completed project would perform every day.`,
-        `From the outset, the work was shaped around ${secondPriority.toLowerCase()} and ${thirdPriority.toLowerCase()}. That meant staying disciplined in sequencing, supervision, and the decisions that affect how the project ages on site.`,
+          `${project.title} required a construction approach that balanced practical site realities, structural reliability, and long-term use.`,
+        `From the outset, the work was shaped around ${secondPriority.toLowerCase()} and ${thirdPriority.toLowerCase()}.`,
       ],
-      media: slides[1],
+      media: firstMedia,
     },
     {
       eyebrow: "Execution Focus",
-      title: "Carrying the project from planning intent into built performance.",
+      title: "Carrying planning intent into built performance.",
       paragraphs: [
-        `${project.title} involved ${project.scope.join(", ").toLowerCase()}, so progress depended on coordinated execution rather than isolated tasks. Each stage needed to hold alignment, quality, and usability together.`,
-        `For JVS Enterprises, the emphasis stayed on ${project.description.toLowerCase()} The result is a project shaped not only by completion, but by how responsibly it now works in use.`,
+        `${project.title} involved ${project.scope.join(", ").toLowerCase()}, so progress depended on coordinated execution rather than isolated tasks.`,
+        `The emphasis remained on practical sequencing, dependable quality checks, and day-to-day site discipline across construction stages.`,
       ],
-      media: slides[4],
+      media: secondMedia,
       reverse: true,
     },
   ];
 }
 
 function getGalleryGroups(slides: ProjectMediaSlide[]): ProjectGalleryGroup[] {
+  const midpoint = Math.ceil(slides.length / 2);
+  const first = slides.slice(0, midpoint);
+  const second = slides.slice(midpoint);
+
   return [
     {
       eyebrow: "Gallery",
-      title: "Moments from the project story",
-      slides: slides.slice(0, 3),
+      title: "Site and completion records",
+      slides: first.length ? first : slides,
     },
     {
       eyebrow: "Gallery",
-      title: "Execution, material, and completed presence",
-      slides: slides.slice(3),
+      title: "Execution details and drawings",
+      slides: second.length ? second : first.length ? first : slides,
     },
   ];
 }
 
 function getPrinciple(project: Project) {
   return {
-    quote: `"Every ${project.category.toLowerCase()} project has to be read on its own terms first. Good execution only follows when the site, the sequence, and the long-term use are understood properly."`,
+    quote: `"Every ${project.category.toLowerCase()} project has to be read on its own terms first. Good execution follows from the right sequence and practical supervision."`,
     name: "JVS Enterprises",
     role: "Project delivery approach",
   };
@@ -246,7 +224,8 @@ export function getProjectDetailContent(slug: string): ProjectDetailContent | nu
   const project = projects[index];
   const previousProject = projects[(index - 1 + projects.length) % projects.length];
   const nextProject = projects[(index + 1) % projects.length];
-  const heroSlides = getSlides(project);
+  const allSlides = getSlides(project);
+  const heroSlides = allSlides.slice(0, Math.min(10, allSlides.length));
   const share = getShareLinks(project);
 
   return {
@@ -255,15 +234,54 @@ export function getProjectDetailContent(slug: string): ProjectDetailContent | nu
     heroLead: getLead(project),
     heroBody:
       project.overview ||
-      `${project.description} The page reads the project through site conditions, execution priorities, and the way the finished work is expected to perform over time.`,
+      `${project.description} The page reads the project through site records, execution priorities, and built output coverage.`,
     heroSlides,
     specs: getSpecs(project),
-    storySections: getStorySections(project, heroSlides),
-    galleryGroups: getGalleryGroups(heroSlides),
+    storySections: getStorySections(project, allSlides),
+    galleryGroups: getGalleryGroups(allSlides),
     principle: getPrinciple(project),
     previousProject,
     nextProject,
     shareLinks: share.links,
     shareUrl: share.shareUrl,
+  };
+}
+
+export function getProjectPageMetadata(slug: string) {
+  const project = projects.find((item) => item.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  return {
+    title: `${project.title} | JVS Enterprises Project in ${project.location}`,
+    description:
+      project.description ||
+      `Explore ${project.title}, a ${project.category} project by JVS Enterprises in ${project.location}.`,
+    alternates: {
+      canonical: `${SITE_URL}/projects/${project.slug}`,
+    },
+    openGraph: {
+      title: `${project.title} | JVS Enterprises`,
+      description: project.description,
+      url: `${SITE_URL}/projects/${project.slug}`,
+      images: [
+        {
+          url: `${SITE_URL}${project.coverImage}`,
+          width: 1200,
+          height: 800,
+          alt: project.coverAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: `${project.title} | JVS Enterprises`,
+      description: project.description,
+      images: [`${SITE_URL}${project.coverImage}`],
+    },
   };
 }

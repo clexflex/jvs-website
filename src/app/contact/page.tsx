@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { CTAButton, Container, Eyebrow, PageIntro, Section } from "@/components/Primitives";
 import { siteConfig } from "@/content/site";
 
@@ -59,6 +60,14 @@ export default function ContactPage() {
           </div>
 
           <div className="enquiry-form">
+            <figure className="contact-office-media">
+              <Image
+                src="/images/JVS Enterprises Office/office-1.png"
+                alt="JVS Enterprises office workspace"
+                fill
+                sizes="(max-width: 899px) 100vw, 40vw"
+              />
+            </figure>
             <Eyebrow>PROJECT ENQUIRY</Eyebrow>
             <h2>What helps us guide you faster</h2>
             <p>
