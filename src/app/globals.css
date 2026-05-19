@@ -5063,6 +5063,7 @@ body.menu-open .anchor-nav--rail {
     grid-template-columns: 1fr;
     border-left: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
+    background: #fff;
   }
 
   .mega-menu__top a {
@@ -5087,6 +5088,7 @@ body.menu-open .anchor-nav--rail {
 
   .mega-menu__content {
     display: block;
+    padding-top: var(--header-height);
   }
 
   .mega-menu__list {
