@@ -5018,6 +5018,7 @@ body.menu-open .anchor-nav--rail {
 
   .mega-menu__brand {
     position: relative;
+    grid-column: 1;
     grid-row: 1;
     z-index: 2;
     display: block;
@@ -5045,11 +5046,11 @@ body.menu-open .anchor-nav--rail {
 
   .mega-menu__main {
     position: relative;
-    grid-row: 2;
+    grid-column: 1;
+    grid-row: 1 / -1;
     display: block;
-    min-height: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    min-height: 100%;
+    overflow: hidden;
   }
 
   .mega-menu__top {
@@ -5088,7 +5089,10 @@ body.menu-open .anchor-nav--rail {
 
   .mega-menu__content {
     display: block;
-    padding-top: var(--header-height);
+    margin-top: var(--header-height);
+    height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .mega-menu__list {
