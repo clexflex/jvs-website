@@ -1,9 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { navItems, siteConfig } from "@/content/site";
+import { navItems } from "@/content/site";
 
 export function SiteFooter() {
   return (
@@ -66,36 +63,5 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
-  );
-}
-
-export function MobileStickyBar() {
-  const [footerVisible, setFooterVisible] = useState(false);
-  const whatsapp = `https://wa.me/919860943500?text=${encodeURIComponent(
-    siteConfig.whatsappMessage,
-  )}`;
-
-  useEffect(() => {
-    const footer = document.querySelector(".site-footer");
-    if (!footer) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setFooterVisible(entry.isIntersecting),
-      { threshold: 0.05 },
-    );
-
-    observer.observe(footer);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <nav
-      className={`mobile-sticky ${footerVisible ? "is-hidden" : ""}`}
-      aria-label="Quick contact actions"
-    >
-      <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>Call</a>
-      <a href={whatsapp}>WhatsApp</a>
-      <Link href="/contact">Enquire</Link>
-    </nav>
   );
 }

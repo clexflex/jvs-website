@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { LenisProvider } from "@/components/LenisProvider";
-import { MobileStickyBar, SiteFooter } from "@/components/SiteFooter";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
@@ -142,7 +142,6 @@ export default function RootLayout({
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />
-          <MobileStickyBar />
         </LenisProvider>
       </body>
     </html>

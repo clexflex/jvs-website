@@ -9,7 +9,14 @@ import { navItems, services, siteConfig } from "@/content/site";
 
 const transparentHeroHeaderPaths = new Set(["/", "/our-company", "/insights"]);
 
-const menuDetails = {
+type MenuDetailItem = {
+  links: string[];
+  copy: string;
+  cta: string;
+  href: string;
+};
+
+const menuDetails: Record<string, MenuDetailItem> = {
   "Our Company": {
     links: [
       "Overview",
@@ -24,14 +31,14 @@ const menuDetails = {
     cta: "Know Our Story",
     href: "/our-company",
   },
-  Services: {
+  "Our Services": {
     links: services.map((service) => service.title),
     copy:
       "Planning, civil construction, RCC work, finishing, repair, renovation, and external site development handled with practical site discipline.",
     cta: "Explore Services",
     href: "/services",
   },
-  Projects: {
+  "Our Projects": {
     links: [
       "Institutional Projects",
       "Residential Homes",
@@ -47,7 +54,7 @@ const menuDetails = {
     cta: "View All Projects",
     href: "/projects",
   },
-  Insights: {
+  "News & Insights": {
     links: [
       "Construction Guides",
       "Panhala & Kolhapur Building Advice",
@@ -80,8 +87,8 @@ export function SiteHeader() {
   const pathname = usePathname();
   const menuListRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<keyof typeof menuDetails | null>(null);
-  const [expanded, setExpanded] = useState<keyof typeof menuDetails | null>(null);
+  const [active, setActive] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(true);
   const usesTransparentHeroHeader =
@@ -237,28 +244,34 @@ export function SiteHeader() {
           <div className="mega-menu__content">
             <ul ref={menuListRef} className="mega-menu__list" onWheel={handleMenuWheel}>
               {navItems.map((item) => {
-                const menuKey = item.label as keyof typeof menuDetails;
+                const menuKey = item.label;
                 const itemDetails = menuDetails[menuKey];
                 const isExpanded = expanded === menuKey;
 
                 return (
                   <li key={item.href}>
-                    <button
-                      type="button"
-                      onMouseEnter={() => setActive(menuKey)}
-                      onFocus={() => setActive(menuKey)}
-                      onClick={() => {
-                        setActive(isExpanded ? null : menuKey);
-                        setExpanded(isExpanded ? null : menuKey);
-                      }}
-                      className={isExpanded || active === menuKey ? "is-active" : ""}
-                      aria-expanded={isExpanded}
-                    >
-                      {item.label}
-                      <span aria-hidden="true">⌄</span>
-                    </button>
+                    {itemDetails ? (
+                      <button
+                        type="button"
+                        onMouseEnter={() => setActive(menuKey)}
+                        onFocus={() => setActive(menuKey)}
+                        onClick={() => {
+                          setActive(isExpanded ? null : menuKey);
+                          setExpanded(isExpanded ? null : menuKey);
+                        }}
+                        className={isExpanded || active === menuKey ? "is-active" : ""}
+                        aria-expanded={isExpanded}
+                      >
+                        {item.label}
+                        <span aria-hidden="true">⌄</span>
+                      </button>
+                    ) : (
+                      <Link href={item.href} onClick={() => setOpen(false)}>
+                        {item.label}
+                      </Link>
+                    )}
 
-                    {isExpanded ? (
+                    {isExpanded && itemDetails ? (
                       <div className="mega-menu__details is-expanded">
                         {/* <p className="eyebrow">{expanded}</p> */}
                         <p>{itemDetails.copy}</p>
