@@ -6,6 +6,30 @@ export const metadata: Metadata = {
   title: "Privacy Notice",
   description:
     "Read the JVS Enterprises privacy notice for website enquiries, contact forms, and communication preferences.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Privacy Notice | JVS Enterprises",
+    description:
+      "Read the JVS Enterprises privacy notice for website enquiries, contact forms, and communication preferences.",
+    url: "https://www.jvsenterprises.co.in/privacy-notice",
+    type: "website",
+    images: [
+      {
+        url: "/images/JVS Enterprises Office/outside-office.png",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises office exterior image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Notice | JVS Enterprises",
+    description:
+      "Read the JVS Enterprises privacy notice for website enquiries, contact forms, and communication preferences.",
+    images: ["/images/JVS Enterprises Office/outside-office.png"],
+  },
 };
 
 export default function PrivacyNoticePage() {

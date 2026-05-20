@@ -11,6 +11,7 @@ export type HomeEditorialStackItem = {
   href: string;
   linkLabel: string;
   imageSrc?: string;
+  imageAlt?: string;
 };
 
 export function truncateEditorialTitle(title: string, maxLength = 50) {
@@ -39,7 +40,7 @@ function CompactCard({
           <div className="home-rail-media__visual">
             <Image
               src={item.imageSrc ?? "/images/project-image-placeholder.jpg"}
-              alt={item.title}
+              alt={item.imageAlt || item.title}
               fill
               sizes={
                 mobile

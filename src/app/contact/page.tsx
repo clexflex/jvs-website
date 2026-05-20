@@ -7,6 +7,30 @@ export const metadata: Metadata = {
   title: "Contact JVS Enterprises",
   description:
     "Contact JVS Enterprises in Panhala for residential, institutional, commercial, RCC, renovation, and site development project discussions across Kolhapur and nearby areas.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Contact JVS Enterprises",
+    description:
+      "Contact JVS Enterprises in Panhala for residential, institutional, commercial, RCC, renovation, and site development project discussions across Kolhapur and nearby areas.",
+    url: "https://www.jvsenterprises.co.in/contact",
+    type: "website",
+    images: [
+      {
+        url: "/images/JVS Enterprises Office/office-1.png",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises office workspace contact image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact JVS Enterprises",
+    description:
+      "Contact JVS Enterprises in Panhala for residential, institutional, commercial, RCC, renovation, and site development project discussions across Kolhapur and nearby areas.",
+    images: ["/images/JVS Enterprises Office/office-1.png"],
+  },
 };
 
 const serviceAreas = ["Panhala", "Kolhapur", "Kodoli", "Kadamwadi", "Talsande", "Nearby regions"];

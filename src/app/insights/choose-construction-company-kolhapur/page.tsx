@@ -320,7 +320,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalUrl,
   },
-  authors: [{ name: "Satish Bhosale" }],
+  authors: [{ name: "JVS Enterprises" }],
   publisher: "JVS Enterprises",
   keywords: [
     "construction company in Kolhapur",
@@ -365,9 +365,9 @@ const articleSchema = {
   description: articleDescription,
   image: articleImage,
   author: {
-    "@type": "Person",
-    name: "Satish Bhosale",
-  },
+      "@type": "Organization",
+      name: "JVS Enterprises",
+    },
   publisher: {
     "@type": "Organization",
     name: "JVS Enterprises",

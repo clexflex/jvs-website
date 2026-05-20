@@ -8,6 +8,30 @@ export const metadata: Metadata = {
   title: "Construction Services in Panhala & Kolhapur",
   description:
     "JVS Enterprises offers site assessment, planning, estimation, residential construction, commercial construction, institutional construction, RCC work, finishing, renovation, compound walls, water tanks, drainage, and site development services.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Construction Services in Panhala & Kolhapur",
+    description:
+      "JVS Enterprises offers site assessment, planning, estimation, residential construction, commercial construction, institutional construction, RCC work, finishing, renovation, compound walls, water tanks, drainage, and site development services.",
+    url: "https://www.jvsenterprises.co.in/services",
+    type: "website",
+    images: [
+      {
+        url: "/images/services/BUILDING CONSTRUCTION.webp",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises building construction services image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Construction Services in Panhala & Kolhapur",
+    description:
+      "JVS Enterprises offers site assessment, planning, estimation, residential construction, commercial construction, institutional construction, RCC work, finishing, renovation, compound walls, water tanks, drainage, and site development services.",
+    images: ["/images/services/BUILDING CONSTRUCTION.webp"],
+  },
 };
 
 const serviceImageById: Record<string, string> = {

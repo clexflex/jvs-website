@@ -22,6 +22,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.jvsenterprises.co.in/sitemap",
   },
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "HTML Sitemap | JVS Enterprises",
+    description:
+      "Browse all key pages on the JVS Enterprises website including services, projects, and insights.",
+    url: "https://www.jvsenterprises.co.in/sitemap",
+    type: "website",
+    images: [
+      {
+        url: "/images/JVS Enterprises Office/office-2.png",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises sitemap navigation cover image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HTML Sitemap | JVS Enterprises",
+    description:
+      "Browse all key pages on the JVS Enterprises website including services, projects, and insights.",
+    images: ["/images/JVS Enterprises Office/office-2.png"],
+  },
 };
 
 export default function HtmlSitemapPage() {

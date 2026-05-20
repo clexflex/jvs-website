@@ -9,6 +9,30 @@ export const metadata: Metadata = {
   title: "Projects | JVS Enterprises",
   description:
     "Explore selected JVS Enterprises projects across institutional construction, residential houses, farmhouses, RCC works, compound walls, water tanks, sports grounds, and site development in Kolhapur and Panhala.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Projects | JVS Enterprises",
+    description:
+      "Explore selected JVS Enterprises projects across institutional construction, residential houses, farmhouses, RCC works, compound walls, water tanks, sports grounds, and site development in Kolhapur and Panhala.",
+    url: "https://www.jvsenterprises.co.in/projects",
+    type: "website",
+    images: [
+      {
+        url: "/images/projects/balram-chabada-panhala/balram-chabada-panhala--photo-01-completed-1.webp",
+        width: 1200,
+        height: 630,
+        alt: "Featured JVS Enterprises project image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects | JVS Enterprises",
+    description:
+      "Explore selected JVS Enterprises projects across institutional construction, residential houses, farmhouses, RCC works, compound walls, water tanks, sports grounds, and site development in Kolhapur and Panhala.",
+    images: ["/images/projects/balram-chabada-panhala/balram-chabada-panhala--photo-01-completed-1.webp"],
+  },
 };
 
 const categories = [

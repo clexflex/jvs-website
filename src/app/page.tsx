@@ -9,10 +9,39 @@ import { ArrowLink, CTAButton, Container, Eyebrow } from "@/components/Primitive
 import { getAllInsights, getLocalBusinessSchema } from "@/content/insights";
 import { siteConfig } from "@/content/site";
 
+const homeInsights = getAllInsights();
+const homeOgImage = homeInsights[0]?.imagePath ?? "/images/news-and-insights-hero.webp";
+const homeOgAlt =
+  homeInsights[0]?.featuredImageAlt || homeInsights[0]?.title || "JVS Enterprises insight image";
+
 export const metadata: Metadata = {
   title: "JVS Enterprises | Construction Company in Panhala & Kolhapur",
   description:
     "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "JVS Enterprises | Construction Company in Panhala & Kolhapur",
+    description:
+      "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
+    url: "https://www.jvsenterprises.co.in/",
+    type: "website",
+    images: [
+      {
+        url: homeOgImage,
+        width: 1200,
+        height: 630,
+        alt: homeOgAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JVS Enterprises | Construction Company in Panhala & Kolhapur",
+    description:
+      "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
+    images: [homeOgImage],
+  },
 };
 
 const buildCards = [
@@ -98,6 +127,7 @@ function HomeFeatureCard({
   href,
   linkLabel,
   imageSrc,
+  imageAlt,
   priority = false,
 }: {
   eyebrow: string;
@@ -106,6 +136,7 @@ function HomeFeatureCard({
   href: string;
   linkLabel: string;
   imageSrc?: string;
+  imageAlt?: string;
   priority?: boolean;
 }) {
   return (
@@ -113,7 +144,7 @@ function HomeFeatureCard({
       <Link className="home-editorial-card__media-link" href={href}>
         <HomeRailMedia
           src={imageSrc}
-          title={title}
+          title={imageAlt || title}
           priority={priority}
           sizes="(max-width: 760px) 100vw, 52vw"
         />
@@ -154,22 +185,17 @@ function HomeCapabilityCard({
 }
 
 export default function Home() {
-  const editorialImages = [
-    "/images/project-image-1-Panhala-Powar.jpg",
-    "/images/project-image-2-Panhala-Powar.jpg",
-    "/images/project-image-3-Panhala-Powar.jpg",
-  ];
-
-  const featuredInsights = getAllInsights().slice(0, 7);
+  const featuredInsights = homeInsights.slice(0, 7);
   const featuredInsight = featuredInsights[0];
   const supportingInsights = featuredInsights.slice(1, 7);
   const localBusinessSchema = getLocalBusinessSchema();
   const supportingInsightItems: HomeEditorialStackItem[] = supportingInsights.map(
-    (insight, index) => ({
+    (insight) => ({
       title: insight.title,
       href: `/insights/${insight.slug}`,
       linkLabel: "Read More",
-      imageSrc: editorialImages[(index + 1) % editorialImages.length],
+      imageSrc: insight.imagePath,
+      imageAlt: insight.featuredImageAlt || insight.title,
     }),
   );
 
@@ -226,7 +252,8 @@ export default function Home() {
                   title={featuredInsight.title}
                   href={`/insights/${featuredInsight.slug}`}
                   linkLabel="Read More"
-                  imageSrc={editorialImages[0]}
+                  imageSrc={featuredInsight.imagePath}
+                  imageAlt={featuredInsight.featuredImageAlt || featuredInsight.title}
                   priority
                 />
               </div>

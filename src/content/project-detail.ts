@@ -262,17 +262,21 @@ export function getProjectPageMetadata(slug: string) {
     };
   }
 
+  const description =
+    project.description ||
+    `Explore ${project.title}, a ${project.category} project by JVS Enterprises in ${project.location}.`;
+
   return {
     title: toSeoTitle(`${project.title} | JVS Enterprises`),
-    description:
-      project.description ||
-      `Explore ${project.title}, a ${project.category} project by JVS Enterprises in ${project.location}.`,
+    description,
     alternates: {
       canonical: `${SITE_URL}/projects/${project.slug}`,
     },
+    authors: [{ name: "JVS Enterprises" }],
+    publisher: "JVS Enterprises",
     openGraph: {
       title: `${project.title} | JVS Enterprises`,
-      description: project.description,
+      description,
       url: `${SITE_URL}/projects/${project.slug}`,
       images: [
         {
@@ -286,7 +290,7 @@ export function getProjectPageMetadata(slug: string) {
     twitter: {
       card: "summary_large_image" as const,
       title: `${project.title} | JVS Enterprises`,
-      description: project.description,
+      description,
       images: [`${SITE_URL}${project.coverImage}`],
     },
   };

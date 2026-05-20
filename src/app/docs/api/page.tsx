@@ -9,6 +9,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.jvsenterprises.co.in/docs/api",
   },
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Service Documentation | JVS Enterprises",
+    description:
+      "Service documentation and machine-discovery links for JVS Enterprises website resources.",
+    url: "https://www.jvsenterprises.co.in/docs/api",
+    type: "website",
+    images: [
+      {
+        url: "/images/JVS Enterprises Office/conference room.png",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises documentation and resources cover image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Service Documentation | JVS Enterprises",
+    description:
+      "Service documentation and machine-discovery links for JVS Enterprises website resources.",
+    images: ["/images/JVS Enterprises Office/conference room.png"],
+  },
 };
 
 export default function ServiceDocumentationPage() {

@@ -842,12 +842,18 @@ font-size: clamp(1rem, 1.35vw, 1.2rem);
 }
 
 .menu-feature-visual {
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 4 / 3;
   margin: 28px 0;
   border-radius: 0;
   background:
     linear-gradient(135deg, rgba(11, 93, 208, 0.16), rgba(255, 64, 38, 0.18)),
     var(--surface-soft);
+}
+
+.menu-feature-visual img {
+  object-fit: cover;
 }
 
 .mega-menu__feature p:not(.eyebrow) {

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: insight.seo.canonical,
   },
-  authors: [{ name: "Satish Bhosale" }],
+  authors: [{ name: "JVS Enterprises" }],
   publisher: "JVS Enterprises",
   keywords: [...insight.tags, insight.primaryKeyword, ...insight.secondaryKeywords].filter(
     Boolean,
@@ -52,8 +52,8 @@ export default function InsightPage() {
   const articleSchema = {
     ...resolvedInsight.schema.article,
     author: {
-      "@type": "Person",
-      name: "Satish Bhosale",
+      "@type": "Organization",
+      name: "JVS Enterprises",
     },
     publisher: {
       "@type": "Organization",

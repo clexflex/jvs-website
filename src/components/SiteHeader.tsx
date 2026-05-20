@@ -83,6 +83,11 @@ const menuDetails: Record<string, MenuDetailItem> = {
   },
 };
 
+const featuredProjectPreview = {
+  src: "/images/projects/jayant-patil-yspm-college/jayant-patil-yspm-college--pdf-preview-01-1-ground-floor-plan-for-layout.webp",
+  alt: "Jayant Patil YSPM College project plan preview image",
+};
+
 export function SiteHeader() {
   const pathname = usePathname();
   const menuListRef = useRef<HTMLUListElement>(null);
@@ -297,7 +302,14 @@ export function SiteHeader() {
 
             <aside className="mega-menu__feature">
               <p className="eyebrow">Featured Project</p>
-              <div className="menu-feature-visual" />
+              <div className="menu-feature-visual">
+                <Image
+                  src={featuredProjectPreview.src}
+                  alt={featuredProjectPreview.alt}
+                  fill
+                  sizes="(max-width: 1080px) 100vw, 25vw"
+                />
+              </div>
               <h3>YSPM Nursing College, Kodoli</h3>
               <p>
                 Institutional construction planned for long-term daily use, safety, and

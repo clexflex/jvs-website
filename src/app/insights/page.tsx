@@ -8,6 +8,30 @@ export const metadata: Metadata = {
   title: "Construction Insights | JVS Enterprises Kolhapur & Panhala",
   description:
     "Read practical construction insights from JVS Enterprises on choosing contractors, building in Panhala, RCC work, budgeting, residential construction, farmhouse construction, drainage, site supervision, and project planning.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Construction Insights | JVS Enterprises Kolhapur & Panhala",
+    description:
+      "Read practical construction insights from JVS Enterprises on choosing contractors, building in Panhala, RCC work, budgeting, residential construction, farmhouse construction, drainage, site supervision, and project planning.",
+    url: "https://www.jvsenterprises.co.in/insights",
+    type: "website",
+    images: [
+      {
+        url: "/images/news-and-insights-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises news and insights hero image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Construction Insights | JVS Enterprises Kolhapur & Panhala",
+    description:
+      "Read practical construction insights from JVS Enterprises on choosing contractors, building in Panhala, RCC work, budgeting, residential construction, farmhouse construction, drainage, site supervision, and project planning.",
+    images: ["/images/news-and-insights-hero.webp"],
+  },
 };
 
 const INSIGHTS_PER_PAGE = 8;

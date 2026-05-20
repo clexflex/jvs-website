@@ -102,6 +102,9 @@ export const metadata: Metadata = {
   },
   description:
     "JVS Enterprises is a Panhala-based construction company serving residential, institutional, commercial, RCC, and site development projects across Panhala, Kolhapur, and nearby regions.",
+  authors: [{ name: "JVS Enterprises" }],
+  creator: "JVS Enterprises",
+  publisher: "JVS Enterprises",
   keywords: [
     "JVS Enterprises",
     "construction company Panhala",
@@ -123,6 +126,16 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    "max-snippet": 160,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": 160,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
 };
 

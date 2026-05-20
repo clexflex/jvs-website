@@ -38,6 +38,8 @@ export async function generateMetadata(
     alternates: {
       canonical: insight.seo.canonical,
     },
+    authors: [{ name: "JVS Enterprises" }],
+    publisher: "JVS Enterprises",
     keywords: [...insight.tags, insight.primaryKeyword, ...insight.secondaryKeywords].filter(
       Boolean,
     ),

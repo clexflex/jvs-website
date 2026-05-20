@@ -8,6 +8,30 @@ export const metadata: Metadata = {
   title: "Our Company | JVS Enterprises Construction Company in Panhala",
   description:
     "Learn about JVS Enterprises, a Panhala-based construction company founded around 2006 and trusted for residential, institutional, commercial, RCC, and site development work across Kolhapur.",
+  authors: [{ name: "JVS Enterprises" }],
+  publisher: "JVS Enterprises",
+  openGraph: {
+    title: "Our Company | JVS Enterprises Construction Company in Panhala",
+    description:
+      "Learn about JVS Enterprises, a Panhala-based construction company founded around 2006 and trusted for residential, institutional, commercial, RCC, and site development work across Kolhapur.",
+    url: "https://www.jvsenterprises.co.in/our-company",
+    type: "website",
+    images: [
+      {
+        url: "/images/our-company-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "JVS Enterprises company profile hero image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Company | JVS Enterprises Construction Company in Panhala",
+    description:
+      "Learn about JVS Enterprises, a Panhala-based construction company founded around 2006 and trusted for residential, institutional, commercial, RCC, and site development work across Kolhapur.",
+    images: ["/images/our-company-hero.webp"],
+  },
 };
 
 const values: CompanyValue[] = [
